@@ -3,7 +3,8 @@
     "allow": [
       "Bash(file:*)",
       "Bash(ls:*)",
-      "WebFetch(domain:finalfantasy.fandom.com)"
+      "WebFetch(domain:finalfantasy.fandom.com)",
+      "Bash(open:*)"
     ]
   }
 }

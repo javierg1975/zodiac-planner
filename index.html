@@ -6,11 +6,8 @@
     <title>FFXII Zodiac Planner</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -83,64 +80,80 @@
     </style>
 </head>
 <body>
-    <div id="root"></div>
-
-    <script type="text/babel">
-        const { useState } = React;
-
-        // --- ICONS ---
-        const Icon = ({ path, className, style }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>{path}</svg>
-        );
-
+    <script>
+        // --- ICONS (SVG strings) ---
         const Icons = {
-            Users: (props) => <Icon {...props} path={<><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>} />,
-            ChevronDown: (props) => <Icon {...props} path={<path d="m6 9 6 6 6-6"/>} />,
-            ChevronUp: (props) => <Icon {...props} path={<path d="m18 15-6-6-6 6"/>} />,
-            Shield: (props) => <Icon {...props} path={<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>} />,
-            Zap: (props) => <Icon {...props} path={<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>} />,
-            Sparkles: (props) => <Icon {...props} path={<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>} />,
-            Sword: (props) => <Icon {...props} path={<><polyline points="14.5 17.5 3 6 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/></>} />,
-            Crown: (props) => <Icon {...props} path={<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>} />
+            // --- Mystic Jobs ---
+            'White Mage': '<path d="M12 2v20M5 12h14" stroke-width="2.5"/><circle cx="12" cy="12" r="8" stroke-dasharray="4 2"/>', // Holy Cross/Light
+            'Black Mage': '<path d="m13 2-10 12h9l-1 8 10-12h-9l1-8Z"/><circle cx="12" cy="12" r="10" stroke-width="1" opacity="0.5"/>', // Lightning Bolt
+            'Red Battlemage': '<path d="m14.5 17.5-11.5-11.5 3-3 11.5 11.5"/><path d="m13 19 6-6M16 16 20 20"/><path d="M19 21 21 19"/>', // Spellblade
+            'Bushi': `<path d="M20 4c-4 0-14 6-17 17" stroke-width="2" /> <path d="M17 3l3 3" stroke-width="3" stroke-linecap="butt" /> <path d="M18 6l2-2" stroke-width="1" opacity="0.5" />`,
+            // --- Heavy Jobs ---
+            'Knight': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M9 11h6"/>', // Shield + Sword Cross
+            'Monk': `<path d="M7 11V7a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" stroke-width="1.5" /> <path d="M11 11V6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v5" stroke-width="1.5" /> <path d="M15 11V7a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" stroke-width="1.5" /> <path d="M6 11h12v6a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-6Z" stroke-width="1.5" /> <path d="M6 12l4 3" stroke-width="1.5" /> `,            'Time Battlemage': '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>', // Clock/Hourglass
+            'Foebreaker': '<path d="M7 7h10v3l-5 7-5-7V7ZM12 17v4M9 21h6"/>', // Heavy Axe/Mace
+
+            // --- Light Jobs ---
+            'Shikari': '<path d="m15 2 6 6-12 12-4-1-1-4L15 2Z"/><path d="m9 8 7 7" opacity="0.5"/>', // Hunter's Dagger/Kukri
+            'Uhlan': '<path d="M12 2v20M9 5l3-3 3 3M12 2L5 9M12 2l7 7"/>', // Heavy Spear/Lance
+            'Archer': '<path d="M6 3a15 15 0 0 1 0 18M6 12h14l-3-3M20 12l-3 3"/>', // Bow and Arrow
+            'Machinist': '<rect x="4" y="10" width="16" height="6" rx="1"/><path d="M16 10V7a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3M10 16v3M14 16v3"/>', // Rifle/Tools
+
+            // --- Navigation/General ---
+            'ChevronDown': '<path d="m6 9 6 6 6-6"/>',
+            'ChevronUp': '<path d="m18 15-6-6-6 6"/>',
+            'Sparkles': '<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>',
+            'Crown': '<path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>'
         };
 
-        // Zodiac SVG Glyphs
-        const ZodiacIcon = ({ sign, className, style }) => {
-            const glyphs = {
-                '♈': <path d="M8 20 Q 8 12, 4 8 M 16 20 Q 16 12, 20 8 M 6 8 L 4 4 M 18 8 L 20 4" strokeWidth="2" />, // Aries
-                '♓': <path d="M4 8 L 4 16 M 20 8 L 20 16 M 4 12 L 8 12 M 16 12 L 20 12 M 8 6 Q 12 4, 16 6 M 8 18 Q 12 20, 16 18 M 6 12 L 18 12" strokeWidth="2" />, // Pisces
-                '♑': <path d="M 6 8 Q 8 4, 12 4 Q 16 4, 18 8 L 18 12 M 14 12 Q 14 8, 18 8 M 18 12 Q 18 16, 20 20 M 16 20 Q 18 18, 20 20" strokeWidth="2" />, // Capricorn
-                '♐': <path d="M 4 20 L 20 4 M 16 4 L 20 4 L 20 8 M 8 12 L 12 16 M 12 8 L 16 12" strokeWidth="2" />, // Sagittarius
-                '♌': <path d="M 6 12 Q 6 8, 8 6 Q 10 4, 12 6 Q 14 8, 14 10 Q 14 14, 12 16 M 12 16 Q 16 16, 18 14 Q 20 12, 18 10 Q 16 8, 14 10" strokeWidth="2" />, // Leo
-                '♊': <path d="M 6 4 L 6 20 M 18 4 L 18 20 M 6 8 L 18 8 M 6 16 L 18 16" strokeWidth="2" />, // Gemini
-                '♏': <path d="M 4 4 L 4 16 M 12 4 L 12 16 M 20 4 L 20 20 M 16 16 L 20 20 L 24 16" strokeWidth="2" />, // Scorpio
-                '♋': <path d="M 4 12 Q 4 8, 8 8 Q 12 8, 12 12 M 20 12 Q 20 16, 16 16 Q 12 16, 12 12 M 6 6 Q 4 8, 6 10 M 18 18 Q 20 16, 18 14" strokeWidth="2" />, // Cancer
-                '♍': <path d="M 4 4 L 4 16 M 12 4 L 12 16 M 20 4 L 20 12 M 20 12 Q 20 16, 16 16 Q 14 16, 14 14" strokeWidth="2" />, // Virgo
-                '⛎': <path d="M 8 4 Q 4 8, 8 12 Q 12 16, 16 12 Q 20 8, 16 4 M 12 12 L 12 20 M 8 20 L 16 20" strokeWidth="2" />, // Ophiuchus
-                '♒': <path d="M 4 8 Q 8 10, 12 8 Q 16 6, 20 8 M 4 14 Q 8 16, 12 14 Q 16 12, 20 14" strokeWidth="2" />, // Aquarius
-            };
-
-            return (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className={className} style={style}>
-                    {glyphs[sign]}
-                </svg>
-            );
+        // Optimized Zodiac SVG Glyphs (Centered for 24x24 Viewbox)
+        const ZodiacGlyphs = {
+            '♈': `<path d="M12 21V7M8 4l4 3 4-3" stroke-width="2"/>
+                  <circle cx="12" cy="13" r="5" stroke-width="1.5" fill="none"/>
+                  <path d="M4 11s2-4 8-4 8 4 8 4" stroke-width="1.5"/>`,
+            '♓': `<path d="M12 2v16M9 20h6" stroke-width="2"/>
+                  <path d="M5 8c0-3 3-5 7-5s7 2 7 5-3 5-7 5-7-2-7-5" stroke-width="1.5"/>
+                  <path d="M12 11c-3 0-5 2-5 4.5s2 4.5 5 4.5 5-2 5-4.5-2-4.5-5-4.5" stroke-width="1.2"/>`,
+            '♑': `<path d="M12 2v18M4 6l16 12M20 6L4 18" stroke-width="1.5"/>
+                  <circle cx="12" cy="12" r="4" stroke-width="2" fill="none"/>`,
+            '♐': `<path d="M12 21V3M12 3l-4 4M12 3l4 4" stroke-width="2"/>
+                  <path d="M6 10q6 4 12 0M6 16q6-4 12 0" stroke-width="1.5"/>`,
+            '♌': `<path d="M12 2v20M4 12h16" stroke-width="2"/>
+                  <path d="M12 7c4 0 6 2 6 5s-2 5-6 5-6-2-6-5 2-5 6-5" stroke-width="1.5"/>
+                  <path d="M7 7l2 2M17 7l-2 2M7 17l2-2M17 17l-2 2" stroke-width="1.5"/>`,
+            '♊': `<path d="M7 2v20M17 2v20" stroke-width="2"/>
+                  <path d="M4 12h16" stroke-width="1.5"/>
+                  <path d="M12 7c-3 0-5 2-5 5s2 5 5 5 5-2 5-5-2-5-5-5" stroke-width="1.5"/>`,
+            '♏': `<path d="M12 2v16M12 18l-3 4M12 18l3 4" stroke-width="2"/>
+                  <path d="M5 10c0-4 3-6 7-6s7 2 7 6-7 8-7 8-7-4-7-8" stroke-width="1.5"/>
+                  <circle cx="12" cy="10" r="2" fill="currentColor"/>`,
+            '♋': `<path d="M12 4v16M4 12c0-5 4-8 8-8s8 3 8 8-8 8-8 8-8-3-8-8" stroke-width="2"/>
+                  <path d="M8 12h8" stroke-width="1.5"/>`,
+            '♍': `<path d="M12 2v20M5 5l14 14M19 5L5 19" stroke-width="1.2"/>
+                  <circle cx="12" cy="12" r="6" stroke-width="2" fill="none"/>
+                  <path d="M12 8v8M8 12h8" stroke-width="1.5"/>`,
+            '⛎': `<path d="M12 2v20M9 22h6" stroke-width="1.5" />
+                  <path d="M12 6c4 0 7 2 7 5s-3 5-7 5-7-2-7-5 3-5 7-5" stroke-width="1.2" />
+                  <path d="M12 18c-3 0-5-1.5-5-3.5s2-3.5 5-3.5 5 1.5 5 3.5-2 3.5-5 3.5" stroke-width="1.2" />
+                  <path d="M5 8l2 2M19 8l-2 2" stroke-width="1.5" />`,
+            '♒': `<path d="M12 2v14M8 22h8M4 16h16" stroke-width="2"/>
+                  <path d="M12 6c-3 0-5 2-5 5s2 5 5 5 5-2 5-5-2-5-5-5" stroke-width="1.5"/>`
         };
 
         // --- DATA CONFIGURATION ---
         const JOBS = {
-            'White Mage': { type: 'Mystic', color: '#10b981', bg: '#ecfdf5', icon: Icons.Sparkles },
-            'Black Mage': { type: 'Mystic', color: '#a78bfa', bg: '#f5f3ff', icon: Icons.Zap },
-            'Red Battlemage': { type: 'Mystic', color: '#ef4444', bg: '#fef2f2', icon: Icons.Sword },
-            'Time Battlemage': { type: 'Heavy', color: '#3b82f6', bg: '#eff6ff', icon: Icons.Shield },
-            'Monk': { type: 'Heavy', color: '#f59e0b', bg: '#fffbeb', icon: Icons.Users },
-            'Knight': { type: 'Heavy', color: '#06b6d4', bg: '#f0f9ff', icon: Icons.Sword },
-            'Uhlan': { type: 'Light', color: '#14b8a6', bg: '#f0fdfa', icon: Icons.Sword },
-            'Archer': { type: 'Light', color: '#84cc16', bg: '#f7fee7', icon: Icons.Users },
-            'Foebreaker': { type: 'Heavy', color: '#ea580c', bg: '#fff7ed', icon: Icons.Shield },
-            'Bushi': { type: 'Mystic', color: '#dc2626', bg: '#fef2f2', icon: Icons.Sword },
-            'Shikari': { type: 'Light', color: '#6366f1', bg: '#eef2ff', icon: Icons.Sword },
-            'Machinist': { type: 'Light', color: '#9ca3af', bg: '#f9fafb', icon: Icons.Users }
+            'White Mage': { type: 'Mystic', color: '#10b981', bg: '#ecfdf5', icon: 'White Mage' },
+            'Black Mage': { type: 'Mystic', color: '#a78bfa', bg: '#f5f3ff', icon: 'Black Mage' },
+            'Red Battlemage': { type: 'Mystic', color: '#ef4444', bg: '#fef2f2', icon: 'Red Battlemage' },
+            'Time Battlemage': { type: 'Heavy', color: '#3b82f6', bg: '#eff6ff', icon: 'Time Battlemage' },
+            'Monk': { type: 'Heavy', color: '#f59e0b', bg: '#fffbeb', icon: 'Monk' },
+            'Knight': { type: 'Heavy', color: '#06b6d4', bg: '#f0f9ff', icon: 'Knight' },
+            'Uhlan': { type: 'Light', color: '#14b8a6', bg: '#f0fdfa', icon: 'Uhlan' },
+            'Archer': { type: 'Light', color: '#84cc16', bg: '#f7fee7', icon: 'Archer' },
+            'Foebreaker': { type: 'Heavy', color: '#ea580c', bg: '#fff7ed', icon: 'Foebreaker' },
+            'Bushi': { type: 'Mystic', color: '#dc2626', bg: '#fef2f2', icon: 'Bushi' },
+            'Shikari': { type: 'Light', color: '#6366f1', bg: '#eef2ff', icon: 'Shikari' },
+            'Machinist': { type: 'Light', color: '#9ca3af', bg: '#f9fafb', icon: 'Machinist' }
         };
 
         const CHAR_IMAGES = {
@@ -187,397 +200,459 @@
                 desc: 'Zero wasted licenses. The "Perfect" math build.',
                 eff: 98,
                 why: 'Why this? If you obsess over optimization and hate wasting a single license point, this is your build. Mathematically perfect allocation where nearly every unlock counts. Not necessarily the strongest, but the most satisfying for completionists.',
+                parties: [
+                    { name: 'General Purpose', members: ['Vaan', 'Fran', 'Penelo'], why: 'Balanced team. Vaan tanks/heals, Fran provides Haste/buffs/Renew, Penelo Hastega + emergency healing.' },
+                    { name: 'Heavy DPS', members: ['Balthier', 'Basch', 'Fran'], why: 'Pure offense. Balthier breaks, Basch berserked magic DPS, Fran utility engine with Swiftness 3 trinity.' },
+                    { name: 'Superboss', members: ['Fran', 'Penelo', 'Balthier'], why: 'Endurance fights. Fran (Renew/utility), Penelo (Hastega/heals), Balthier (breaks/tank).' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Leader / Tank', why: 'Heavy Armor synergy. Provides buffs/healing/DPS.' },
-                    { char: 'Balthier', jobs: ['Foebreaker', 'Uhlan'], espers: ['Adrammelech', 'Shemhazai', 'Hashmal'], role: 'STR Tank', why: 'Pure Heavy Armor. Zero Mystic waste. Maximizes STR.' },
-                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility Engine', why: 'CRITICAL: Swiftness 3 + Channeling 3 + Renew trinity.' },
-                    { char: 'Basch', jobs: ['Bushi', 'Black Mage'], espers: ['Famfrit'], role: 'Magic DPS', why: 'Elemental mastery. Katana DPS uses MAG stat.' },
-                    { char: 'Ashe', jobs: ['Knight', 'Time Battlemage'], espers: ['Belias'], role: 'Support', why: 'Heavy Armor + late White Magic = zero waste.' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Chaos', 'Cuchulainn'], role: 'Evasion Healer', why: 'Main Gauche + Shields + Hastega + Remedy Lore 3.' }
+                    { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Leader / Tank', why: 'Heavy Armor synergy. Provides buffs/healing/DPS.', gambits: ['Ally: HP < 50% → Curaga', 'Self: HP < 40% → X-Potion', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur (Holy dmg)', 'Grand Armor (Heavy Armor 12)', 'Demon Shield', 'Rose Corsage (accessories)'] },
+                    { char: 'Balthier', jobs: ['Foebreaker', 'Uhlan'], espers: ['Adrammelech', 'Shemhazai', 'Hashmal'], role: 'STR Tank', why: 'Pure Heavy Armor. Zero Mystic waste. Maximizes STR.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Status ≠ Wither → Wither', 'Foe: Nearest Visible → Attack'], gear: ['Holy Lance', 'Grand Armor (Heavy Armor 12)', 'Zodiac Spear (late game)', 'Genji Gloves (combo weapons)'] },
+                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility Engine', why: 'CRITICAL: Swiftness 3 + Channeling 3 + Renew trinity.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole - MAG boost)', 'Black Robes (MAG+)', 'Golden Amulet (LP boost)', 'Ribbon (status immunity)'] },
+                    { char: 'Basch', jobs: ['Bushi', 'Black Mage'], espers: ['Famfrit'], role: 'Magic DPS', why: 'Elemental mastery. Katana DPS uses MAG stat.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Remove other gambits - Berserk auto-attacks)'], gear: ['Masamune (katana)', 'Black Robes (MAG+)', 'Black Mask (MAG+)', 'Genji Gloves'] },
+                    { char: 'Ashe', jobs: ['Knight', 'Time Battlemage'], espers: ['Belias'], role: 'Support', why: 'Heavy Armor + late White Magic = zero waste.', gambits: ['Ally: HP < 60% → Cura', 'Ally: Status ≠ Haste → Haste', 'Ally: Any → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Crystal Shield', 'Bubble Belt (HP+)'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Chaos', 'Cuchulainn'], role: 'Evasion Healer', why: 'Main Gauche + Shields + Hastega + Remedy Lore 3.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (CRITICAL - evade)', 'Crystal Shield (best shield)', 'Demon Shield (backup)', 'Ribbon (status immunity)'] }
                 ]
             },
             'DPS Nuclear': {
                 desc: 'Max damage for superbosses',
                 eff: 85,
                 why: 'Why this? Built for endgame challenges where raw damage output matters most. Prioritizes offensive stats, Swiftness 3, and Battle Lores over efficiency. Perfect for players tackling Hunts, Trial Mode, or pushing their damage potential to the limit.',
+                parties: [
+                    { name: 'Max Damage', members: ['Vaan', 'Balthier', 'Fran'], why: 'CRITICAL: All 3 Berserk + Fran Hastega. Vaan/Balthier berserked DPS, Fran buffs then Hastega everyone.' },
+                    { name: 'Superboss Core', members: ['Balthier', 'Fran', 'Penelo'], why: 'Endurance DPS. Balthier (Swiftness 3 + breaks), Fran (Hastega/buffs), Penelo (healing/survival).' },
+                    { name: 'Magic Nuke', members: ['Ashe', 'Basch', 'Penelo'], why: 'Elemental destruction. Ashe Hastega, Basch Holy Excalibur, Penelo heals. Melts magic-weak enemies.' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'DPS', why: 'Confuse setup + Swiftness 3 + Holy Lance/Excalibur' },
-                    { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'DPS', why: 'Esper trinity: Swiftness 3 + breaks + 16 Battle Lores' },
-                    { char: 'Fran', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Famfrit', 'Belias'], role: 'Support', why: 'Hastega + Zodiac Spear platform + buffs' },
-                    { char: 'Basch', jobs: ['Knight', 'Black Mage'], espers: ['Mateus', 'Exodus'], role: 'Flex', why: 'Holy Excalibur or magic DPS depending on fight' },
-                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic', why: 'CRITICAL: Hastega, already has Renew' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Healer', why: 'Remedy Lore 3 + evasion tank. High survivability for sustained superboss fights.' }
+                    { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'DPS', why: 'Confuse setup + Swiftness 3 + Holy Lance/Excalibur', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Remove other gambits for max DPS)'], gear: ['Masamune (Katana + Genji)', 'Holy Lance (backup)', 'Genji Gloves (CRITICAL)', 'Berserk Bracers'] },
+                    { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'DPS', why: 'Esper trinity: Swiftness 3 + breaks + 16 Battle Lores', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Self: HP = 100% → Berserk', 'Foe: Nearest Visible → Attack'], gear: ['Dragon Whisker (Pole)', 'Grand Armor', 'Genji Gloves', 'Berserk Bracers'] },
+                    { char: 'Fran', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Famfrit', 'Belias'], role: 'Support', why: 'Hastega + Zodiac Spear platform + buffs', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Zodiac Spear (BEST spear)', 'Dragon Mail', 'Golden Amulet', 'Bubble Belt'] },
+                    { char: 'Basch', jobs: ['Knight', 'Black Mage'], espers: ['Mateus', 'Exodus'], role: 'Flex', why: 'Holy Excalibur or magic DPS depending on fight', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur (physical mode)', 'Black Robes (magic mode)', 'Grand Armor', 'Demon Shield'] },
+                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic', why: 'CRITICAL: Hastega, already has Renew', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe', 'Ally: HP < 60% → Curaja'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring (MP boost)'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Healer', why: 'Remedy Lore 3 + evasion tank. High survivability for sustained superboss fights.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (evade)', 'Crystal Shield', 'Rubber Suit (element resist)', 'Ribbon'] }
                 ]
             },
             'Beginner Friendly': {
                 desc: 'Guide recommended. Forgiving and flexible.',
                 eff: 92,
                 why: 'Why this? The Unnecessary Class Guide\'s official recommendation for first-time players. Balanced difficulty with strong synergies that work throughout the entire game. Makes progression smooth and recovers from mistakes easily. Start here if unsure.',
+                parties: [
+                    { name: 'Story Mode', members: ['Vaan', 'Fran', 'Ashe'], why: 'Main trio. Vaan versatile, Fran buffs/utility, Ashe Hastega + magic/heals. Covers everything.' },
+                    { name: 'Boss Fight', members: ['Balthier', 'Fran', 'Penelo'], why: 'Berserk DPS + support. Balthier breaks then Berserk, Fran buffs, Penelo heals. Autopilot mode.' },
+                    { name: 'Physical DPS', members: ['Basch', 'Balthier', 'Fran'], why: 'Pure physical damage. Basch/Balthier both Berserked, Fran Haste/Bravery. Watch things melt.' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Versatile', why: 'Easy to use. Good healing + damage early game.' },
-                    { char: 'Balthier', jobs: ['Foebreaker', 'Bushi'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserk DPS', why: 'Breaks + Katana. Set to Berserk and forget.' },
-                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Support', why: 'Best physical DPS utility in the game.' },
-                    { char: 'Basch', jobs: ['Archer', 'Uhlan'], espers: ['Adrammelech', 'Belias', 'Famfrit'], role: 'Physical DPS', why: 'Great weapon progression. Permanently Berserked.' },
-                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic Carry', why: 'CRITICAL: Hastega. Can heal and nuke.' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Healer', why: 'Tanky healer. Remedy Lore 3 is crucial.' }
+                    { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Versatile', why: 'Easy to use. Good healing + damage early game.', gambits: ['Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Demon Shield', 'Any accessible gear (forgiving)'] },
+                    { char: 'Balthier', jobs: ['Foebreaker', 'Bushi'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserk DPS', why: 'Breaks + Katana. Set to Berserk and forget.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Self: HP = 100% → Berserk', '(Remove other gambits - Berserk mode)'], gear: ['Masamune (Katana)', 'Genji Gloves', 'Berserk Bracers', 'Golden Amulet'] },
+                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Support', why: 'Best physical DPS utility in the game.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole)', 'Black Robes', 'Ribbon', 'Bubble Belt'] },
+                    { char: 'Basch', jobs: ['Archer', 'Uhlan'], espers: ['Adrammelech', 'Belias', 'Famfrit'], role: 'Physical DPS', why: 'Great weapon progression. Permanently Berserked.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Remove other gambits for auto-attack spam)'], gear: ['Zodiac Spear (BEST - combos)', 'Perseus Bow (backup)', 'Genji Gloves (for spear)', 'Berserk Bracers'] },
+                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic Carry', why: 'CRITICAL: Hastega. Can heal and nuke.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor'], gear: ['Staff of the Magi', 'Black Robes', 'White Robes', 'Sage\'s Ring'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Healer', why: 'Tanky healer. Remedy Lore 3 is crucial.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (CRITICAL)', 'Crystal Shield', 'Demon Shield', 'Ribbon'] }
                 ]
             },
             'Leader Trinity': {
                 desc: 'Optimized for the "Leader" mechanic.',
                 eff: 94,
                 why: 'Why this? Designed around the fact that your party leader absorbs most attacks. Focuses on making Vaan nearly untouchable with maximum evasion, while keeping strong backup options. Great for players who understand positioning and aggro mechanics.',
+                parties: [
+                    { name: 'Evasion Core', members: ['Vaan', 'Fran', 'Ashe'], why: 'LEADER: Vaan (untouchable tank). Fran buffs/utility, Ashe Hastega + magic. Vaan tanks everything with 90%+ evasion.' },
+                    { name: 'DPS Blitz', members: ['Vaan', 'Basch', 'Fran'], why: 'LEADER: Vaan (tank). Basch Berserked Swiftness 3, Fran buffs. Pure offense while Vaan absorbs hits.' },
+                    { name: 'Boss Endurance', members: ['Vaan', 'Ashe', 'Penelo'], why: 'LEADER: Vaan (tank). Ashe + Penelo dual healers. Infinite sustain with Phoenix Down spam + Remedy.' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Red Battlemage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Evasion Tank', why: 'Main Gauche + Shields. Impossible to hit.' },
-                    { char: 'Balthier', jobs: ['Knight', 'Black Mage'], espers: ['Shemhazai', 'Hashmal'], role: 'Paladin', why: 'Shield evasion + Magic + Holy Excalibur.' },
-                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility', why: 'Haste/Bravery/Expose/Reverse utility bot.' },
-                    { char: 'Basch', jobs: ['Bushi', 'Knight'], espers: ['Famfrit'], role: 'DPS', why: 'Swiftness 3, permanently berserked.' },
-                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic', why: 'The ultimate magic user. Hastega + Renew.' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Archer'], espers: ['Belias', 'Adrammelech'], role: 'Item Healer', why: 'Burning Bow + Phoenix Down spam = instant full revive.' }
+                    { char: 'Vaan', jobs: ['Red Battlemage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Evasion Tank', why: 'Main Gauche + Shields. Impossible to hit.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (CRITICAL - 50% evade)', 'Crystal Shield (Evade+)', 'Demon Shield (backup)', 'Genji Armor', 'Ribbon (status immunity)'] },
+                    { char: 'Balthier', jobs: ['Knight', 'Black Mage'], espers: ['Shemhazai', 'Hashmal'], role: 'Paladin', why: 'Shield evasion + Magic + Holy Excalibur.', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Undead → Holy', 'Foe: Flying → Aeroga', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur (Holy scales MAG)', 'Black Robes (MAG mode)', 'Grand Armor (tank mode)', 'Crystal Shield', 'Sage\'s Ring'] },
+                    { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility', why: 'Haste/Bravery/Expose/Reverse utility bot.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole + MAG)', 'Black Robes', 'Ribbon', 'Golden Amulet (LP boost)'] },
+                    { char: 'Basch', jobs: ['Bushi', 'Knight'], espers: ['Famfrit'], role: 'DPS', why: 'Swiftness 3, permanently berserked.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Keep short for Swiftness 3 efficiency)'], gear: ['Masamune (Katana)', 'Genji Gloves', 'Berserk Bracers', 'Bubble Belt'] },
+                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magic', why: 'The ultimate magic user. Hastega + Renew.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring (MP+)'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Archer'], espers: ['Belias', 'Adrammelech'], role: 'Item Healer', why: 'Burning Bow + Phoenix Down spam = instant full revive.', gambits: ['Ally: HP Critical → Phoenix Down', 'Ally: HP < 70% → Hi-Potion', 'Ally: Any Status → Echo Herbs/Eye Drops', 'Ally: HP < 90% → Potion', 'Foe: Nearest Visible → Attack'], gear: ['Burning Bow (CRITICAL - fire)', 'Perseus Bow (backup)', 'White Robes', 'Opal Ring (item boost)'] }
                 ]
             },
             'Yiazmat Specialist': {
                 desc: 'Hyper-optimized for 50M HP superboss endurance.',
                 eff: 82,
                 why: 'Why this? The ultimate challenge requires an ultimate team. Built specifically for Yiazmat\'s 50 million HP and multi-hour marathon fight. Features Dark Shot, Reverse spam, Decoy tanking, and infinite MP sustain. Use this when you\'re ready for the final boss.',
+                parties: [
+                    { name: 'Yiazmat Core', members: ['Vaan', 'Balthier', 'Fran'], why: 'THE TEAM. Vaan/Balthier Berserked DPS, Fran Dark Shot specialist + Reverse spam + Hastega. This is the marathon team.' },
+                    { name: 'Tank Rotation', members: ['Basch', 'Ashe', 'Penelo'], why: 'Relief squad. Basch Decoy tank, Ashe/Penelo dual Reverse support. Swap in when main party needs recovery during 2+ hour fight.' },
+                    { name: 'All-Out DPS', members: ['Vaan', 'Balthier', 'Ashe'], why: 'Speed kill attempt. All Berserk, Ashe Hastega + Reverse. High risk but fastest kill time if Reverse timing is perfect.' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserked DPS', why: 'CRITICAL: Confuse immunity + Holy Excalibur combos. Permanent Berserk for maximum sustained DPS.' },
-                    { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zodiark'], role: 'DPS Tank', why: 'Swiftness 3 + 16 Battle Lores + breaks. Maximum physical damage output for endurance fight.' },
-                    { char: 'Fran', jobs: ['White Mage', 'Machinist'], espers: ['Famfrit', 'Zeromus'], role: 'Dark Shot Specialist', why: 'CRITICAL: Dark Shot (Machinist best against Yiazmat) + Reverse spam + Hastega + Channeling 3 for infinite MP.' },
-                    { char: 'Basch', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Belias'], role: 'Decoy Tank', why: 'Decoy access (Time Battlemage) + Reverse + Heavy Armor. Dedicated tank for 50M HP slog.' },
-                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Reverse Support', why: 'Dual Reverse access + Hastega + Renew. Keeps party alive through entire marathon encounter.' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Backup Healer', why: 'Remedy Lore 3 + evasion tank. Swaps in when main party fatigues during 2+ hour fight.' }
+                    { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserked DPS', why: 'CRITICAL: Confuse immunity + Holy Excalibur combos. Permanent Berserk for maximum sustained DPS.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Remove all other gambits)'], gear: ['Excalibur (CRITICAL - Holy)', 'Genji Gloves', 'Berserk Bracers', 'Bubble Belt (HP survival)'] },
+                    { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zodiark'], role: 'DPS Tank', why: 'Swiftness 3 + 16 Battle Lores + breaks. Maximum physical damage output for endurance fight.', gambits: ['Foe: Yiazmat → Expose', 'Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Short list for Swiftness 3)'], gear: ['Dragon Whisker (Pole)', 'Grand Armor', 'Genji Gloves', 'Berserk Bracers', 'Ribbon (confuse immunity)'] },
+                    { char: 'Fran', jobs: ['White Mage', 'Machinist'], espers: ['Famfrit', 'Zeromus'], role: 'Dark Shot Specialist', why: 'CRITICAL: Dark Shot (Machinist best against Yiazmat) + Reverse spam + Hastega + Channeling 3 for infinite MP.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Foe: Yiazmat → Dark Shot', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja'], gear: ['Fomalhaut (CRITICAL - best gun)', 'Dark Shot ammo (infinite)', 'White Robes', 'Sage\'s Ring (MP sustain)', 'Bubble Belt'] },
+                    { char: 'Basch', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Belias'], role: 'Decoy Tank', why: 'Decoy access (Time Battlemage) + Reverse + Heavy Armor. Dedicated tank for 50M HP slog.', gambits: ['Self: HP < 90% → Decoy', 'Self: HP < 10% → Reverse', 'Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Foe: Nearest Visible → Attack'], gear: ['Zodiac Spear', 'Grand Armor (Heavy 12)', 'Bubble Belt (CRITICAL)', 'Ribbon (status immunity)'] },
+                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Reverse Support', why: 'Dual Reverse access + Hastega + Renew. Keeps party alive through entire marathon encounter.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Yiazmat → Bio'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring', 'Bubble Belt'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Backup Healer', why: 'Remedy Lore 3 + evasion tank. Swaps in when main party fatigues during 2+ hour fight.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (evade)', 'Crystal Shield', 'Genji Armor', 'Ribbon (CRITICAL)'] }
                 ]
             },
             'Lore Friendly': {
                 desc: 'Canonical roles with optimized second jobs.',
                 eff: 91,
                 why: 'Why this? Play characters in their iconic story roles while maintaining competitive efficiency. Balthier gets his guns, Fran her bow, Basch his knighthood. Perfect for players who want narrative cohesion without sacrificing optimization. Covers all key abilities: Hastega, Swiftness 3, Channeling 3, and Remedy Lore 3.',
+                parties: [
+                    { name: 'Canonical Trio', members: ['Vaan', 'Balthier', 'Fran'], why: 'Story protagonists. Vaan thief/tank, Balthier sky pirate with guns, Fran mystic archer. The gang together.' },
+                    { name: 'Royal Guard', members: ['Basch', 'Ashe', 'Penelo'], why: 'Kingdom defenders. Basch knight protector, Ashe royal mage, Penelo healing support. Narrative powerhouse.' },
+                    { name: 'Balanced Power', members: ['Fran', 'Ashe', 'Penelo'], why: 'CRITICAL abilities. Fran Hastega, Ashe dual Channeling 3, Penelo Swiftness 3. All key mechanics covered.' }
+                ],
                 builds: [
-                    { char: 'Vaan', jobs: ['Shikari', 'Knight'], espers: ['Cuchulainn', 'Hashmal'], role: 'Evasion Leader', why: 'Street thief turned hero. Main Gauche + shields for evasion tanking. Remedy Lore 3 + Confuse/Faith/Bravery support.' },
-                    { char: 'Balthier', jobs: ['Machinist', 'Foebreaker'], espers: ['Zeromus', 'Adrammelech'], role: 'Sky Pirate', why: 'Leading man with guns and tactics. Channeling 3 for infinite ammo, Telekinesis for utility, breaks for enemy control.' },
-                    { char: 'Fran', jobs: ['Archer', 'Time Battlemage'], espers: ['Famfrit', 'Shemhazai'], role: 'Mystic Archer', why: 'Iconic Viera archer + Wood magic connection. Hastega + time magic support, Firaga unlock. Bows + buffs/debuffs.' },
-                    { char: 'Basch', jobs: ['Knight', 'Foebreaker'], espers: ['Mateus', 'Zodiark'], role: 'Royal Guard', why: 'The fallen knight redeemed. Heavy armor tank + breaks. Curaga/Regen for sustain, secondary Hastega source.' },
-                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos', 'Exodus'], role: 'Royal Mage', why: 'Princess of royal bloodline. Ultimate magic user with both schools. CRITICAL: Hastega + Renew + dual Channeling 3.' },
-                    { char: 'Penelo', jobs: ['White Mage', 'Monk'], espers: ['Ultima', 'Belias'], role: 'Healing Dancer', why: 'Primary healer with dancer agility. CRITICAL: Swiftness 3 + Excalibur. Potion Lore 3 + Phoenix Lore 2 for item mastery.' }
+                    { char: 'Vaan', jobs: ['Shikari', 'Knight'], espers: ['Cuchulainn', 'Hashmal'], role: 'Evasion Leader', why: 'Street thief turned hero. Main Gauche + shields for evasion tanking. Remedy Lore 3 + Confuse/Faith/Bravery support.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: Any → Bravery', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche (CRITICAL - thief)', 'Crystal Shield', 'Demon Shield', 'Genji Armor', 'Ribbon'] },
+                    { char: 'Balthier', jobs: ['Machinist', 'Foebreaker'], espers: ['Zeromus', 'Adrammelech'], role: 'Sky Pirate', why: 'Leading man with guns and tactics. Channeling 3 for infinite ammo, Telekinesis for utility, breaks for enemy control.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Flying → Dark Shot', 'Foe: HP ≥ 5000 → Telekinesis', 'Foe: Nearest Visible → Attack'], gear: ['Fomalhaut (CRITICAL - guns)', 'Aldebaran (backup gun)', 'Heavy Armor', 'Golden Amulet'] },
+                    { char: 'Fran', jobs: ['Archer', 'Time Battlemage'], espers: ['Famfrit', 'Shemhazai'], role: 'Mystic Archer', why: 'Iconic Viera archer + Wood magic connection. Hastega + time magic support, Firaga unlock. Bows + buffs/debuffs.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Perseus Bow (CRITICAL - Viera)', 'Burning Bow (fire)', 'Black Robes', 'Ribbon'] },
+                    { char: 'Basch', jobs: ['Knight', 'Foebreaker'], espers: ['Mateus', 'Zodiark'], role: 'Royal Guard', why: 'The fallen knight redeemed. Heavy armor tank + breaks. Curaga/Regen for sustain, secondary Hastega source.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Ally: Status ≠ Haste → Hastega', 'Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur (knight\'s blade)', 'Grand Armor (CRITICAL)', 'Crystal Shield', 'Bubble Belt'] },
+                    { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos', 'Exodus'], role: 'Royal Mage', why: 'Princess of royal bloodline. Ultimate magic user with both schools. CRITICAL: Hastega + Renew + dual Channeling 3.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi (royal)', 'Black Robes', 'Circlet (crown)', 'Sage\'s Ring'] },
+                    { char: 'Penelo', jobs: ['White Mage', 'Monk'], espers: ['Ultima', 'Belias'], role: 'Healing Dancer', why: 'Primary healer with dancer agility. CRITICAL: Swiftness 3 + Excalibur. Potion Lore 3 + Phoenix Lore 2 for item mastery.', gambits: ['Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Ally: Any Status → Esuna', 'Ally: HP < 90% → Hi-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur (Monk unlock)', 'White Robes', 'Kanya (Pole backup)', 'Opal Ring (items)'] }
                 ]
             }
         };
 
-        function FFXIIJobPlannerEstersand() {
-            const [preset, setPreset] = useState('Max Efficiency');
-            const [expanded, setExpanded] = useState({});
-            const [hoveredEsper, setHoveredEsper] = useState(null);
+    </script>
 
-            const current = PRESETS[preset];
-            const getEsperOwner = (esperName) => current.builds.find(b => b.espers.includes(esperName));
+    <div x-data="{
+        preset: 'Max Efficiency',
+        expanded: {},
+        hoveredEsper: null,
+        selectedParty: 0,
+        get current() { return PRESETS[this.preset]; },
+        getEsperOwner(esperName) {
+            return this.current.builds.find(b => b.espers.includes(esperName));
+        },
+        getUnassignedEspers() {
+            const assigned = this.current.builds.flatMap(b => b.espers);
+            return Object.keys(ESPER_UNLOCKS).filter(e => !assigned.includes(e));
+        },
+        isInActiveParty(charName) {
+            if (!this.current.parties || this.current.parties.length === 0) return true;
+            if (!this.current.parties[this.selectedParty]) return false;
+            return this.current.parties[this.selectedParty].members.includes(charName);
+        }
+    }" class="min-h-screen text-white selection:bg-cyan-500/30">
 
-            return (
-                <div className="min-h-screen text-white selection:bg-cyan-500/30">
-
-                    {/* FF XII Header */}
-                    <div className="relative py-12 overflow-hidden border-b border-cyan-500/20" style={{background: 'rgba(10, 20, 30, 0.7)'}}>
-
-                        <div className="relative max-w-7xl mx-auto px-6">
-                            <div className="flex flex-col md:flex-row justify-between items-end gap-6">
-                                <div>
-                                    <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
-                                        Zodiac <span className="teal-accent">Planner</span>
-                                    </h1>
-                                    <p className="text-gray-300 max-w-xl text-base font-normal">
-                                        Optimization based on the Unnecessary Class Guide v2.2
-                                    </p>
-                                </div>
-                                <div className="ff-panel px-6 py-3 rounded flex items-center gap-6">
-                                    <div className="text-center">
-                                        <div className="text-xs text-gray-400 uppercase tracking-wider font-bold">Efficiency</div>
-                                        <div className="text-2xl font-bold yellow-accent">{current.eff}%</div>
-                                    </div>
-                                    <div className="w-px h-8 bg-gray-600" />
-                                    <div className="text-center">
-                                        <div className="text-xs text-gray-400 uppercase tracking-wider font-bold">Espers</div>
-                                        <div className="text-2xl font-bold yellow-accent">{current.builds.reduce((a,b) => a + b.espers.length, 0)}<span className="text-sm text-gray-400 font-semibold">/12</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <!-- FF XII Header -->
+        <div class="relative py-12 overflow-hidden border-b border-cyan-500/20" style="background: rgba(10, 20, 30, 0.7);">
+            <div class="relative max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
+                            Zodiac <span class="teal-accent">Planner</span>
+                        </h1>
+                        <p class="text-gray-300 max-w-xl text-base font-normal">
+                            Optimization based on the Unnecessary Class Guide v2.2
+                        </p>
                     </div>
-
-                    <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col lg:grid lg:grid-cols-12 lg:auto-rows-auto gap-8">
-
-                        {/* Presets - Order 1 on mobile */}
-                        <div className="order-1 lg:col-span-4 lg:order-none">
-                            <div className="ff-panel rounded-lg p-2 overflow-hidden">
-                                <div className="grid grid-cols-1 gap-1">
-                                    {Object.keys(PRESETS).map(p => (
-                                        <button
-                                            key={p}
-                                            onClick={() => setPreset(p)}
-                                            className={`px-4 py-3 text-left rounded-lg transition-all duration-200 ${
-                                                preset === p
-                                                ? 'bg-cyan-500/20 text-cyan-300 shadow-lg border border-cyan-500/50 shadow-cyan-500/20'
-                                                : 'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent'
-                                            }`}
-                                        >
-                                            <div className="font-bold text-base tracking-tight">{p}</div>
-                                            <div className="text-xs font-normal opacity-70 mt-1">{PRESETS[p].desc}</div>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
+                    <div class="ff-panel px-6 py-3 rounded flex items-center gap-6">
+                        <div class="text-center">
+                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Efficiency</div>
+                            <div class="text-2xl font-bold yellow-accent" x-text="current.eff + '%'"></div>
                         </div>
-
-                        {/* Character Cards - Order 2 on mobile, spans 8 cols + 2 rows on desktop */}
-                        <div className="order-2 lg:col-span-8 lg:row-span-2 lg:order-none space-y-6 pl-0 lg:pl-4">
-
-                            {/* Build Description */}
-                            <div className="ff-panel rounded-lg p-6 border-2 border-cyan-500/30">
-                                <div className="flex items-start gap-3">
-                                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/30 border border-cyan-500 flex items-center justify-center">
-                                        <Icons.Sparkles className="w-5 h-5 text-cyan-400" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h3 className="text-base font-bold text-cyan-300 mb-2 tracking-tight">Why This Build?</h3>
-                                        <p className="text-sm text-gray-300 leading-relaxed font-normal">
-                                            {current.why}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {current.builds.map((build, i) => (
-                                <div
-                                    key={build.char}
-                                    className={`relative ff-panel rounded-lg overflow-visible transition-all duration-300 ${expanded[i] ? 'ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20' : ''}`}
-                                    style={expanded[i] ? {background: 'rgba(15, 30, 45, 0.95)'} : {}}
-                                >
-                                    <button
-                                        onClick={() => setExpanded(prev => ({ ...prev, [i]: !prev[i] }))}
-                                        className="w-full flex items-stretch text-left group pl-20 md:pl-28 relative"
-                                    >
-                                        {/* Overlapping Portrait */}
-                                        <div className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-20 h-20 md:w-24 md:h-24 pointer-events-none">
-                                            <div className="relative w-full h-full rounded overflow-hidden border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/20" style={{background: 'linear-gradient(to bottom right, rgb(10, 20, 30), rgb(20, 30, 40))'}}>
-                                                <img
-                                                    src={CHAR_IMAGES[build.char]}
-                                                    alt={build.char}
-                                                    className="w-full h-full object-cover"
-                                                    onError={(e) => {
-                                                        e.target.style.display = 'none';
-                                                        e.target.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-3xl', 'font-bold', 'text-cyan-400');
-                                                        e.target.parentElement.innerText = build.char[0];
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Info Section */}
-                                        <div className="flex-1 flex flex-col justify-between py-3 pr-4 pl-4 md:py-4 md:pr-6 md:pl-6">
-                                            <div>
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <h2 className="text-2xl md:text-3xl font-bold text-white leading-none tracking-tight">{build.char}</h2>
-                                                    <span className="text-[10px] font-bold text-yellow-400 uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/30">{build.role}</span>
-                                                </div>
-                                            </div>
-
-                                            <div className="flex justify-between items-end">
-                                                <div className="flex-1">
-                                                    {/* Job Badges - Dark Theme */}
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {build.jobs.map(job => {
-                                                            const j = JOBS[job];
-                                                            const Icon = j.icon;
-                                                            return (
-                                                                <div key={job}
-                                                                    className="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded border text-sm font-semibold shadow-sm"
-                                                                    style={{
-                                                                        backgroundColor: 'rgba(10, 20, 30, 0.6)',
-                                                                        borderColor: j.color + '60',
-                                                                        color: j.color
-                                                                    }}
-                                                                >
-                                                                    <Icon className="w-4 h-4" />
-                                                                    {job}
-                                                                </div>
-                                                            );
-                                                        })}
-                                                    </div>
-
-                                                    {/* Espers Mini-list (Collapsed View) */}
-                                                    {!expanded[i] && build.espers.length > 0 && (
-                                                        <div className="flex flex-wrap gap-1 mt-2">
-                                                            {build.espers.map(e => (
-                                                                <span key={e} className="text-[10px] font-semibold text-gray-300 px-1.5 py-0.5 rounded border border-gray-600" style={{background: 'rgba(10, 20, 30, 0.6)'}}>
-                                                                    {e}
-                                                                </span>
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-
-                                                <div className={`p-2 rounded-full transition-colors self-start ${expanded[i] ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-500 group-hover:text-gray-400'}`}>
-                                                    {expanded[i] ? <Icons.ChevronUp className="w-5 h-5" /> : <Icons.ChevronDown className="w-5 h-5" />}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </button>
-
-                                    {/* Expanded Details */}
-                                    {expanded[i] && (
-                                        <div className="px-4 md:px-6 pb-6 border-t border-cyan-500/30" style={{background: 'rgba(10, 20, 30, 0.5)'}}>
-                                            <div className="grid md:grid-cols-2 gap-6 pt-4">
-                                                <div>
-                                                    <div className="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
-                                                        <Icons.Crown className="w-4 h-4 text-yellow-400" /> Strategy
-                                                    </div>
-                                                    <p className="text-sm text-white leading-relaxed p-4 rounded border border-cyan-500/20 shadow-sm font-normal" style={{background: 'rgba(20, 35, 50, 0.6)'}}>
-                                                        {build.why}
-                                                    </p>
-                                                </div>
-
-                                                {build.espers.length > 0 && (
-                                                    <div>
-                                                        <div className="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
-                                                            <Icons.Sparkles className="w-4 h-4 text-cyan-400" /> Unlocks
-                                                        </div>
-                                                        <div className="space-y-2">
-                                                            {build.espers.map(esper => (
-                                                                <div key={esper} className="flex items-start gap-3 text-xs p-2 rounded hover:bg-white/5 transition-colors">
-                                                                    <span className="font-bold text-cyan-300 min-w-[80px] pt-0.5 uppercase tracking-wider">{esper}</span>
-                                                                    <div className="flex-1">
-                                                                        {build.jobs.map(job =>
-                                                                            ESPER_UNLOCKS[esper]?.[job] ? (
-                                                                                <div key={job} className="mb-0.5">
-                                                                                    <span className="font-bold text-white">{job}: </span>
-                                                                                    <span className="text-gray-300 font-normal">{ESPER_UNLOCKS[esper][job]}</span>
-                                                                                </div>
-                                                                            ) : null
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* Esper Grid - Order 3 on mobile (bottom), col-span-4 on desktop (left column, row 2) */}
-                        <div className="order-3 lg:col-span-4 lg:col-start-1 lg:order-none">
-                            <div className="ff-panel rounded-lg p-6">
-                                <h3 className="text-lg text-cyan-400 mb-4 flex items-center gap-2 font-bold tracking-tight">
-                                    <Icons.Sparkles className="w-5 h-5" /> Zodiac Espers
-                                </h3>
-
-                                {/* Group espers by character */}
-                                <div className="space-y-4">
-                                    {current.builds.map(build => {
-                                        if (build.espers.length === 0) return null;
-
-                                        return (
-                                            <div key={build.char}>
-                                                <div className="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">{build.char}</div>
-                                                <div className="grid grid-cols-3 gap-2">
-                                                    {build.espers.map(esper => {
-                                                        const isHovered = hoveredEsper === esper;
-
-                                                        return (
-                                                            <div
-                                                                key={esper}
-                                                                onMouseEnter={() => setHoveredEsper(esper)}
-                                                                onMouseLeave={() => setHoveredEsper(null)}
-                                                                className={`relative aspect-square rounded flex flex-col items-center justify-center p-2 text-center border transition-all cursor-help bg-cyan-500/30 border-cyan-500 text-cyan-200 shadow-lg shadow-cyan-500/20
-                                                                    ${isHovered ? 'scale-105 z-10 ring-2 ring-cyan-400' : ''}
-                                                                `}
-                                                            >
-                                                                <ZodiacIcon sign={ESPER_ZODIAC[esper]} className="w-8 h-8 mb-1" />
-                                                                <div className="text-[9px] font-bold uppercase tracking-wider truncate w-full">{esper}</div>
-
-                                                                {/* Tooltip */}
-                                                                {isHovered && (
-                                                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-56 border border-cyan-500/50 rounded-lg p-3 shadow-xl z-50 text-left pointer-events-none text-white backdrop-blur" style={{background: 'rgba(10, 20, 30, 0.95)'}}>
-                                                                        <div className="text-cyan-400 font-bold text-xs mb-2 border-b border-gray-700 pb-1 uppercase flex items-center gap-2">
-                                                                            <ZodiacIcon sign={ESPER_ZODIAC[esper]} className="w-5 h-5" />
-                                                                            {esper}
-                                                                        </div>
-                                                                        {Object.entries(ESPER_UNLOCKS[esper]).map(([job, unlock]) => (
-                                                                            <div key={job} className="mb-1 text-[10px] leading-snug">
-                                                                                <span className="font-bold text-gray-200 block">{job}</span>
-                                                                                <span className="text-gray-400 font-normal">{unlock}</span>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-
-                                    {/* Unassigned Espers */}
-                                    {(() => {
-                                        const assignedEspers = current.builds.flatMap(b => b.espers);
-                                        const unassignedEspers = Object.keys(ESPER_UNLOCKS).filter(e => !assignedEspers.includes(e));
-
-                                        if (unassignedEspers.length === 0) return null;
-
-                                        return (
-                                            <div>
-                                                <div className="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Unassigned</div>
-                                                <div className="grid grid-cols-3 gap-2">
-                                                    {unassignedEspers.map(esper => {
-                                                        const isHovered = hoveredEsper === esper;
-
-                                                        return (
-                                                            <div
-                                                                key={esper}
-                                                                onMouseEnter={() => setHoveredEsper(esper)}
-                                                                onMouseLeave={() => setHoveredEsper(null)}
-                                                                className={`relative aspect-square rounded flex flex-col items-center justify-center p-2 text-center border transition-all cursor-help border-gray-700 text-gray-600
-                                                                    ${isHovered ? 'scale-105 z-10 ring-2 ring-gray-500' : ''}
-                                                                `}
-                                                                style={{background: 'rgba(15, 25, 35, 0.5)'}}
-                                                            >
-                                                                <ZodiacIcon sign={ESPER_ZODIAC[esper]} className="w-8 h-8 mb-1 opacity-40" />
-                                                                <div className="text-[9px] font-bold uppercase tracking-wider truncate w-full">{esper}</div>
-
-                                                                {/* Tooltip */}
-                                                                {isHovered && (
-                                                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-56 border border-gray-600 rounded-lg p-3 shadow-xl z-50 text-left pointer-events-none text-white backdrop-blur" style={{background: 'rgba(10, 20, 30, 0.95)'}}>
-                                                                        <div className="text-gray-400 font-bold text-xs mb-2 border-b border-gray-700 pb-1 uppercase flex items-center gap-2">
-                                                                            <ZodiacIcon sign={ESPER_ZODIAC[esper]} className="w-5 h-5" />
-                                                                            {esper}
-                                                                        </div>
-                                                                        {Object.entries(ESPER_UNLOCKS[esper]).map(([job, unlock]) => (
-                                                                            <div key={job} className="mb-1 text-[10px] leading-snug">
-                                                                                <span className="font-bold text-gray-200 block">{job}</span>
-                                                                                <span className="text-gray-400 font-normal">{unlock}</span>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            </div>
-                                        );
-                                    })()}
-                                </div>
+                        <div class="w-px h-8 bg-gray-600"></div>
+                        <div class="text-center">
+                            <div class="text-xs text-gray-400 uppercase tracking-wider font-bold">Espers</div>
+                            <div class="text-2xl font-bold yellow-accent">
+                                <span x-text="current.builds.reduce((a,b) => a + b.espers.length, 0)"></span><span class="text-sm text-gray-400 font-semibold">/12</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            );
-        }
+            </div>
+        </div>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<FFXIIJobPlannerEstersand />);
-    </script>
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col lg:grid lg:grid-cols-12 lg:auto-rows-auto gap-8">
+
+            <!-- Presets - Order 1 on mobile -->
+            <div class="order-1 lg:col-span-4 lg:order-none">
+                <div class="ff-panel rounded-lg p-2 overflow-hidden">
+                    <div class="grid grid-cols-1 gap-1">
+                        <template x-for="(presetData, presetName) in PRESETS" :key="presetName">
+                            <button
+                                @click="preset = presetName; expanded = {}; selectedParty = 0"
+                                :class="{
+                                    'bg-cyan-500/20 text-cyan-300 shadow-lg border border-cyan-500/50 shadow-cyan-500/20': preset === presetName,
+                                    'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent': preset !== presetName
+                                }"
+                                class="px-4 py-3 text-left rounded-lg transition-all duration-200"
+                            >
+                                <div class="font-bold text-base tracking-tight" x-text="presetName"></div>
+                                <div class="text-xs font-normal opacity-70 mt-1" x-text="presetData.desc"></div>
+                            </button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Character Cards - Order 2 on mobile, spans 8 cols + 2 rows on desktop -->
+            <div class="order-2 lg:col-span-8 lg:row-span-2 lg:order-none space-y-6 pl-0 lg:pl-4">
+
+                <!-- Build Description -->
+                <div class="ff-panel rounded-lg p-6 border-2 border-cyan-500/30">
+                    <div class="flex items-start gap-3 mb-6">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/30 border border-cyan-500 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-cyan-400" x-html="Icons.Sparkles"></svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-base font-bold text-cyan-300 mb-2 tracking-tight">Why This Build?</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed font-normal" x-text="current.why"></p>
+                        </div>
+                    </div>
+
+                    <!-- Party Compositions -->
+                    <div x-show="current.parties" class="border-t border-cyan-500/20 pt-5">
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-yellow-400">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                            <h4 class="text-sm font-bold text-yellow-300 uppercase tracking-wider">3-Person Party Compositions</h4>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3">
+                            <template x-for="(party, pi) in current.parties" :key="party.name">
+                                <button
+                                    @click="selectedParty = pi"
+                                    class="rounded-lg p-3 border transition-all text-left"
+                                    :class="{
+                                        'border-yellow-500 bg-yellow-500/20 shadow-lg shadow-yellow-500/20': selectedParty === pi,
+                                        'border-cyan-500/30 hover:border-cyan-500/50 hover:bg-cyan-500/10': selectedParty !== pi
+                                    }"
+                                    style="background: rgba(20, 35, 50, 0.5)"
+                                >
+                                    <div class="text-xs font-bold text-cyan-300 mb-1 uppercase tracking-wider" x-text="party.name"></div>
+                                    <p class="text-[10px] text-gray-300 leading-relaxed" x-text="party.why"></p>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <template x-for="(build, i) in current.builds" :key="build.char">
+                    <div
+                        x-show="isInActiveParty(build.char)"
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95"
+                        class="relative ff-panel rounded-lg overflow-visible transition-all duration-300"
+                        :class="expanded[i] ? 'ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20' : ''"
+                        :style="expanded[i] ? 'background: rgba(15, 30, 45, 0.95)' : ''"
+                    >
+                        <button
+                            @click="expanded[i] = !expanded[i]"
+                            class="w-full flex items-stretch text-left group pl-20 md:pl-28 relative"
+                        >
+                            <!-- Overlapping Portrait -->
+                            <div class="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-20 h-20 md:w-24 md:h-24 pointer-events-none">
+                                <div class="relative w-full h-full rounded overflow-hidden border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/20" style="background: linear-gradient(to bottom right, rgb(10, 20, 30), rgb(20, 30, 40))">
+                                    <img
+                                        :src="CHAR_IMAGES[build.char]"
+                                        :alt="build.char"
+                                        class="w-full h-full object-cover"
+                                        @error="$el.style.display = 'none'; $el.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-3xl', 'font-bold', 'text-cyan-400'); $el.parentElement.innerText = build.char[0]"
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Info Section -->
+                            <div class="flex-1 flex flex-col justify-between py-3 pr-4 pl-4 md:py-4 md:pr-6 md:pl-6">
+                                <div>
+                                    <div class="flex items-center gap-2 mb-2 flex-wrap">
+                                        <h2 class="text-2xl md:text-3xl font-bold text-white leading-none tracking-tight" x-text="build.char"></h2>
+                                        <span class="text-[10px] font-bold text-yellow-400 uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/30" x-text="build.role"></span>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-end">
+                                    <div class="flex-1">
+                                        <!-- Job Badges - Dark Theme -->
+                                        <div class="flex flex-wrap gap-2">
+                                            <template x-for="job in build.jobs" :key="job">
+                                                <div
+                                                    class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded border text-sm font-semibold shadow-sm"
+                                                    :style="`background-color: rgba(10, 20, 30, 0.6); border-color: ${JOBS[job].color}60; color: ${JOBS[job].color}`"
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" x-html="Icons[JOBS[job].icon]"></svg>
+                                                    <span x-text="job"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                        <!-- Espers Mini-list (Collapsed View) -->
+                                        <div x-show="!expanded[i] && build.espers.length > 0" class="flex flex-wrap gap-1 mt-2">
+                                            <template x-for="e in build.espers" :key="e">
+                                                <span class="text-[10px] font-semibold text-gray-300 px-1.5 py-0.5 rounded border border-gray-600" style="background: rgba(10, 20, 30, 0.6)" x-text="e"></span>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="p-2 rounded-full transition-colors self-start"
+                                        :class="expanded[i] ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-500 group-hover:text-gray-400'"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" x-html="expanded[i] ? Icons.ChevronUp : Icons.ChevronDown"></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Expanded Details -->
+                        <div x-show="expanded[i]" class="px-4 md:px-6 pb-6 border-t border-cyan-500/30" style="background: rgba(10, 20, 30, 0.5)">
+                            <div class="grid md:grid-cols-2 gap-6 pt-4">
+                                <!-- Left Column: Strategy & Unlocks -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <div class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-yellow-400" x-html="Icons.Crown"></svg>
+                                            Strategy
+                                        </div>
+                                        <p class="text-sm text-white leading-relaxed p-4 rounded border border-cyan-500/20 shadow-sm font-normal" style="background: rgba(20, 35, 50, 0.6)" x-text="build.why"></p>
+                                    </div>
+
+                                    <div x-show="build.espers.length > 0">
+                                        <div class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-400" x-html="Icons.Sparkles"></svg>
+                                            Unlocks
+                                        </div>
+                                        <div class="space-y-2">
+                                            <template x-for="esper in build.espers" :key="esper">
+                                                <div class="flex items-start gap-3 text-xs p-2 rounded hover:bg-white/5 transition-colors">
+                                                    <span class="font-bold text-cyan-300 min-w-[80px] pt-0.5 uppercase tracking-wider" x-text="esper"></span>
+                                                    <div class="flex-1">
+                                                        <template x-for="job in build.jobs" :key="job">
+                                                            <div x-show="ESPER_UNLOCKS[esper]?.[job]" class="mb-0.5">
+                                                                <span class="font-bold text-white" x-text="job + ': '"></span>
+                                                                <span class="text-gray-300 font-normal" x-text="ESPER_UNLOCKS[esper]?.[job]"></span>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Gambits & Gear -->
+                                <div class="space-y-6">
+                                    <div x-show="build.gambits">
+                                        <div class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-yellow-400">
+                                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                                            </svg>
+                                            Gambits
+                                        </div>
+                                        <div class="p-3 rounded border border-cyan-500/20 shadow-sm font-mono text-[10px] leading-relaxed" style="background: rgba(20, 35, 50, 0.6)">
+                                            <template x-for="(gambit, gi) in build.gambits" :key="gi">
+                                                <div class="text-gray-200 mb-1.5 last:mb-0 flex items-start gap-2">
+                                                    <span class="text-yellow-400 font-bold flex-shrink-0" x-text="(gi + 1) + '.'"></span>
+                                                    <span class="text-gray-300" x-text="gambit"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="build.gear">
+                                        <div class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-cyan-400">
+                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                            </svg>
+                                            Recommended Gear
+                                        </div>
+                                        <div class="p-3 rounded border border-cyan-500/20 shadow-sm" style="background: rgba(20, 35, 50, 0.6)">
+                                            <template x-for="(item, gi) in build.gear" :key="gi">
+                                                <div class="text-xs text-gray-200 mb-1.5 last:mb-0 flex items-start gap-2">
+                                                    <span class="text-yellow-400 flex-shrink-0">▸</span>
+                                                    <span class="text-gray-300" x-text="item"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Esper Grid - Order 3 on mobile (bottom), col-span-4 on desktop (left column, row 2) -->
+            <div class="order-3 lg:col-span-4 lg:col-start-1 lg:order-none">
+                <div class="ff-panel rounded-lg p-6">
+                    <h3 class="text-lg text-cyan-400 mb-4 flex items-center gap-2 font-bold tracking-tight">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" x-html="Icons.Sparkles"></svg>
+                        Zodiac Espers
+                    </h3>
+
+                    <!-- Group espers by character -->
+                    <div class="space-y-4">
+                        <template x-for="build in current.builds" :key="build.char">
+                            <div x-show="build.espers.length > 0">
+                                <div class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider" x-text="build.char"></div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <template x-for="esper in build.espers" :key="esper">
+                                        <div
+                                            @mouseenter="hoveredEsper = esper"
+                                            @mouseleave="hoveredEsper = null"
+                                            class="relative aspect-square rounded flex flex-col items-center justify-center p-2 text-center border transition-all cursor-help bg-cyan-500/30 border-cyan-500 text-cyan-200 shadow-lg shadow-cyan-500/20"
+                                            :class="hoveredEsper === esper ? 'scale-105 z-10 ring-2 ring-cyan-400' : ''"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 mb-1" x-html="ZodiacGlyphs[ESPER_ZODIAC[esper]]"></svg>
+                                            <div class="text-[9px] font-bold uppercase tracking-wider truncate w-full" x-text="esper"></div>
+
+                                            <!-- Tooltip -->
+                                            <div x-show="hoveredEsper === esper" class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-56 border border-cyan-500/50 rounded-lg p-3 shadow-xl z-50 text-left pointer-events-none text-white backdrop-blur" style="background: rgba(10, 20, 30, 0.95)">
+                                                <div class="text-cyan-400 font-bold text-xs mb-2 border-b border-gray-700 pb-1 uppercase flex items-center gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" x-html="ZodiacGlyphs[ESPER_ZODIAC[esper]]"></svg>
+                                                    <span x-text="esper"></span>
+                                                </div>
+                                                <template x-for="[job, unlock] in Object.entries(ESPER_UNLOCKS[esper])" :key="job">
+                                                    <div class="mb-1 text-[10px] leading-snug">
+                                                        <span class="font-bold text-gray-200 block" x-text="job"></span>
+                                                        <span class="text-gray-400 font-normal" x-text="unlock"></span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Unassigned Espers -->
+                        <div x-show="getUnassignedEspers().length > 0">
+                            <div class="text-xs font-bold text-gray-500 mb-2 uppercase tracking-wider">Unassigned</div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <template x-for="esper in getUnassignedEspers()" :key="esper">
+                                    <div
+                                        @mouseenter="hoveredEsper = esper"
+                                        @mouseleave="hoveredEsper = null"
+                                        class="relative aspect-square rounded flex flex-col items-center justify-center p-2 text-center border transition-all cursor-help border-gray-700 text-gray-600"
+                                        :class="hoveredEsper === esper ? 'scale-105 z-10 ring-2 ring-gray-500' : ''"
+                                        style="background: rgba(15, 25, 35, 0.5)"
+                                    >
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 mb-1 opacity-40" x-html="ZodiacGlyphs[ESPER_ZODIAC[esper]]"></svg>
+                                        <div class="text-[9px] font-bold uppercase tracking-wider truncate w-full" x-text="esper"></div>
+
+                                        <!-- Tooltip -->
+                                        <div x-show="hoveredEsper === esper" class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-56 border border-gray-600 rounded-lg p-3 shadow-xl z-50 text-left pointer-events-none text-white backdrop-blur" style="background: rgba(10, 20, 30, 0.95)">
+                                            <div class="text-gray-400 font-bold text-xs mb-2 border-b border-gray-700 pb-1 uppercase flex items-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" x-html="ZodiacGlyphs[ESPER_ZODIAC[esper]]"></svg>
+                                                <span x-text="esper"></span>
+                                            </div>
+                                            <template x-for="[job, unlock] in Object.entries(ESPER_UNLOCKS[esper])" :key="job">
+                                                <div class="mb-1 text-[10px] leading-snug">
+                                                    <span class="font-bold text-gray-200 block" x-text="job"></span>
+                                                    <span class="text-gray-400 font-normal" x-text="unlock"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
