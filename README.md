@@ -6,7 +6,7 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 
 ## Features
 
-### 🎯 6 Optimized Build Presets
+### 6 Optimized Build Presets
 - **Max Efficiency** (98%) - Zero wasted licenses, mathematically perfect
 - **DPS Nuclear** (85%) - Maximum damage for superbosses
 - **Beginner Friendly** (92%) - Guide recommended, forgiving progression
@@ -14,14 +14,14 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 - **Yiazmat Specialist** (82%) - Hyper-optimized for 50M HP marathon fight
 - **Lore Friendly** (91%) - Canonical character roles with optimized second jobs
 
-### 🎮 Interactive Party Compositions
+### Interactive Party Compositions
 Since FFXII only allows **3 active party members** at a time, each preset includes recommended team setups:
 - **Click party composition cards** to see which characters to use
 - Only the 3 active party members are displayed
 - Each party has a specific strategy (general purpose, DPS-focused, boss fights, etc.)
 - Smooth transitions when switching between parties
 
-### ⚔️ Complete Build Details
+### Complete Build Details
 Each character includes:
 - **Job Combinations**: Dual job synergies optimized for efficiency
 - **Esper Assignments**: Which Espers unlock critical board nodes
@@ -29,7 +29,7 @@ Each character includes:
 - **Gear Recommendations**: 4-5 essential equipment items with priority marked
 - **Strategy Explanations**: Why this build works and how to use it
 
-### 🌟 Visual Esper Grid
+### Visual Esper Grid
 - Zodiac symbol icons for each Esper
 - Grouped by assigned character
 - Hover tooltips showing license board unlocks
