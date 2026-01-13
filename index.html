@@ -471,9 +471,9 @@
                     </div>
                 </div>
 
-                <template x-for="(build, i) in current.builds" :key="build.char">
+                <template x-for="(build, i) in current.builds" :key="build.char + '-' + selectedParty">
                     <div
-                        x-show="isInActiveParty(build.char)"
+                        x-show="!current.parties || !current.parties[selectedParty] || current.parties[selectedParty].members.includes(build.char)"
                         x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
