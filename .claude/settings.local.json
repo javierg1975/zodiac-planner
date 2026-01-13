@@ -4,7 +4,12 @@
       "Bash(file:*)",
       "Bash(ls:*)",
       "WebFetch(domain:finalfantasy.fandom.com)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh api:*)",
+      "Bash(gh run:*)",
+      "Bash(gh run cancel:*)",
+      "Bash(gh auth status:*)"
     ]
   }
 }
