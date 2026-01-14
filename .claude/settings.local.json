@@ -9,7 +9,9 @@
       "Bash(gh api:*)",
       "Bash(gh run:*)",
       "Bash(gh run cancel:*)",
-      "Bash(gh auth status:*)"
+      "Bash(gh auth status:*)",
+      "Bash(python3:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
