@@ -11,7 +11,11 @@
       "Bash(gh run cancel:*)",
       "Bash(gh auth status:*)",
       "Bash(python3:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(git push:*)",
+      "Bash(git commit:*)",
+      "WebSearch",
+      "WebFetch(domain:gamefaqs.gamespot.com)"
     ]
   }
 }
