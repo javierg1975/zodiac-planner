@@ -338,6 +338,9 @@
         selectedParty: 0,
         get current() { return PRESETS[this.preset]; },
         get activePartyMembers() {
+            // null selectedParty means "show all characters"
+            if (this.selectedParty === null) return null;
+
             const currentPreset = PRESETS[this.preset];
             if (!currentPreset.parties || currentPreset.parties.length === 0) return null;
             const partyIndex = (this.selectedParty >= 0 && this.selectedParty < currentPreset.parties.length) ? this.selectedParty : 0;
@@ -427,16 +430,47 @@
                     </div>
 
                     <!-- Party Compositions -->
-                    <div x-show="current.parties" class="border-t border-cyan-500/20 pt-5">
-                        <div class="flex items-center gap-2 mb-4">
+                    <div x-show="current.parties" class="border-t border-cyan-500/20 pt-5 space-y-3">
+                        <div class="flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-yellow-400">
                                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
                                 <circle cx="9" cy="7" r="4"/>
                                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                             </svg>
-                            <h4 class="text-sm font-bold text-yellow-300 uppercase tracking-wider">3-Person Party Compositions</h4>
+                            <h4 class="text-sm font-bold text-yellow-300 uppercase tracking-wider">Party View</h4>
                         </div>
+
+                        <!-- Full Roster Button -->
+                        <button
+                            @click="selectedParty = null"
+                            class="w-full rounded-lg p-3 border transition-all text-left"
+                            :class="{
+                                'border-green-500 bg-green-500/20 shadow-lg shadow-green-500/20': selectedParty === null,
+                                'border-cyan-500/30 hover:border-cyan-500/50 hover:bg-cyan-500/10': selectedParty !== null
+                            }"
+                            style="background: rgba(20, 35, 50, 0.5)"
+                        >
+                            <div class="text-xs font-bold text-green-400 mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="9" cy="7" r="4"/>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                </svg>
+                                Full Roster
+                            </div>
+                            <p class="text-[10px] text-gray-300 leading-relaxed">View all 6 characters for leveling rotation and party planning</p>
+                        </button>
+
+                        <!-- Divider -->
+                        <div class="flex items-center gap-3">
+                            <div class="h-px bg-cyan-500/20 flex-1"></div>
+                            <span class="text-[10px] text-gray-500 uppercase tracking-wider">or select party</span>
+                            <div class="h-px bg-cyan-500/20 flex-1"></div>
+                        </div>
+
+                        <!-- Party Composition Cards -->
                         <div class="grid md:grid-cols-3 gap-3">
                             <template x-for="(party, pi) in current.parties" :key="party.name">
                                 <button
