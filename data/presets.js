@@ -8,8 +8,8 @@ const PRESETS = {
             availability: 'Mid-Game Phase',
             unlocks: 'Belias Defeated (Mt Bur-Omisace) - Dual-job authorization required.',
             criticalGear: [
-                'Main Gauche [Evasion Mastery]',
-                'Genji Gloves [Combo Optimization]'
+                'Main Gauche [ASSERT: CRITICAL - Evasion Mastery]',
+                'Genji Gloves [ASSERT: CRITICAL - Combo Optimization]'
             ],
             keyEspers: ['Exodus/Zeromus (Channeling)', 'Ultima/Zodiark (Swiftness/Renew)', 'Chaos (Hastega)'],
             recommendedLevel: 'Level 40-50',
@@ -39,17 +39,17 @@ const PRESETS = {
             availability: 'Intermediary to Late Game',
             unlocks: 'Advanced Esper Clearance - Anticipate significant LP investment.',
             criticalGear: [
-                'Genji Gloves [Combo Threshold]',
-                'Berserk Bracers [Offensive Automation]',
-                'Dragon Whisker / Masamune'
+                'Genji Gloves [ASSERT: CRITICAL - Combo Threshold]',
+                'Berserk Bracers [ASSERT: CRITICAL - Offensive Automation]',
+                'Dragon Whisker / Masamune [ASSERT: CRITICAL - Apex DPS]'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit (Hastega)', 'Exodus (Channeling)'],
             recommendedLevel: 'Level 60+',
-            notes: 'Genji Gloves are mandatory for all core DPS nodes. Do not deploy with fireams or long-range ballistics.'
+            notes: 'Genji Gloves are [STATUS: MANDATORY] for all core DPS nodes. Do not deploy with firearms or long-range ballistic protocols.'
         },
         why: 'Engineered for supreme offensive dominance. Sacrifices license efficiency (LP) to maximize Battle Lore accumulation and STR-scaling. This configuration provides ~20% higher damage output compared to efficiency-focused builds at the cost of combat versatility.',
         parties: [
-            { name: 'Elimination Suite', members: ['Vaan', 'Balthier', 'Fran'], why: 'Maximum DPS throughput. Triple-berserk configuration with Hastega synchronization.' },
+            { name: 'Elimination Suite', members: ['Vaan', 'Balthier', 'Fran'], why: 'Maximum DPS throughput. Triple-Berserker configuration [STATUS: MANDATORY] for DPS optimization.' },
             { name: 'Apex Endurance', members: ['Balthier', 'Fran', 'Penelo'], why: 'Sustained high-output DPS. Includes full break suite and evasion-based recovery.' },
             { name: 'Elemental Nuke', members: ['Ashe', 'Basch', 'Penelo'], why: 'Specialized for magick-vulnerable targets. High-tier Arcane Magick throughput.' }
         ],
@@ -71,8 +71,8 @@ const PRESETS = {
             availability: 'Standard Early-Game',
             unlocks: 'Universal Authorization - Operational from Phase 1.',
             criticalGear: [
-                'Main Gauche [Evasion Base]',
-                'Genji Gloves [Combo Entry]'
+                'Main Gauche [ASSERT: CRITICAL - Evasion Base]',
+                'Genji Gloves [ASSERT: CRITICAL - Combo Entry]'
             ],
             keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)', 'Cuchulainn (Remedy Lore)'],
             recommendedLevel: 'Level 1+',
@@ -89,7 +89,7 @@ const PRESETS = {
             { char: 'Balthier', jobs: ['Foebreaker', 'Bushi'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserker DPS', why: 'Bushi/Break synergy. High-mitigation offensive unit with automated combat logic.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Self: HP = 100% → Berserk', '(Active: Automated Engagement)'], gear: ['Masamune', 'Genji Gloves', 'Berserk Bracers', 'Golden Amulet'] },
             { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Combat Support', why: 'Highest utility density available. Core buff/debuff engine.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole)', 'Black Robes', 'Ribbon', 'Bubble Belt'] },
             { char: 'Basch', jobs: ['Archer', 'Uhlan'], espers: ['Adrammelech', 'Belias', 'Famfrit'], role: 'Heavy Assault', why: 'Linear weapon progression. High-STR automated physical assault.', gambits: ['Self: HP = 100% → Berserker', 'Self: HP < 90% → Bubble', '(Primary: Automatic Physical Engagement)'], gear: ['Zodiac Spear', 'Perseus Bow', 'Genji Gloves', 'Berserk Bracers'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Primary magus node. Hastega and Arcane Magick prioritized.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor'], gear: ['Staff of the Magi', 'Black Robes', 'White Robes', 'Sage\'s Ring'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Primary magus node. Hastega and Arcane Magick prioritized.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring'] },
             { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'Mitigation-heavy healer. Remedy Lore mastery is tactical requirement.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Demon Shield', 'Ribbon'] }
         ]
     },
@@ -102,10 +102,10 @@ const PRESETS = {
             availability: 'Mid-Game Operations',
             unlocks: 'Belias Clearance - Vaan requires full dual-job authorization for evasion synergy.',
             criticalGear: [
-                'Main Gauche [Evasion Base - CRITICAL]',
-                'Crystal Shield [Avoidance Stacking]',
-                'Ribbon [Status Mitigation]',
-                'Genji Gloves [DPS Combo]'
+                'Main Gauche [ASSERT: CRITICAL - Evasion Base]',
+                'Crystal Shield [ASSERT: CRITICAL - Avoidance Stacking]',
+                'Ribbon [ASSERT: CRITICAL - Status Mitigation]',
+                'Genji Gloves [ASSERT: CRITICAL - DPS Combo]'
             ],
             keyEspers: ['Cuchulainn (Remedy Lore)', 'Ultima (Swiftness)', 'Chaos (Hastega)'],
             recommendedLevel: 'Level 45+',
@@ -133,13 +133,13 @@ const PRESETS = {
         phase: 'late',
         requirements: {
             availability: 'Apex Endgame Only',
-            unlocks: 'Total Esper Clearance - Max-tier equipment procurement mandatory.',
+            unlocks: 'Total Esper Clearance - Max-tier equipment procurement [STATUS: MANDATORY].',
             criticalGear: [
-                'Fomalhaut [Dark Shot synergy - CRITICAL]',
-                'Ribbon [Confusion Mitigation - MANDATORY]',
-                'Bubble Belt [HP Threshold - MANDATORY]',
-                'Genji Gloves [Combo Mastery]',
-                'Grand Armor [Mitigation Peak]'
+                'Fomalhaut [ASSERT: CRITICAL - Dark Shot synergy]',
+                'Ribbon [ASSERT: CRITICAL - Confusion Mitigation]',
+                'Bubble Belt [ASSERT: CRITICAL - HP Threshold]',
+                'Genji Gloves [ASSERT: CRITICAL - Combo Mastery]',
+                'Grand Armor [ASSERT: CRITICAL - Mitigation Peak]'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit/Zeromus (Channeling/Hastega)', 'Chaos (Renew/Hastega)'],
             recommendedLevel: 'Level 80-99',
@@ -169,10 +169,10 @@ const PRESETS = {
             availability: 'Initial Deployment',
             unlocks: 'Archetype Authorization - Operational from Phase 1.',
             criticalGear: [
-                'Main Gauche [Street Thief signature]',
-                'Fomalhaut [Sky Pirate signature]',
-                'Perseus Bow [Viera Archer signature]',
-                'Grand Armor [Royal Guard signature]'
+                'Main Gauche [ASSERT: CRITICAL - Street Thief signature]',
+                'Fomalhaut [ASSERT: CRITICAL - Sky Pirate signature]',
+                'Perseus Bow [ASSERT: CRITICAL - Viera Archer signature]',
+                'Grand Armor [ASSERT: CRITICAL - Royal Guard signature]'
             ],
             keyEspers: ['Chaos/Exodus (Channeling)', 'Famfrit (Hastega)', 'Ultima (Swiftness)'],
             recommendedLevel: 'Level 1+',

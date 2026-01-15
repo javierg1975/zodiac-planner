@@ -24,67 +24,82 @@
     <script src="./data/presets.js"></script>
 
 
-    <div x-data="{
-        preset: localStorage.getItem('ffxii_preset') || 'Max Efficiency',
-        expanded: JSON.parse(localStorage.getItem('ffxii_expanded') || '{}'),
-        selectedParty: parseInt(localStorage.getItem('ffxii_party') || '0'),
-        teamView: localStorage.getItem('ffxii_team') || 'A',
-        init() {
-            this.$watch('preset', val => localStorage.setItem('ffxii_preset', val));
-            this.$watch('expanded', val => localStorage.setItem('ffxii_expanded', JSON.stringify(val)));
-            this.$watch('selectedParty', val => localStorage.setItem('ffxii_party', val));
-            this.$watch('teamView', val => localStorage.setItem('ffxii_team', val));
-        },
-        get current() { return PRESETS[this.preset]; },
-        get groupedPresets() {
-            const phases = {
-                early: { label: 'Early Game', presets: [] },
-                mid: { label: 'Mid to Late Game', presets: [] },
-                late: { label: 'Late Game / Endgame', presets: [] }
-            };
-            Object.entries(PRESETS).forEach(([name, data]) => {
-                phases[data.phase].presets.push({ name, data });
-            });
-            return phases;
-        },
-        get activePartyMembers() {
-            const currentPreset = PRESETS[this.preset];
-            if (!currentPreset.parties || currentPreset.parties.length === 0) return null;
-            const partyIndex = (this.selectedParty >= 0 && this.selectedParty < currentPreset.parties.length) ? this.selectedParty : 0;
-            return currentPreset.parties[partyIndex].members;
-        },
-        get bTeamMembers() {
-            const currentPreset = PRESETS[this.preset];
-            if (!currentPreset.parties || currentPreset.parties.length === 0) return null;
-            const teamA = this.activePartyMembers;
-            if (!teamA) return null;
-            const allCharacters = currentPreset.builds.map(b => b.char);
-            return allCharacters.filter(char => !teamA.includes(char));
-        },
-        getPresetIcon(presetName) {
-            return Icons[PRESET_ICONS[presetName]];
-        },
-        isInActiveParty(charName) {
-            if (!this.activePartyMembers) return true;
-            return this.activePartyMembers.includes(charName);
-        },
-        isInBTeam(charName) {
-            if (!this.bTeamMembers) return false;
-            return this.bTeamMembers.includes(charName);
-        },
-        shouldShowCharacter(charName) {
-            if (this.teamView === 'A') {
-                return this.isInActiveParty(charName);
-            } else {
-                return this.isInBTeam(charName);
-            }
-        },
-        isLeader(charName) {
-            const currentTeam = this.teamView === 'A' ? this.activePartyMembers : this.bTeamMembers;
-            return currentTeam && currentTeam[0] === charName;
-        },
-        showBuildDetails: false
-    }" class="min-h-screen text-white selection:bg-cyan-500/30">
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('planner', () => ({
+                preset: localStorage.getItem('ffxii_preset') || 'Max Efficiency',
+                expanded: JSON.parse(localStorage.getItem('ffxii_expanded') || '{}'),
+                selectedParty: parseInt(localStorage.getItem('ffxii_party') || '0'),
+                teamView: localStorage.getItem('ffxii_team') || 'A',
+                showBuildDetails: false,
+                init() {
+                    this.$watch('preset', val => localStorage.setItem('ffxii_preset', val));
+                    this.$watch('expanded', val => localStorage.setItem('ffxii_expanded', JSON.stringify(val)));
+                    this.$watch('selectedParty', val => localStorage.setItem('ffxii_party', val));
+                    this.$watch('teamView', val => localStorage.setItem('ffxii_team', val));
+                },
+                get current() { return PRESETS[this.preset]; },
+                get groupedPresets() {
+                    const phases = {
+                        early: { label: 'Early Game', presets: [] },
+                        mid: { label: 'Mid to Late Game', presets: [] },
+                        late: { label: 'Late Game / Endgame', presets: [] }
+                    };
+                    Object.entries(PRESETS).forEach(([name, data]) => {
+                        phases[data.phase].presets.push({ name, data });
+                    });
+                    return phases;
+                },
+                get activePartyMembers() {
+                    const currentPreset = PRESETS[this.preset];
+                    if (!currentPreset.parties || currentPreset.parties.length === 0) return null;
+                    const partyIndex = (this.selectedParty >= 0 && this.selectedParty < currentPreset.parties.length) ? this.selectedParty : 0;
+                    return currentPreset.parties[partyIndex].members;
+                },
+                get bTeamMembers() {
+                    const currentPreset = PRESETS[this.preset];
+                    if (!currentPreset.parties || currentPreset.parties.length === 0) return null;
+                    const teamA = this.activePartyMembers;
+                    if (!teamA) return null;
+                    const allCharacters = currentPreset.builds.map(b => b.char);
+                    return allCharacters.filter(char => !teamA.includes(char));
+                },
+                getPresetIcon(presetName) {
+                    return Icons[PRESET_ICONS[presetName]];
+                },
+                isInActiveParty(charName) {
+                    if (!this.activePartyMembers) return true;
+                    return this.activePartyMembers.includes(charName);
+                },
+                isInBTeam(charName) {
+                    if (!this.bTeamMembers) return false;
+                    return this.bTeamMembers.includes(charName);
+                },
+                shouldShowCharacter(charName) {
+                    if (this.teamView === 'A') {
+                        return this.isInActiveParty(charName);
+                    } else {
+                        return this.isInBTeam(charName);
+                    }
+                },
+                renderStatusNote(text) {
+                    if (!text) return '';
+                    return text.replace(/\[(ASSERT|STATUS): (CRITICAL|MANDATORY)(?: - (.*?))?\]/g, (match, type, status, desc) => {
+                        const icon = status === 'CRITICAL' ? Icons.AlertCircle : Icons.AlertTriangle;
+                        const colorClass = status.toLowerCase();
+                        const label = desc ? status + ': ' + desc : status;
+                        return `<span class="ff-status-node ${colorClass}"><svg class="w-2.5 h-2.5 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${icon}</svg>${label}</span>`;
+                    });
+                },
+                isLeader(charName) {
+                    const currentTeam = this.teamView === 'A' ? this.activePartyMembers : this.bTeamMembers;
+                    return currentTeam && currentTeam[0] === charName;
+                }
+            }))
+        })
+    </script>
+
+    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30">
 
         <!-- FF XII Header -->
         <div class="relative py-8 md:py-12 overflow-hidden border-b border-cyan-500/20"
@@ -203,177 +218,221 @@
             <!-- Character Cards - Order 2 on mobile, spans 8 cols + 2 rows on desktop -->
             <div class="order-2 lg:col-span-8 lg:row-span-2 lg:order-none space-y-6 pl-0 lg:pl-4">
 
-                <!-- Build Description -->
-                <div class="ff-panel rounded-lg p-6 border-2 border-cyan-500/30">
-                    <div class="flex items-start gap-3 mb-6">
-                        <div
-                            class="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/30 border border-cyan-500 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-5 h-5 text-cyan-400" x-html="Icons.Book"></svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-base font-bold text-cyan-300 mb-2 tracking-tight">Why This Build?</h3>
-                            <p class="text-sm text-gray-300 leading-relaxed font-normal mb-4" x-text="current.why"></p>
+                <!-- Mission Briefing -->
+                <div class="ff-panel ff-briefing-panel rounded-lg overflow-hidden border border-cyan-500/30">
+                    <!-- Technical Grid Layer -->
+                    <div class="absolute inset-0 ff-briefing-grid opacity-20 pointer-events-none"></div>
 
-                            <!-- Mobile Technical Toggle -->
-                            <button @click="showBuildDetails = !showBuildDetails"
-                                class="flex items-center gap-2 group/toggle py-2 px-4 rounded border border-cyan-500/30 bg-[#102030]/40 hover:bg-cyan-500/20 transition-all">
-                                <span class="text-[10px] font-black uppercase tracking-widest text-cyan-400"
-                                    x-text="showBuildDetails ? 'Hide Technical Specs' : 'Show Technical Specs'"></span>
+                    <!-- Corner Flourishes -->
+                    <div class="ff-row-tick-tl"></div>
+                    <div class="ff-row-tick-br"></div>
+
+                    <!-- Briefing Header / Metadata -->
+                    <div class="px-8 py-4 ff-briefing-header flex items-center justify-between">
+                        <div class="ff-briefing-meta flex items-center gap-6">
+                            <span>PROTOCOL_TAC_BRIEF_V2.9</span>
+                            <div class="w-1 h-3 bg-cyan-500/30"></div>
+                            <span
+                                x-text="'DEPLOY_AUTHORIZATION_LV: ' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
+                        </div>
+                        <div class="ff-briefing-meta opacity-30">REF: AX-ZODIAC</div>
+                    </div>
+
+                    <div class="p-8 relative z-10">
+                        <div class="flex items-start gap-6">
+                            <div
+                                class="flex-shrink-0 w-14 h-14 rounded bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(0,255,255,0.1)]">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="3"
-                                    class="w-3 h-3 text-cyan-400 transition-transform duration-300"
-                                    :class="showBuildDetails ? 'rotate-180' : ''">
-                                    <path d="M6 9l6 6 6-6" />
-                                </svg>
-                            </button>
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-7 h-7 text-cyan-400 font-bold"
+                                    x-html="Icons.Book"></svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="ff-punch-text text-2xl text-cyan-300 mb-4 tracking-wide">MISSION BRIEFING
+                                </h3>
+                                <p class="text-[14px] text-gray-300 leading-relaxed font-normal mb-8 max-w-3xl"
+                                    x-text="current.why"></p>
+
+                                <!-- Command Protocol Toggle -->
+                                <button @click="showBuildDetails = !showBuildDetails"
+                                    class="flex items-center gap-4 group/toggle py-2.5 px-8 rounded-sm border border-cyan-500/50 bg-cyan-500/5 hover:bg-cyan-500/20 transition-all shadow-[0_4px_10px_rgba(0,0,0,0.3)]">
+                                    <div
+                                        class="w-2.5 h-2.5 rounded-full bg-cyan-400 group-hover:animate-pulse shadow-[0_0_8px_rgba(0,255,255,0.5)]">
+                                    </div>
+                                    <span class="text-[10px] font-black uppercase tracking-[0.25em] text-cyan-400"
+                                        x-text="showBuildDetails ? 'TERMINATE_TECHNICAL_ACCESS' : 'INITIALIZE_TECHNICAL_ACCESS'"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Build Requirements - Expandable -->
-                    <div x-show="showBuildDetails" x-collapse class="border-t border-cyan-500/20 pt-5 mb-6">
-                        <div class="flex items-center gap-2 mb-4">
+                    <div x-show="showBuildDetails" x-collapse class="border-t border-cyan-500/20 pt-8 px-8 mb-8">
+                        <div class="flex items-center gap-3 mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-5 h-5 text-yellow-400" x-html="Icons.Target"></svg>
-                            <h4 class="text-sm font-bold text-yellow-300 uppercase tracking-wider">Build Requirements
-                            </h4>
+                                class="w-6 h-6 text-yellow-500" x-html="Icons.Target"></svg>
+                            <h4 class="text-base font-bold text-yellow-300 uppercase tracking-[0.15em] ff-punch-text">
+                                Technical Specifications</h4>
                         </div>
 
-                        <div class="grid md:grid-cols-2 gap-4">
+                        <div class="grid md:grid-cols-2 gap-6">
                             <!-- Left Column: Availability & Unlocks -->
-                            <div class="space-y-4">
+                            <div class="space-y-6">
                                 <!-- Availability -->
-                                <div class="p-3 rounded-lg border border-cyan-500/20"
-                                    style="background: rgba(20, 35, 50, 0.5)">
-                                    <div class="flex items-center gap-2 mb-2">
+                                <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                    <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                    <div class="flex items-center gap-2 mb-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
                                             x-html="Icons.Clock"></svg>
                                         <span
-                                            class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Availability</span>
+                                            class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Availability</span>
                                     </div>
-                                    <p class="text-sm text-gray-200" x-text="current.requirements.availability"></p>
+                                    <p class="text-[13px] text-gray-200 pl-6"
+                                        x-text="current.requirements.availability"></p>
                                 </div>
 
                                 <!-- Unlocks -->
-                                <div class="p-3 rounded-lg border border-cyan-500/20"
-                                    style="background: rgba(20, 35, 50, 0.5)">
-                                    <div class="flex items-center gap-2 mb-2">
+                                <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                    <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                    <div class="flex items-center gap-2 mb-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
                                             x-html="Icons.Unlock"></svg>
-                                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Unlocks
-                                            Required</span>
+                                        <span
+                                            class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Authorization
+                                            Nodes</span>
                                     </div>
-                                    <p class="text-sm text-gray-200" x-text="current.requirements.unlocks"></p>
+                                    <p class="text-[13px] text-gray-200 pl-6 leading-relaxed"
+                                        x-html="renderStatusNote(current.requirements.unlocks)">
+                                    </p>
                                 </div>
 
                                 <!-- Recommended Level -->
-                                <div class="p-3 rounded-lg border border-cyan-500/20"
-                                    style="background: rgba(20, 35, 50, 0.5)">
-                                    <div class="flex items-center gap-2 mb-2">
+                                <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                    <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                    <div class="flex items-center gap-2 mb-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
                                             x-html="Icons.TrendingUp"></svg>
                                         <span
-                                            class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Recommended
+                                            class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Operational
                                             Level</span>
                                     </div>
-                                    <p class="text-sm text-gray-200" x-text="current.requirements.recommendedLevel"></p>
+                                    <p class="text-[13px] text-gray-200 pl-6"
+                                        x-text="current.requirements.recommendedLevel"></p>
                                 </div>
                             </div>
 
                             <!-- Right Column: Gear & Espers -->
-                            <div class="space-y-4">
+                            <div class="space-y-6">
                                 <!-- Critical Gear -->
-                                <div class="p-3 rounded-lg border border-yellow-500/30"
-                                    style="background: rgba(40, 35, 20, 0.5)">
-                                    <div class="flex items-center gap-2 mb-2">
+                                <div class="p-5 rounded border border-yellow-500/30 relative overflow-hidden"
+                                    style="background: rgba(40, 35, 20, 0.4)">
+                                    <div class="flex items-center gap-2 mb-4">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="w-4 h-4 text-yellow-400">
+                                            stroke-linejoin="round" class="w-4 h-4 text-yellow-500">
                                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                         </svg>
                                         <span
-                                            class="text-xs font-bold text-yellow-300 uppercase tracking-wider">Critical
-                                            Gear</span>
+                                            class="text-xs font-bold text-yellow-300 uppercase tracking-widest">Critical
+                                            Armament</span>
                                     </div>
-                                    <ul class="space-y-1">
+                                    <ul class="space-y-3 pl-2">
                                         <template x-for="item in current.requirements.criticalGear" :key="item">
-                                            <li class="text-xs text-gray-200 flex items-start gap-2">
-                                                <span class="text-yellow-400 flex-shrink-0 mt-0.5">▸</span>
-                                                <span x-text="item"></span>
+                                            <li class="text-[13px] text-gray-200 flex items-start gap-3">
+                                                <span class="text-yellow-500/60 flex-shrink-0 mt-1 scale-125">▸</span>
+                                                <span x-html="renderStatusNote(item)"></span>
                                             </li>
                                         </template>
                                     </ul>
                                 </div>
 
                                 <!-- Key Espers -->
-                                <div class="p-3 rounded-lg border border-cyan-500/20"
-                                    style="background: rgba(20, 35, 50, 0.5)">
-                                    <div class="flex items-center gap-2 mb-2">
+                                <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                    <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                    <div class="flex items-center gap-2 mb-5">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
                                             x-html="Icons.Sparkles"></svg>
-                                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Key
-                                            Espers</span>
+                                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Zodiac
+                                            Attunement</span>
                                     </div>
-                                    <ul class="space-y-1">
-                                        <template x-for="esper in current.requirements.keyEspers" :key="esper">
-                                            <li class="text-xs text-gray-200 flex items-start gap-2">
-                                                <span class="text-cyan-400 flex-shrink-0 mt-0.5">✦</span>
-                                                <span x-text="esper"></span>
-                                            </li>
+                                    <div class="space-y-3 pl-3">
+                                        <template x-for="esperStr in current.requirements.keyEspers" :key="esperStr">
+                                            <div
+                                                class="flex items-center gap-4 bg-white/[0.03] p-2.5 rounded border border-cyan-500/10 hover:border-cyan-500/30 transition-colors">
+                                                <div class="flex items-center">
+                                                    <template x-for="eName in esperStr.split(' (')[0].split('/')"
+                                                        :key="eName">
+                                                        <div class="w-6 h-6 text-cyan-400 mr-[-4px]" :title="eName">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="1.2" stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                x-html="ZodiacGlyphs[ESPER_ZODIAC[eName]]"></svg>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                                <div class="flex flex-col">
+                                                    <span
+                                                        class="text-[11px] font-black text-gray-100 uppercase tracking-wider"
+                                                        x-text="esperStr.split(' (')[0]"></span>
+                                                    <span
+                                                        class="text-[9px] text-cyan-400/80 font-bold uppercase tracking-tight"
+                                                        x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'TACTICAL_NODE'"></span>
+                                                </div>
+                                            </div>
                                         </template>
-                                    </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Notes (Full Width) -->
+                        <!-- Notes Footer -->
                         <div x-show="current.requirements.notes"
-                            class="mt-4 p-3 rounded-lg border border-yellow-500/30 bg-yellow-500/10">
-                            <div class="flex items-start gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="w-4 h-4 text-yellow-400 flex-shrink-0 mt-0.5"
-                                    x-html="Icons.AlertCircle"></svg>
-                                <p class="text-xs text-gray-200 leading-relaxed" x-text="current.requirements.notes">
-                                </p>
-                            </div>
+                            class="mt-8 p-5 rounded border border-yellow-500/30 bg-yellow-500/[0.03] flex items-start gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="w-5 h-5 text-yellow-500 mt-0.5" x-html="Icons.AlertCircle"></svg>
+                            <p class="text-[13px] text-gray-300 leading-relaxed italic"
+                                x-html="renderStatusNote(current.requirements.notes)"></p>
                         </div>
                     </div>
 
                     <!-- Party Compositions -->
-                    <div x-show="current.parties" class="border-t border-cyan-500/20 pt-5">
-                        <div class="flex items-center gap-2 mb-4">
+                    <div x-show="current.parties" class="border-t border-cyan-500/20 pt-8 px-8 pb-10">
+                        <div class="flex items-center gap-3 mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-5 h-5 text-yellow-400">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            </svg>
-                            <h4 class="text-sm font-bold text-yellow-300 uppercase tracking-wider">3-Person Party
-                                Compositions</h4>
+                                class="w-6 h-6 text-yellow-500" x-html="Icons.Tactics"></svg>
+                            <h4 class="text-base font-bold text-yellow-300 uppercase tracking-[0.15em] ff-punch-text">
+                                3-Person Party Compositions</h4>
                         </div>
-                        <div class="grid md:grid-cols-3 gap-3">
+                        <div class="grid md:grid-cols-3 gap-4">
                             <template x-for="(party, pi) in current.parties" :key="party.name">
                                 <button @click="selectedParty = pi; teamView = 'A'"
-                                    class="rounded-lg p-3 border transition-all text-left" :class="{
+                                    class="rounded-lg p-4 border transition-all text-left group relative overflow-hidden"
+                                    :class="{
                                         'border-yellow-500 bg-yellow-500/20 shadow-lg shadow-yellow-500/20': selectedParty === pi,
                                         'border-cyan-500/30 hover:border-cyan-500/50 hover:bg-cyan-500/10': selectedParty !== pi
-                                    }" style="background: rgba(20, 35, 50, 0.5)">
-                                    <div class="text-xs font-bold text-cyan-300 mb-1 uppercase tracking-wider"
+                                    }" style="background: rgba(20, 35, 50, 0.4)">
+                                    <div class="text-xs font-black text-cyan-300 mb-2 uppercase tracking-widest"
                                         x-text="party.name"></div>
-                                    <p class="text-[10px] text-gray-300 leading-relaxed" x-text="party.why"></p>
+                                    <p class="text-[11px] text-gray-300 leading-relaxed font-normal" x-text="party.why">
+                                    </p>
+
+                                    <!-- Selection Indicator -->
+                                    <div x-show="selectedParty === pi" class="absolute top-1 right-1">
+                                        <div
+                                            class="w-1.5 h-1.5 rounded-full bg-yellow-400 shadow-[0_0_5px_rgba(255,200,0,0.8)]">
+                                        </div>
+                                    </div>
                                 </button>
                             </template>
                         </div>
