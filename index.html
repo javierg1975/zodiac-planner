@@ -409,12 +409,28 @@
                     </p>
                 </div>
 
+                <!-- Character Search/Filter -->
+                <div x-show="current.builds" class="mb-8">
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-cyan-400 opacity-50 group-focus-within:opacity-100 transition-opacity"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+                        <input type="text" x-model="search" placeholder="Search characters, jobs, or roles..."
+                            class="w-full bg-[#0a1a2a]/60 border border-cyan-500/30 rounded-lg pl-12 pr-4 py-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all shadow-inner">
+                    </div>
+                </div>
+
                 <template x-for="(build, i) in current.builds" :key="build.char + '-' + selectedParty">
                     <div x-show="shouldShowCharacter(build.char)" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
-                        class="relative ff-char-card overflow-visible transition-all duration-300"
-                        :class="expanded[i] ? 'bg-white/[0.02]' : ''">
+                        class="relative ff-panel rounded-lg overflow-visible transition-all duration-300 mb-4"
+                        :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''">
 
                         <button @click="expanded[i] = !expanded[i]"
                             class="w-full flex items-stretch text-left group pl-24 md:pl-32 relative min-h-[100px]">
@@ -431,40 +447,51 @@
 
                             <!-- Info Section - Technical Hierarchy -->
                             <div class="flex-1 flex flex-col justify-center py-4 pr-6">
-                                <div class="flex items-end justify-between gap-4">
-                                    <div>
-                                        <div class="ff-char-name-punch mb-1" x-text="build.char"></div>
-                                        <div class="flex items-center gap-4">
+                                <div class="flex items-start justify-between">
+                                    <div class="space-y-2">
+                                        <div class="ff-char-name-punch" x-text="build.char"></div>
+                                        <div class="flex flex-wrap items-center gap-3">
                                             <span
-                                                class="text-[9px] font-black text-yellow-500 uppercase tracking-[0.2em]"
+                                                class="text-[10px] font-black text-yellow-500 uppercase tracking-widest"
                                                 x-text="build.role"></span>
-                                            <div class="flex gap-1" x-show="build.espers.length > 0">
+                                            <div class="h-3 w-[1px] bg-white/10"></div>
+                                            <!-- Job Badges - Restored Clarity -->
+                                            <div class="flex flex-wrap gap-2">
+                                                <template x-for="job in build.jobs" :key="job">
+                                                    <div class="ff-job-tag-tech"
+                                                        :style="`background-color: ${JOBS[job].color}25; border-color: ${JOBS[job].color}60; color: ${JOBS[job].color}`">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round" class="w-3.5 h-3.5"
+                                                            x-html="Icons[JOBS[job].icon]"></svg>
+                                                        <span x-text="job"></span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <!-- Espers Node -->
+                                        <div class="flex items-center gap-3 mt-2" x-show="build.espers.length > 0">
+                                            <div class="flex gap-2">
                                                 <template x-for="e in build.espers" :key="e">
                                                     <div class="ff-esper-glyph-box" :title="e">
-                                                        <svg viewBox="0 0 24 24"
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round"
                                                             x-html="ZodiacGlyphs[ESPER_ZODIAC[e]]"></svg>
                                                     </div>
                                                 </template>
                                             </div>
-                                            <div class="flex items-center">
-                                                <span class="ff-char-level-label">Level</span>
-                                                <span class="ff-metric-value !text-lg"
-                                                    x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
-                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-col items-end gap-3">
-                                        <!-- Job Badges - High Impact Technical -->
-                                        <div class="flex flex-wrap gap-2">
-                                            <template x-for="job in build.jobs" :key="job">
-                                                <div class="ff-job-tag-tech"
-                                                    :style="`border-color: ${JOBS[job].color}60; color: ${JOBS[job].color}; background: ${JOBS[job].color}10`"
-                                                    x-text="job"></div>
-                                            </template>
+                                    <div class="flex flex-col items-end justify-between self-stretch">
+                                        <div class="flex items-center">
+                                            <span class="ff-char-level-label">LV</span>
+                                            <span class="ff-metric-value !text-3xl"
+                                                x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
                                         </div>
                                         <div
-                                            class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-y-1 transition-all">
+                                            class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
                                             <span x-text="expanded[i] ? '▲' : '▼'"></span>
                                         </div>
                                     </div>
