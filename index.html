@@ -452,14 +452,14 @@
                         :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''">
 
                         <button @click="expanded[i] = !expanded[i]"
-                            class="w-full flex items-stretch text-left group pl-32 md:pl-44 relative min-h-[96px]">
+                            class="w-full flex items-stretch text-left group relative min-h-[96px] pl-40 md:pl-60">
 
-                            <!-- Overlapping Portrait - Tactical Strip -->
+                            <!-- Overlapping Portrait - Refined Panoramic Slice -->
                             <div
-                                class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-28 h-20 md:w-36 md:h-24 pointer-events-none">
-                                <div class="ff-char-portrait-frame">
+                                class="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 z-10 w-36 h-12 md:w-56 md:h-20 pointer-events-none transition-all duration-500">
+                                <div class="ff-char-portrait-frame overflow-hidden">
                                     <img :src="CHAR_IMAGES[build.char]" :alt="build.char"
-                                        class="w-full h-full object-cover object-top"
+                                        class="w-full h-full object-cover scale-160 origin-center transition-transform duration-700"
                                         @error="$el.style.display = 'none'; $el.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-2xl', 'font-black', 'text-cyan-400'); $el.parentElement.innerText = build.char[0]" />
                                 </div>
                             </div>
