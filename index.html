@@ -78,7 +78,12 @@
             } else {
                 return this.isInBTeam(charName);
             }
-        }
+        },
+        isLeader(charName) {
+            const currentTeam = this.teamView === 'A' ? this.activePartyMembers : this.bTeamMembers;
+            return currentTeam && currentTeam[0] === charName;
+        },
+        showBuildDetails: false
     }" class="min-h-screen text-white selection:bg-cyan-500/30">
 
         <!-- FF XII Header -->
@@ -114,9 +119,10 @@
                                     <template x-for="item in phaseData.presets" :key="item.name">
                                         <div class="ff-preset-btn" :class="{ 'active': preset === item.name }">
                                             <button
-                                                @click="preset = item.name; expanded = {}; selectedParty = 0; teamView = 'A'"
+                                                @click="preset = item.name; expanded = {}; selectedParty = 0; teamView = 'A'; showBuildDetails = false"
                                                 class="w-full text-left focus:outline-none group">
                                                 <div class="ff-punch-label"
+                                                    :class="preset === item.name ? 'ff-punch-text ff-bronze-text' : ''"
                                                     x-text="item.data.shortName || item.name.split(' ')[0]"></div>
                                                 <div class="flex flex-col gap-0.5 overflow-hidden">
                                                     <div class="ff-detail-title" x-text="item.name"></div>
@@ -208,12 +214,25 @@
                         </div>
                         <div class="flex-1">
                             <h3 class="text-base font-bold text-cyan-300 mb-2 tracking-tight">Why This Build?</h3>
-                            <p class="text-sm text-gray-300 leading-relaxed font-normal" x-text="current.why"></p>
+                            <p class="text-sm text-gray-300 leading-relaxed font-normal mb-4" x-text="current.why"></p>
+
+                            <!-- Mobile Technical Toggle -->
+                            <button @click="showBuildDetails = !showBuildDetails"
+                                class="flex items-center gap-2 group/toggle py-2 px-4 rounded border border-cyan-500/30 bg-[#102030]/40 hover:bg-cyan-500/20 transition-all">
+                                <span class="text-[10px] font-black uppercase tracking-widest text-cyan-400"
+                                    x-text="showBuildDetails ? 'Hide Technical Specs' : 'Show Technical Specs'"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3"
+                                    class="w-3 h-3 text-cyan-400 transition-transform duration-300"
+                                    :class="showBuildDetails ? 'rotate-180' : ''">
+                                    <path d="M6 9l6 6 6-6" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Build Requirements -->
-                    <div x-show="current.requirements" class="border-t border-cyan-500/20 pt-5 mb-6">
+                    <!-- Build Requirements - Expandable -->
+                    <div x-show="showBuildDetails" x-collapse class="border-t border-cyan-500/20 pt-5 mb-6">
                         <div class="flex items-center gap-2 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -433,14 +452,14 @@
                         :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''">
 
                         <button @click="expanded[i] = !expanded[i]"
-                            class="w-full flex items-stretch text-left group pl-24 md:pl-32 relative min-h-[100px]">
+                            class="w-full flex items-stretch text-left group pl-32 md:pl-44 relative min-h-[96px]">
 
-                            <!-- Overlapping Portrait - Technical Frame -->
+                            <!-- Overlapping Portrait - Tactical Strip -->
                             <div
-                                class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-24 h-24 md:w-28 md:h-28 pointer-events-none">
+                                class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-28 h-20 md:w-36 md:h-24 pointer-events-none">
                                 <div class="ff-char-portrait-frame">
                                     <img :src="CHAR_IMAGES[build.char]" :alt="build.char"
-                                        class="w-full h-full object-cover"
+                                        class="w-full h-full object-cover object-top"
                                         @error="$el.style.display = 'none'; $el.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-2xl', 'font-black', 'text-cyan-400'); $el.parentElement.innerText = build.char[0]" />
                                 </div>
                             </div>
@@ -449,7 +468,9 @@
                             <div class="flex-1 flex flex-col justify-center py-4 pr-6">
                                 <div class="flex items-start justify-between">
                                     <div class="space-y-2">
-                                        <div class="ff-char-name-punch" x-text="build.char"></div>
+                                        <div class="ff-char-name-punch ff-punch-text"
+                                            :class="isLeader(build.char) ? 'ff-bronze-text' : ''" x-text="build.char">
+                                        </div>
                                         <div class="flex flex-wrap items-center gap-3">
                                             <span
                                                 class="text-[10px] font-black text-yellow-500 uppercase tracking-widest"
