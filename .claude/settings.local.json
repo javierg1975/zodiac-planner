@@ -15,7 +15,11 @@
       "Bash(git push:*)",
       "Bash(git commit:*)",
       "WebSearch",
-      "WebFetch(domain:gamefaqs.gamespot.com)"
+      "WebFetch(domain:gamefaqs.gamespot.com)",
+      "Bash(convert:*)",
+      "Bash(qlmanage:*)",
+      "Bash(wc:*)",
+      "Bash({ sed -n '46,80p' /Users/javierg/Projects/GitHub/Personal/zodiac-planner/app.js)"
     ]
   }
 }

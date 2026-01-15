@@ -10,19 +10,32 @@ This is a **Final Fantasy XII: The Zodiac Age** job planner web application. It'
 
 ## Architecture
 
-### Single-File Application Structure
+### Application Structure
 
-This is a **self-contained HTML file** (`index.html`) with no build process or external dependencies beyond CDN-loaded libraries. The entire application lives in one file organized as:
+This is a **static web application** with no build process or external dependencies beyond CDN-loaded libraries. The application uses a modular file structure:
 
-1. **External Dependencies (CDN)**:
-   - Alpine.js 3.x (reactive UI framework)
-   - Tailwind CSS (utility-first styling)
-   - Google Fonts (Inter font family)
+**Core Files:**
+- **`index.html`** (40K): Main HTML structure and Alpine.js markup
+- **`styles.css`** (1.5K): Custom CSS styling
 
-2. **Embedded Sections**:
-   - `<style>` block: Custom CSS (FFXII menu-inspired dark blue panels, background blur effects, scrollbars)
-   - `<script>`: JavaScript data objects (Icons, ZodiacGlyphs, game data)
-   - Alpine.js `x-data`: Reactive state management
+**Data Modules (`data/` directory):**
+- **`icons.js`** (4.5K): SVG path definitions for all UI icons and job symbols
+- **`jobs.js`** (1.1K): Job class definitions with colors and types
+- **`characters.js`** (671B): Character portrait URLs from Final Fantasy Wiki
+- **`espers.js`** (4.4K): Zodiac glyphs, esper unlocks, and zodiac mappings
+- **`presets.js`** (28K): All 6 pre-configured party builds with requirements, gambits, and gear
+
+**External Dependencies (CDN)**:
+- Alpine.js 3.x (reactive UI framework)
+- Tailwind CSS (utility-first styling)
+- Google Fonts (Inter font family)
+
+**Module Loading Order** (important - dependencies must load first):
+1. `icons.js` - Used by jobs and presets
+2. `jobs.js` - Used by presets
+3. `characters.js` - Character data
+4. `espers.js` - Esper data and zodiac symbols
+5. `presets.js` - Build configurations (depends on all above)
 
 ### Key Data Structures
 
@@ -118,9 +131,15 @@ python3 -m http.server 8000
 
 ### Making Data Changes
 
-To modify game data (jobs, espers, presets), edit the JavaScript objects in the `<script>` section starting around line 84.
+Game data is organized into modular files in the `data/` directory. Edit the appropriate file based on what you want to modify:
 
-**Example - Adding a new preset with party compositions**:
+- **Add/modify UI icons**: Edit `data/icons.js`
+- **Change job definitions**: Edit `data/jobs.js`
+- **Update character portraits**: Edit `data/characters.js`
+- **Modify esper unlocks**: Edit `data/espers.js`
+- **Add/modify builds**: Edit `data/presets.js`
+
+**Example - Adding a new preset** (in `data/presets.js`, add to the `PRESETS` object):
 ```javascript
 'Custom Build': {
     desc: 'Your description here',
@@ -148,11 +167,15 @@ To modify game data (jobs, espers, presets), edit the JavaScript objects in the 
 
 ### Styling Changes
 
-- **Tailwind utilities**: Use inline Tailwind classes (already loaded from CDN)
-- **Custom styles**: Edit the `<style>` block (lines 14-80) for custom CSS
-- **Theme colors**: Modify `ff-panel` class or color definitions
+- **Tailwind utilities**: Use inline Tailwind classes in `index.html` (already loaded from CDN)
+- **Custom styles**: Edit `styles.css` for custom CSS
+- **Theme colors**: Modify `ff-panel` class or color definitions in `styles.css`
 
 ## Important Implementation Notes
+
+### UI Design Principles
+
+**CRITICAL: NO EMOJIS** - This application uses SVG icons from the `Icons` object for all visual elements. NEVER use emojis (🎯, ⚔️, ✨, etc.) in the UI or code. If you need an icon, add it to the `Icons` object as an SVG path. This maintains visual consistency and ensures the FFXII-inspired aesthetic.
 
 ### Alpine.js Reactivity
 

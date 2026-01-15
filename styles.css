@@ -1,0 +1,188 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: rgb(8, 15, 25);
+    color: #ffffff;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* FF XII Menu Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('./backgrounds/screenshot-337-cropped.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(8px);
+    transform: scale(1.1);
+    z-index: -1;
+}
+
+/* Mist/Particle Overlay */
+.mist-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: -1;
+    animation: mistMove 60s linear infinite;
+}
+
+@keyframes mistMove {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 1000px 1000px;
+    }
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(5, 15, 25, 0.4) 0%, rgba(10, 25, 40, 0.2) 100%);
+    z-index: -1;
+}
+
+/* Custom FFXII Cursor */
+html,
+body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M2,2 L14,14 L9,14 L16,26 L19,23 L12,11 L17,11 L2,2 Z" fill="white" stroke="%2300d4ff" stroke-width="1.5"/></svg>'), auto;
+}
+
+button,
+a,
+[role="button"] {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M2,2 L14,14 L9,14 L16,26 L19,23 L12,11 L17,11 L2,2 Z" fill="%23ffd700" stroke="white" stroke-width="1.5"/></svg>'), pointer;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    background: linear-gradient(to bottom, #ffffff 0%, #a0aec0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.fantasy-font {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+/* FF XII Dark Panel - Blue-gray tint like actual game menus */
+.ff-panel {
+    background: rgba(15, 25, 35, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ff-panel::before,
+.ff-panel::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba(0, 212, 255, 0.4);
+    pointer-events: none;
+}
+
+.ff-panel::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.ff-panel::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: 0;
+    border-top: 0;
+}
+
+.ff-panel:hover {
+    background: rgba(20, 35, 50, 0.9);
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.1);
+}
+
+.teal-accent {
+    color: #00d4ff;
+}
+
+.yellow-accent {
+    color: #ffd700;
+}
+
+/* Tooltip Styles */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 20, 30, 0.95);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    font-size: 11px;
+    white-space: nowrap;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: 110%;
+}
+
+/* Custom Scrollbar - Yellow accent */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(10, 20, 30, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffed4e;
+}
