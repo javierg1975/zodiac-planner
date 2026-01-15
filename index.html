@@ -8,6 +8,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,7 +16,6 @@
 </head>
 
 <body>
-    <div class="mist-overlay"></div>
     <!-- Game Data Modules -->
     <script src="./data/icons.js"></script>
     <script src="./data/jobs.js"></script>
@@ -29,7 +29,6 @@
         expanded: JSON.parse(localStorage.getItem('ffxii_expanded') || '{}'),
         selectedParty: parseInt(localStorage.getItem('ffxii_party') || '0'),
         teamView: localStorage.getItem('ffxii_team') || 'A',
-        searchQuery: '',
         init() {
             this.$watch('preset', val => localStorage.setItem('ffxii_preset', val));
             this.$watch('expanded', val => localStorage.setItem('ffxii_expanded', JSON.stringify(val)));
@@ -73,18 +72,11 @@
             if (!this.bTeamMembers) return false;
             return this.bTeamMembers.includes(charName);
         },
-        shouldShowCharacter(build) {
-            const matchesSearch = this.searchQuery === '' || 
-                build.char.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                build.jobs.some(job => job.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
-                build.role.toLowerCase().includes(this.searchQuery.toLowerCase());
-            
-            if (!matchesSearch) return false;
-
+        shouldShowCharacter(charName) {
             if (this.teamView === 'A') {
-                return this.isInActiveParty(build.char);
+                return this.isInActiveParty(charName);
             } else {
-                return this.isInBTeam(build.char);
+                return this.isInBTeam(charName);
             }
         }
     }" class="min-h-screen text-white selection:bg-cyan-500/30">
@@ -113,40 +105,87 @@
                         <template x-for="(phaseData, phaseKey) in groupedPresets" :key="phaseKey">
                             <div x-show="phaseData.presets.length > 0">
                                 <!-- Category Header -->
-                                <div class="px-3 py-2 border-b border-cyan-500/20">
-                                    <h3 class="text-xs font-bold text-yellow-400 uppercase tracking-wider"
-                                        x-text="phaseData.label"></h3>
+                                <div class="ff-category-header">
+                                    <h3 x-text="phaseData.label"></h3>
                                 </div>
 
                                 <!-- Presets in this category -->
-                                <div class="grid grid-cols-1 gap-1 px-1 py-1">
+                                <div class="flex flex-col">
                                     <template x-for="item in phaseData.presets" :key="item.name">
-                                        <button
-                                            @click="preset = item.name; expanded = {}; selectedParty = 0; teamView = 'A'"
-                                            :class="{
-                                                'bg-cyan-500/20 text-cyan-300 shadow-lg border border-cyan-500/50 shadow-cyan-500/20': preset === item.name,
-                                                'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent': preset !== item.name
-                                            }"
-                                            class="px-4 py-3 text-left rounded-lg transition-all duration-200 flex items-start gap-3">
-                                            <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-0.5"
-                                                :class="{
-                                                     'bg-cyan-500/30 border border-cyan-500': preset === item.name,
-                                                     'bg-white/5 border border-gray-600': preset !== item.name
-                                                 }">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" class="w-4 h-4" :class="{
-                                                         'text-cyan-400': preset === item.name,
-                                                         'text-gray-400': preset !== item.name
-                                                     }" x-html="getPresetIcon(item.name)"></svg>
-                                            </div>
-                                            <div class="flex-1">
-                                                <div class="font-bold text-base tracking-tight" x-text="item.name">
+                                        <div class="ff-preset-btn" :class="{ 'active': preset === item.name }">
+                                            <button
+                                                @click="preset = item.name; expanded = {}; selectedParty = 0; teamView = 'A'"
+                                                class="w-full text-left focus:outline-none group">
+                                                <div class="ff-punch-label"
+                                                    x-text="item.data.shortName || item.name.split(' ')[0]"></div>
+                                                <div class="flex flex-col gap-0.5 overflow-hidden">
+                                                    <div class="ff-detail-title" x-text="item.name"></div>
+                                                    <div class="ff-detail-desc truncate opacity-40 uppercase tracking-tight"
+                                                        x-text="item.data.desc"></div>
                                                 </div>
-                                                <div class="text-xs font-normal opacity-70 mt-1"
-                                                    x-text="item.data.desc"></div>
+                                                <div
+                                                    class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                                                    ▶</div>
+                                            </button>
+
+                                            <!-- Tactical Snapshot Expansion -->
+                                            <div x-show="preset === item.name" x-collapse>
+                                                <div class="ff-rich-content p-4 space-y-6">
+                                                    <!-- Technical Metric Matrix -->
+                                                    <div class="grid grid-cols-3 gap-8">
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value" x-text="item.data.metrics.lp">
+                                                            </div>
+                                                            <div class="ff-metric-label mb-2">LP Sync</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-system"
+                                                                    :style="`width: ${item.data.metrics.lp}%`"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value" x-text="item.data.metrics.atk">
+                                                            </div>
+                                                            <div class="ff-metric-label mb-2">Power</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-offense"
+                                                                    :style="`width: ${item.data.metrics.atk}%`"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value"
+                                                                x-text="item.data.metrics.flex"></div>
+                                                            <div class="ff-metric-label mb-2">Flex</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-defense"
+                                                                    :style="`width: ${item.data.metrics.flex}%`"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Synergy Markers -->
+                                                    <div
+                                                        class="flex flex-wrap gap-2 text-[9px] font-black tracking-widest uppercase">
+                                                        <template
+                                                            x-for="esper in item.data.requirements.keyEspers.slice(0, 2)">
+                                                            <span
+                                                                class="bg-[#2a4555] border border-cyan-400/30 px-2 py-1"
+                                                                x-text="esper.split(' ')[0]"></span>
+                                                        </template>
+                                                        <span class="bg-[#2a4555] border border-cyan-400/30 px-2 py-1"
+                                                            x-text="item.data.phase"></span>
+                                                    </div>
+
+                                                    <!-- Tactical Requirement -->
+                                                    <div class="ff-selector-alert">
+                                                        <div
+                                                            class="font-black text-[10px] uppercase tracking-widest text-[#ffd700] mb-2">
+                                                            Tactical Requirement</div>
+                                                        <div class="opacity-90" x-text="item.data.requirements.notes">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </button>
+                                        </div>
                                     </template>
                                 </div>
                             </div>
@@ -370,104 +409,64 @@
                     </p>
                 </div>
 
-                <!-- Search & Filters -->
-                <div class="mb-6">
-                    <div class="relative">
-                        <input type="text" x-model="searchQuery" placeholder="Search characters, jobs, or roles..."
-                            class="w-full bg-black/40 border border-cyan-500/30 rounded-lg py-3 px-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all">
-                        <div class="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-500/50">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-5 h-5" x-html="Icons.Search"></svg>
-                        </div>
-                        <button x-show="searchQuery !== ''" @click="searchQuery = ''"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-4 h-4" x-html="Icons.X"></svg>
-                        </button>
-                    </div>
-                </div>
-
                 <template x-for="(build, i) in current.builds" :key="build.char + '-' + selectedParty">
-                    <div x-show="shouldShowCharacter(build)" x-transition:enter="transition ease-out duration-300"
+                    <div x-show="shouldShowCharacter(build.char)" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 transform scale-100"
-                        x-transition:leave-end="opacity-0 transform scale-95"
-                        class="relative ff-panel rounded-lg overflow-visible transition-all duration-300"
-                        :class="expanded[i] ? 'ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20' : ''"
-                        :style="expanded[i] ? 'background: rgba(15, 30, 45, 0.95)' : ''">
+                        class="relative ff-char-card overflow-visible transition-all duration-300"
+                        :class="expanded[i] ? 'bg-white/[0.02]' : ''">
+
                         <button @click="expanded[i] = !expanded[i]"
-                            class="w-full flex items-stretch text-left group pl-20 md:pl-28 relative">
-                            <!-- Overlapping Portrait -->
+                            class="w-full flex items-stretch text-left group pl-24 md:pl-32 relative min-h-[100px]">
+
+                            <!-- Overlapping Portrait - Technical Frame -->
                             <div
-                                class="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-20 h-20 md:w-24 md:h-24 pointer-events-none">
-                                <div class="relative w-full h-full rounded overflow-hidden border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/20"
-                                    style="background: linear-gradient(to bottom right, rgb(10, 20, 30), rgb(20, 30, 40))">
+                                class="absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-24 h-24 md:w-28 md:h-28 pointer-events-none">
+                                <div class="ff-char-portrait-frame">
                                     <img :src="CHAR_IMAGES[build.char]" :alt="build.char"
                                         class="w-full h-full object-cover"
-                                        @error="$el.style.display = 'none'; $el.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-3xl', 'font-bold', 'text-cyan-400'); $el.parentElement.innerText = build.char[0]" />
+                                        @error="$el.style.display = 'none'; $el.parentElement.classList.add('flex', 'items-center', 'justify-center', 'text-2xl', 'font-black', 'text-cyan-400'); $el.parentElement.innerText = build.char[0]" />
                                 </div>
                             </div>
 
-                            <!-- Info Section -->
-                            <div class="flex-1 flex flex-col justify-between py-3 pr-4 pl-4 md:py-4 md:pr-6 md:pl-6">
-                                <div>
-                                    <div class="flex items-center gap-2 mb-2 flex-wrap">
-                                        <h2 class="text-2xl md:text-3xl font-bold text-white leading-none tracking-tight"
-                                            x-text="build.char"></h2>
-                                        <span
-                                            class="text-[10px] font-bold text-yellow-400 uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/30"
-                                            x-text="build.role"></span>
-                                    </div>
-                                </div>
-
-                                <div class="flex justify-between items-end">
-                                    <div class="flex-1">
-                                        <!-- Job Badges - Dark Theme -->
-                                        <div class="flex flex-wrap gap-2">
-                                            <template x-for="job in build.jobs" :key="job">
-                                                <div class="flex items-center gap-2 pl-2 pr-3 py-1.5 rounded border text-sm font-semibold shadow-sm"
-                                                    :style="`background-color: rgba(10, 20, 30, 0.6); border-color: ${JOBS[job].color}60; color: ${JOBS[job].color}`"
-                                                    :data-tooltip="JOBS[job].desc || job">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        fill="none" stroke="currentColor" stroke-width="2"
-                                                        stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"
-                                                        x-html="Icons[JOBS[job].icon]"></svg>
-                                                    <span x-text="job"></span>
-                                                </div>
-                                            </template>
-                                        </div>
-
-                                        <!-- Espers Mini-list (Collapsed View) -->
-                                        <div x-show="!expanded[i] && build.espers.length > 0"
-                                            class="flex flex-wrap gap-2 mt-3 pt-3 border-t border-cyan-500/20">
-                                            <template x-for="e in build.espers" :key="e">
-                                                <div class="flex items-center gap-1.5 group" :data-tooltip="e">
-                                                    <div
-                                                        class="w-6 h-6 rounded-full border-2 border-cyan-400/60 bg-gradient-to-br from-cyan-500/30 to-cyan-600/20 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                            fill="none" stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="w-3.5 h-3.5 text-cyan-300"
-                                                            stroke-width="2.5"
+                            <!-- Info Section - Technical Hierarchy -->
+                            <div class="flex-1 flex flex-col justify-center py-4 pr-6">
+                                <div class="flex items-end justify-between gap-4">
+                                    <div>
+                                        <div class="ff-char-name-punch mb-1" x-text="build.char"></div>
+                                        <div class="flex items-center gap-4">
+                                            <span
+                                                class="text-[9px] font-black text-yellow-500 uppercase tracking-[0.2em]"
+                                                x-text="build.role"></span>
+                                            <div class="flex gap-1" x-show="build.espers.length > 0">
+                                                <template x-for="e in build.espers" :key="e">
+                                                    <div class="ff-esper-glyph-box" :title="e">
+                                                        <svg viewBox="0 0 24 24"
                                                             x-html="ZodiacGlyphs[ESPER_ZODIAC[e]]"></svg>
                                                     </div>
-                                                    <span
-                                                        class="text-xs font-bold text-cyan-300 uppercase tracking-wide"
-                                                        x-text="e"></span>
-                                                </div>
-                                            </template>
+                                                </template>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <span class="ff-char-level-label">Level</span>
+                                                <span class="ff-metric-value !text-lg"
+                                                    x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="p-2 rounded-full transition-colors self-start"
-                                        :class="expanded[i] ? 'bg-cyan-500/20 text-cyan-400' : 'text-gray-500 group-hover:text-gray-400'">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="w-5 h-5"
-                                            x-html="expanded[i] ? Icons.ChevronUp : Icons.ChevronDown"></svg>
+                                    <div class="flex flex-col items-end gap-3">
+                                        <!-- Job Badges - High Impact Technical -->
+                                        <div class="flex flex-wrap gap-2">
+                                            <template x-for="job in build.jobs" :key="job">
+                                                <div class="ff-job-tag-tech"
+                                                    :style="`border-color: ${JOBS[job].color}60; color: ${JOBS[job].color}; background: ${JOBS[job].color}10`"
+                                                    x-text="job"></div>
+                                            </template>
+                                        </div>
+                                        <div
+                                            class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-y-1 transition-all">
+                                            <span x-text="expanded[i] ? '▲' : '▼'"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
