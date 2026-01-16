@@ -292,6 +292,10 @@ h3 {
         min-height: 110px;
         /* Compact for desktop */
     }
+
+    .lg\:col-span-8 {
+        padding-bottom: 2rem;
+    }
 }
 
 /* Technical Corner Ticks for the entire row */

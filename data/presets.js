@@ -1,21 +1,21 @@
 const PRESETS = {
     'Max Efficiency': {
         shortName: 'Efficiency',
-        desc: 'Zero-redundancy configuration. Engineered for total license synchronization.',
+        desc: 'Zero-redundancy configuration. Refined for total license synergy.',
         metrics: { lp: 98, atk: 85, flex: 90 },
         phase: 'mid',
         requirements: {
             availability: 'Mid-Game Phase',
             unlocks: 'Belias Defeated (Mt Bur-Omisace) - Dual-job authorization required.',
             criticalGear: [
-                'Main Gauche [ASSERT: CRITICAL - Evasion Mastery]',
-                'Genji Gloves [ASSERT: CRITICAL - Combo Optimization]'
+                'Main Gauche [PRIORITY: ALPHA - Evasion Mastery]',
+                'Genji Gloves [PRIORITY: ALPHA - Combo Optimization]'
             ],
             keyEspers: ['Exodus/Zeromus (Channeling)', 'Ultima/Zodiark (Swiftness/Renew)', 'Chaos (Hastega)'],
             recommendedLevel: 'Level 40-50',
             notes: 'Optimization depends on dual-job unlocks. Single-job deployment significantly degrades efficiency metrics.'
         },
-        why: 'Engineered for tactical completionists. This configuration ensures near-zero license overlap, maximizing the utility of every spent License Point. It facilitates rapid endgame scaling by providing early access to critical augments and Swiftness tiers across the primary rotation.',
+        why: 'Refined for dedicated completionists. This configuration ensures near-zero license overlap, maximizing the utility of every spent License Point. It facilitates rapid endgame scaling by providing early access to critical augments and Swiftness tiers across the primary rotation.',
         parties: [
             { name: 'Core Operations', members: ['Vaan', 'Fran', 'Penelo'], why: 'Balanced tactical unit. High-tier evasion tanking synchronized with Renew/Hastega support.' },
             { name: 'Heavy Assault', members: ['Balthier', 'Basch', 'Fran'], why: 'Prioritizes raw physical damage. Includes full Break suite and specialized Berserker combat logic.' },
@@ -39,15 +39,15 @@ const PRESETS = {
             availability: 'Intermediary to Late Game',
             unlocks: 'Advanced Esper Clearance - Anticipate significant LP investment.',
             criticalGear: [
-                'Genji Gloves [ASSERT: CRITICAL - Combo Threshold]',
-                'Berserk Bracers [ASSERT: CRITICAL - Offensive Automation]',
-                'Dragon Whisker / Masamune [ASSERT: CRITICAL - Apex DPS]'
+                'Genji Gloves [PRIORITY: ALPHA - Combo Threshold]',
+                'Berserk Bracers [PRIORITY: ALPHA - Offensive Automation]',
+                'Dragon Whisker / Masamune [PRIORITY: ALPHA - Apex DPS]'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit (Hastega)', 'Exodus (Channeling)'],
             recommendedLevel: 'Level 60+',
-            notes: 'Genji Gloves are [STATUS: MANDATORY] for all core DPS nodes. Do not deploy with firearms or long-range ballistic protocols.'
+            notes: 'Genji Gloves are [STATUS: ESSENTIAL] for all core DPS nodes. Do not deploy with firearms or long-range ballistic protocols.'
         },
-        why: 'Engineered for supreme offensive dominance. Sacrifices license efficiency (LP) to maximize Battle Lore accumulation and STR-scaling. This configuration provides ~20% higher damage output compared to efficiency-focused builds at the cost of combat versatility.',
+        why: 'Developed for supreme offensive dominance. Sacrifices license efficiency (LP) to maximize Battle Lore accumulation and STR-scaling. This configuration provides ~20% higher damage output compared to efficiency-focused builds at the cost of combat versatility.',
         parties: [
             { name: 'Elimination Suite', members: ['Vaan', 'Balthier', 'Fran'], why: 'Maximum DPS throughput. Triple-Berserker configuration [STATUS: MANDATORY] for DPS optimization.' },
             { name: 'Apex Endurance', members: ['Balthier', 'Fran', 'Penelo'], why: 'Sustained high-output DPS. Includes full break suite and evasion-based recovery.' },
@@ -71,8 +71,8 @@ const PRESETS = {
             availability: 'Standard Early-Game',
             unlocks: 'Universal Authorization - Operational from Phase 1.',
             criticalGear: [
-                'Main Gauche [ASSERT: CRITICAL - Evasion Base]',
-                'Genji Gloves [ASSERT: CRITICAL - Combo Entry]'
+                'Main Gauche [PRIORITY: ALPHA - Evasion Base]',
+                'Genji Gloves [PRIORITY: ALPHA - Combo Entry]'
             ],
             keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)', 'Cuchulainn (Remedy Lore)'],
             recommendedLevel: 'Level 1+',
@@ -133,19 +133,19 @@ const PRESETS = {
         phase: 'late',
         requirements: {
             availability: 'Apex Endgame Only',
-            unlocks: 'Total Esper Clearance - Max-tier equipment procurement [STATUS: MANDATORY].',
+            unlocks: 'Total Esper Clearance - Max-tier equipment procurement [STATUS: ESSENTIAL].',
             criticalGear: [
-                'Fomalhaut [ASSERT: CRITICAL - Dark Shot synergy]',
-                'Ribbon [ASSERT: CRITICAL - Confusion Mitigation]',
-                'Bubble Belt [ASSERT: CRITICAL - HP Threshold]',
-                'Genji Gloves [ASSERT: CRITICAL - Combo Mastery]',
-                'Grand Armor [ASSERT: CRITICAL - Mitigation Peak]'
+                'Fomalhaut [PRIORITY: ALPHA - Dark Shot synergy]',
+                'Ribbon [PRIORITY: ALPHA - Confusion Mitigation]',
+                'Bubble Belt [PRIORITY: ALPHA - HP Threshold]',
+                'Genji Gloves [PRIORITY: ALPHA - Combo Mastery]',
+                'Grand Armor [PRIORITY: ALPHA - Mitigation Peak]'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit/Zeromus (Channeling/Hastega)', 'Chaos (Renew/Hastega)'],
             recommendedLevel: 'Level 80-99',
             notes: 'Multi-hour engagement duration. Mission failure likely without Ribbon and Bubble Belt protocols.'
         },
-        why: 'Engineered exclusively for apex-level targets. Features Dark Shot/Black Robe synergy, automated Reverse/Decoy loops, and high-tier MP regeneration for infinite combat cycles. Not recommended for standard field operations.',
+        why: 'Refined exclusively for apex-level targets. Features Dark Shot/Black Robe synergy, automated Reverse/Decoy loops, and high-tier MP regeneration for infinite combat cycles. Not recommended for standard field operations.',
         parties: [
             { name: 'Apex Rotation', members: ['Vaan', 'Balthier', 'Fran'], why: 'The primary endurance unit. Features high-output DPS synchronized with Dark Shot/Reverse logistics.' },
             { name: 'Relief Squad', members: ['Basch', 'Ashe', 'Penelo'], why: 'Backup stability unit. Deploys Decoy tanking and dual-Reverse support to stabilize main unit fatigue.' },
@@ -169,10 +169,10 @@ const PRESETS = {
             availability: 'Initial Deployment',
             unlocks: 'Archetype Authorization - Operational from Phase 1.',
             criticalGear: [
-                'Main Gauche [ASSERT: CRITICAL - Street Thief signature]',
-                'Fomalhaut [ASSERT: CRITICAL - Sky Pirate signature]',
-                'Perseus Bow [ASSERT: CRITICAL - Viera Archer signature]',
-                'Grand Armor [ASSERT: CRITICAL - Royal Guard signature]'
+                'Main Gauche [PRIORITY: ALPHA - Street Thief signature]',
+                'Fomalhaut [PRIORITY: ALPHA - Sky Pirate signature]',
+                'Perseus Bow [PRIORITY: ALPHA - Viera Archer signature]',
+                'Grand Armor [PRIORITY: ALPHA - Royal Guard signature]'
             ],
             keyEspers: ['Chaos/Exodus (Channeling)', 'Famfrit (Hastega)', 'Ultima (Swiftness)'],
             recommendedLevel: 'Level 1+',
