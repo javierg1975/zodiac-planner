@@ -99,6 +99,52 @@
                 isLeader(charName) {
                     const currentTeam = this.teamView === 'A' ? this.activePartyMembers : this.bTeamMembers;
                     return currentTeam && currentTeam[0] === charName;
+                },
+                getGambitType(gambit) {
+                    // Comments in parentheses get neutral styling
+                    if (gambit.trim().startsWith('(')) {
+                        return 'neutral';
+                    }
+
+                    const text = gambit.toLowerCase();
+                    // Check target in gambit text (before the →)
+                    const target = gambit.includes(' → ') ? gambit.split(' → ')[0].toLowerCase() : text;
+
+                    // Blue = Ally or Self targets
+                    if (target.includes('ally') || target.includes('self:')) {
+                        return 'ally';
+                    }
+                    // Red = Foe targets
+                    if (target.includes('foe')) {
+                        return 'foe';
+                    }
+                    return 'neutral';
+                },
+                renderGearItem(item) {
+                    if (item.includes(' | ')) {
+                        const [gear, reason] = item.split(' | ');
+                        return `<span class="font-extrabold text-yellow-300">${gear.trim()}</span> <span class="text-gray-500 mx-1">›</span> <span class="text-gray-400">${reason.trim()}</span>`;
+                    }
+                    return `<span class="text-gray-300">${item}</span>`;
+                },
+                gradeToPercent(grade) {
+                    const mapping = { 'S': 95, 'A': 80, 'B': 65, 'C': 50, 'D': 35 };
+                    return mapping[grade] || 50;
+                },
+                gradeToWord(grade) {
+                    const words = { 'S': 'MAX', 'A': 'HIGH', 'B': 'GOOD', 'C': 'LOW', 'D': 'WEAK' };
+                    return words[grade] || 'N/A';
+                },
+                gradeColor(grade) {
+                    return grade === 'S' ? 'text-amber-400' : 'text-white';
+                },
+                renderNotes(text) {
+                    if (!text) return '';
+                    // Split by period followed by space or end of string, filter empty
+                    const sentences = text.split(/\.\s+/).filter(s => s.trim());
+                    return sentences.map(sentence =>
+                        `<div class="flex gap-2"><span class="text-cyan-400/60 flex-shrink-0">›</span><span>${sentence.trim()}.</span></div>`
+                    ).join('');
                 }
             }))
         })
@@ -160,30 +206,35 @@
                                                     <!-- Technical Metric Matrix -->
                                                     <div class="grid grid-cols-3 gap-8">
                                                         <div class="flex flex-col">
-                                                            <div class="ff-metric-value" x-text="item.data.metrics.lp">
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.lp)"
+                                                                x-text="gradeToWord(item.data.metrics.lp)">
                                                             </div>
                                                             <div class="ff-metric-label mb-2">LP Sync</div>
                                                             <div class="ff-gauge-container !h-1 bg-white/10">
                                                                 <div class="ff-gauge-fill bar-system"
-                                                                    :style="`width: ${item.data.metrics.lp}%`"></div>
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.lp)}%`"></div>
                                                             </div>
                                                         </div>
                                                         <div class="flex flex-col">
-                                                            <div class="ff-metric-value" x-text="item.data.metrics.atk">
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.atk)"
+                                                                x-text="gradeToWord(item.data.metrics.atk)">
                                                             </div>
                                                             <div class="ff-metric-label mb-2">Power</div>
                                                             <div class="ff-gauge-container !h-1 bg-white/10">
                                                                 <div class="ff-gauge-fill bar-offense"
-                                                                    :style="`width: ${item.data.metrics.atk}%`"></div>
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.atk)}%`"></div>
                                                             </div>
                                                         </div>
                                                         <div class="flex flex-col">
-                                                            <div class="ff-metric-value"
-                                                                x-text="item.data.metrics.flex"></div>
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.flex)"
+                                                                x-text="gradeToWord(item.data.metrics.flex)"></div>
                                                             <div class="ff-metric-label mb-2">Flex</div>
                                                             <div class="ff-gauge-container !h-1 bg-white/10">
                                                                 <div class="ff-gauge-fill bar-defense"
-                                                                    :style="`width: ${item.data.metrics.flex}%`"></div>
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.flex)}%`"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -197,16 +248,14 @@
                                                                 class="bg-[#2a4555] border border-cyan-400/30 px-2 py-1"
                                                                 x-text="esper.split(' ')[0]"></span>
                                                         </template>
-                                                        <span class="bg-[#2a4555] border border-cyan-400/30 px-2 py-1"
-                                                            x-text="item.data.phase"></span>
                                                     </div>
 
-                                                    <!-- Tactical Requirement -->
+                                                    <!-- Notes -->
                                                     <div class="ff-selector-alert">
                                                         <div
-                                                            class="font-black text-[10px] uppercase tracking-widest text-[#ffd700] mb-2">
-                                                            Tactical Requirement</div>
-                                                        <div class="opacity-90" x-text="item.data.requirements.notes">
+                                                            class="font-black text-[10px] uppercase tracking-widest text-[#ffd700] mb-3">
+                                                            Notes</div>
+                                                        <div class="opacity-90 space-y-2" x-html="renderNotes(item.data.requirements.notes)">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -278,7 +327,7 @@
                                         class="w-2.5 h-2.5 rounded-full bg-amber-400 group-hover:animate-pulse shadow-[0_0_8px_rgba(255,176,0,0.5)]">
                                     </div>
                                     <span class="text-[10px] font-black uppercase tracking-[0.25em] text-amber-400"
-                                        x-text="showBuildDetails ? 'COLLAPSE_DETAILED_SPECIFICATIONS' : 'EXPAND_DETAILED_SPECIFICATIONS'"></span>
+                                        x-text="showBuildDetails ? 'Hide Details' : 'Show Details'"></span>
                                 </button>
                             </div>
                         </div>
@@ -364,7 +413,7 @@
                                         <template x-for="item in current.requirements.criticalGear" :key="item">
                                             <li class="text-[13px] text-gray-200 flex items-start gap-3">
                                                 <span class="text-yellow-500/60 flex-shrink-0 mt-1 scale-125">▸</span>
-                                                <span x-html="renderStatusNote(item)"></span>
+                                                <span x-html="renderGearItem(item)"></span>
                                             </li>
                                         </template>
                                     </ul>
@@ -416,9 +465,9 @@
                             class="mt-8 p-5 rounded border border-yellow-500/30 bg-yellow-500/[0.03] flex items-start gap-4">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-5 h-5 text-yellow-500 mt-0.5" x-html="Icons.AlertCircle"></svg>
-                            <p class="text-[13px] text-gray-300 leading-relaxed italic"
-                                x-html="renderStatusNote(current.requirements.notes)"></p>
+                                class="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" x-html="Icons.AlertCircle"></svg>
+                            <div class="text-[13px] text-gray-300 leading-relaxed space-y-2"
+                                x-html="renderNotes(current.requirements.notes)"></div>
                         </div>
                     </div>
 
@@ -474,7 +523,7 @@
                                     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
-                                <span>Team A</span>
+                                <span>Main Team</span>
                             </div>
                         </button>
                         <button @click="teamView = 'B'"
@@ -492,15 +541,15 @@
                                     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
-                                <span>Team B</span>
+                                <span>Backup Team</span>
                             </div>
                         </button>
                     </div>
                     <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'A'">
-                        <span x-text="current.parties[selectedParty].name"></span> - Active combat party
+                        <span x-text="current.parties[selectedParty].name"></span> - Active party
                     </p>
                     <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'B'">
-                        Leveling rotation - Switch in for experience distribution
+                        Reserve characters - Switch in for leveling
                     </p>
                 </div>
 
@@ -681,7 +730,7 @@
                                         </div>
                                         <div class="space-y-1">
                                             <template x-for="(gambit, gi) in build.gambits" :key="gi">
-                                                <div class="ff-gambit-row">
+                                                <div class="ff-gambit-row" :class="'ff-gambit-' + getGambitType(gambit)">
                                                     <span class="ff-gambit-number" x-text="gi + 1"></span>
                                                     <span class="ff-gambit-target"
                                                         x-text="gambit.includes(' → ') ? gambit.split(' → ')[0] : gambit"></span>
@@ -711,9 +760,9 @@
                                             style="background: rgba(20, 35, 50, 0.6)">
                                             <template x-for="(item, gi) in build.gear" :key="gi">
                                                 <div
-                                                    class="text-xs text-gray-200 mb-1.5 last:mb-0 flex items-start gap-2">
-                                                    <span class="text-yellow-400 flex-shrink-0">▸</span>
-                                                    <span class="text-gray-300" x-text="item"></span>
+                                                    class="text-xs text-gray-200 mb-2 last:mb-0 flex items-start gap-2 leading-relaxed">
+                                                    <span class="text-yellow-400 flex-shrink-0 mt-0.5">▸</span>
+                                                    <span x-html="renderGearItem(item)"></span>
                                                 </div>
                                             </template>
                                         </div>
@@ -748,10 +797,21 @@
                     <div class="text-[9px] font-bold text-cyan-500/30 uppercase tracking-widest">Zodiac Age Optimization
                         Records</div>
                 </div>
-                <!-- Final Decorative Scroll Guard -->
-                <div
-                    class="mt-8 text-[10px] text-white/5 font-black uppercase tracking-[1em] pointer-events-none select-none">
-                    END_OF_RECORD
+                <!-- Final Decorative Scroll Guard - Zodiac Glyphs -->
+                <div class="mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4 opacity-5 pointer-events-none select-none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♈']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♉']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♊']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♋']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♌']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♍']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♎']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♏']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['⛎']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♐']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♑']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♒']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white" x-html="ZodiacGlyphs['♓']"></svg>
                 </div>
             </div>
         </footer>

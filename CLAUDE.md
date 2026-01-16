@@ -19,11 +19,12 @@ This is a **static web application** with no build process or external dependenc
 - **`styles.css`** (~11K): Custom FFXII premium tactical styling
 
 **Data Modules (`data/` directory):**
-- **`icons.js`** (4.5K): SVG path definitions for all UI icons and job symbols
+- **`icons.js`** (4.5K): SVG path definitions for all UI icons, job symbols, and preset icons
 - **`jobs.js`** (1.1K): Job class definitions with colors and types
 - **`characters.js`** (671B): Character portrait URLs from Final Fantasy Wiki
 - **`espers.js`** (4.4K): Zodiac glyphs, esper unlocks, and zodiac mappings
 - **`presets.js`** (28K): All 6 pre-configured party builds with requirements, gambits, and gear
+- **`memoirs.js`** (1.5K): Random memoir quotes from Marquise Halim Ondore IV
 
 **External Dependencies (CDN)**:
 - Alpine.js 3.x (reactive UI framework)
@@ -36,17 +37,20 @@ This is a **static web application** with no build process or external dependenc
 3. `characters.js` - Character data
 4. `espers.js` - Esper data and zodiac symbols
 5. `presets.js` - Build configurations (depends on all above)
+6. `memoirs.js` - Random memoir quotes for footer
 
 ### Key Data Structures
 
 All game data is hardcoded in JavaScript objects:
 
-- **`Icons`**: SVG path data for job icons and UI elements
+- **`Icons`**: SVG path data for job icons, UI elements, and preset icons
 - **`ZodiacGlyphs`**: SVG representations of zodiac symbols for each Esper
 - **`JOBS`**: 12 job classes with type (Mystic/Heavy/Light), color scheme, and associated icon
 - **`CHAR_IMAGES`**: Character portrait URLs from Final Fantasy Wiki
 - **`ESPER_UNLOCKS`**: Mapping of Espers → Jobs → License Board unlocks
 - **`ESPER_ZODIAC`**: Mapping of Espers to zodiac symbols
+- **`PRESET_ICONS`**: Mapping of preset names to their icon keys in the Icons object
+- **`MEMOIRS`**: Array of memoir quotes with chapter, title, and text
 - **`PRESETS`**: 6 pre-configured party builds:
   - "Max Efficiency" (98% - zero wasted licenses)
   - "DPS Nuclear" (85% - superboss focused)
@@ -56,8 +60,20 @@ All game data is hardcoded in JavaScript objects:
   - "Lore Friendly" (91% - canonical character roles)
 
 Each preset contains:
-- `desc`: Description of the build philosophy
-- `eff`: Efficiency percentage
+- `shortName`: Shortened name for compact display (e.g., "Efficiency")
+- `desc`: Short description of the build philosophy
+- `metrics`: Object with three percentage values (0-100):
+  - `lp`: License point efficiency/synergy
+  - `atk`: Offensive power rating
+  - `flex`: Flexibility/versatility rating
+- `phase`: Game phase indicator ('early', 'mid', or 'late') for preset grouping
+- `requirements`: Comprehensive build requirements object:
+  - `availability`: When the build becomes accessible
+  - `unlocks`: What needs to be unlocked (supports `[STATUS: CRITICAL]` and `[STATUS: MANDATORY]` annotations)
+  - `criticalGear`: Array of essential gear items with priority tags
+  - `keyEspers`: Array of important Espers with their tactical purpose
+  - `recommendedLevel`: Level range (e.g., "Level 40-50")
+  - `notes`: Additional important notes and warnings
 - `why`: Detailed explanation of the build strategy
 - `parties`: Array of 3 recommended 3-person party compositions:
   - `name`: Party composition name (e.g., "Evasion Core")
@@ -75,11 +91,12 @@ Each preset contains:
 ### Alpine.js State Management
 
 **Reactive State** (x-data on root div):
-- `preset`: Currently selected build preset (string)
-- `expanded`: Object tracking which character cards are expanded ({ [index]: boolean })
-- `selectedParty`: Index of currently selected party composition (0-2)
-- `teamView`: Current team view ('A' for active, 'B' for bench)
+- `preset`: Currently selected build preset (string) - persisted to localStorage
+- `expanded`: Object tracking which character cards are expanded ({ [index]: boolean }) - persisted to localStorage
+- `selectedParty`: Index of currently selected party composition (0-2) - persisted to localStorage
+- `teamView`: Current team view ('A' for active, 'B' for bench) - persisted to localStorage
 - `showBuildDetails`: Toggle for the technical briefing expansion (boolean)
+- `memoir`: Random memoir object selected on initialization (from MEMOIRS array)
 
 **Computed Properties**:
 - `current`: Returns the current preset object (PRESETS[this.preset])
@@ -87,28 +104,59 @@ Each preset contains:
 - `activePartyMembers`: Returns members of the currently selected party
 - `bTeamMembers`: Returns characters not in the active party
 - `shouldShowCharacter(charName)`: Logic for filtering characters based on teamView and selection
+- `isLeader(charName)`: Returns true if character is first in the current team (leader position)
+
+**Helper Methods**:
+- `getPresetIcon(presetName)`: Returns the SVG icon for a preset using the PRESET_ICONS mapping
+- `renderStatusNote(text)`: Parses text for `[STATUS: CRITICAL]` and `[STATUS: MANDATORY]` annotations and renders them as styled status badges with icons
+- `isInActiveParty(charName)`: Checks if character is in the currently selected party
+- `isInBTeam(charName)`: Checks if character is on the bench (Team B)
 
 ### UI Layout
 
-- **Header**: Title + "Zodiac Planner" branding
+- **Header**: Title + "Zodiac Planner" branding with subtitle
 - **Left Column (4/12)**:
-  - Phase-grouped preset categories (Early Game, Mid-Late, etc.)
-  - Preset selector buttons with short names and efficiency descriptions
+  - Phase-grouped preset categories (Early Game, Mid to Late Game, Late Game / Endgame)
+  - Preset selector buttons with:
+    - Large shortName display
+    - Full preset name
+    - Short description
+    - Expandable tactical snapshot showing:
+      - Three tactical metrics with visual gauges (LP Sync, Power, Flex)
+      - Synergy markers (key espers and phase tags)
+      - Tactical requirement panel
 - **Right Column (8/12)**:
-  - **Mission Briefing Panel**: Amber-themed tactical briefed with technical Specs
+  - **Mission Briefing Panel**: Amber-themed tactical briefing with:
+    - Archives header with metadata
+    - Build overview section
+    - Expandable detailed specifications:
+      - Availability timeline
+      - License unlocks (with status annotations)
+      - Critical gear requirements
+      - Key Esper attunement with zodiac glyphs
+      - Tactical notes and warnings
+    - Party formations selector (3 tactical compositions)
   - **Team Toggle**: Switch between Team A (Active) and Team B (Reserve)
-  - **Party Selectors**: 3 clickable tactical composition cards
   - **Cinematic Character Cards**: Detailed cards with:
     - Dynamic portrait backgrounds with legibility overlays
+    - Leader highlighting (bronze text for first character in team)
+    - Mini zodiac glyph readout for assigned espers
     - Right-aligned jobs/roles (mobile optimized)
-    - Expandable builds (Strategy, Gambits, Gear)
+    - Expandable builds (Strategy, Esper Unlocks, Gambits, Gear)
+- **Footer**:
+  - Random memoir excerpt from Marquise Halim Ondore IV
+  - Credits and decorative elements
 
 **Design Pattern**: The UI uses a premium "Tactical Dashboard" theme:
 - `ff-panel`: Obsidian-blue panels with cyan borders and amber accents
+- `ff-briefing-panel`: Amber-bordered mission briefing with technical grid overlay
 - `ff-cinematic-bg`: High-quality character art with linear gradients
 - `ff-row-tick`: Corner flourishes for a technical look
 - `ff-category-header`: Glowing tactical indicators and phase separators
+- `ff-status-node`: Inline status badges for CRITICAL/MANDATORY annotations
+- `ff-bronze-text`: Bronze/gold coloring for leader characters
 - Smooth Alpine.js x-collapse transitions
+- Visual metric gauges with semantic colors (system/offense/defense)
 
 ## Development Workflow
 
@@ -140,12 +188,26 @@ Game data is organized into modular files in the `data/` directory. Edit the app
 - **Update character portraits**: Edit `data/characters.js`
 - **Modify esper unlocks**: Edit `data/espers.js`
 - **Add/modify builds**: Edit `data/presets.js`
+- **Add/modify memoir quotes**: Edit `data/memoirs.js`
 
 **Example - Adding a new preset** (in `data/presets.js`, add to the `PRESETS` object):
 ```javascript
 'Custom Build': {
-    desc: 'Your description here',
-    eff: 90,
+    shortName: 'Custom',
+    desc: 'Your short description here',
+    metrics: { lp: 90, atk: 85, flex: 88 },
+    phase: 'mid', // 'early', 'mid', or 'late'
+    requirements: {
+        availability: 'Mid-Game Phase',
+        unlocks: 'Dual-job authorization required',
+        criticalGear: [
+            'Main Gauche [PRIORITY: ALPHA - Essential for tank]',
+            'Genji Gloves [PRIORITY: ALPHA - Combo optimization]'
+        ],
+        keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)', 'Cuchulainn (Remedy Lore)'],
+        recommendedLevel: 'Level 40-50',
+        notes: 'Important tactical notes. Supports [STATUS: CRITICAL] and [STATUS: MANDATORY] annotations.'
+    },
     why: 'Detailed explanation of why this build works...',
     parties: [
         { name: 'Main Team', members: ['Vaan', 'Ashe', 'Penelo'], why: 'Team strategy explanation' },
@@ -165,6 +227,12 @@ Game data is organized into modular files in the `data/` directory. Edit the app
         // ... 5 more characters
     ]
 }
+
+// Don't forget to add to PRESET_ICONS mapping:
+const PRESET_ICONS = {
+    // ... existing presets
+    'Custom Build': 'IconName' // Must match a key in the Icons object
+};
 ```
 
 ### Styling Changes
@@ -213,11 +281,22 @@ This powers the interactive party filtering feature.
 
 ### State Management Pattern
 
-Uses Alpine.js reactive state:
+Uses Alpine.js reactive state with localStorage persistence:
 - No framework overhead (Alpine is ~15KB)
 - `expanded` uses object pattern: `{ [index]: boolean }` to track card states
+- State persistence: `preset`, `expanded`, `selectedParty`, and `teamView` are all persisted to localStorage using Alpine's `$watch` feature
+- Keys used: `ffxii_preset`, `ffxii_expanded`, `ffxii_party`, `ffxii_team`
 - `selectedParty` resets to 0 when changing presets
+- `memoir` is randomly selected once on initialization (not persisted)
 - Hover state for esper tooltips is ephemeral
+
+### Status Annotations
+
+The `renderStatusNote()` function enables inline status annotations in text fields:
+- `[STATUS: CRITICAL]` - Renders as an orange badge with alert icon
+- `[STATUS: MANDATORY]` - Renders as an amber badge with warning icon
+- Used in `requirements.unlocks` and `requirements.notes` fields
+- The function parses the annotation and replaces it with styled HTML including SVG icons
 
 ## Game Mechanics Context
 
@@ -234,7 +313,25 @@ Understanding these FFXII mechanics helps when modifying the planner:
 9. **Channeling 3**: Augment that gives 10% chance to cast spells for 0 MP (effectively infinite MP)
 10. **Berserk Strategy**: Setting characters to permanent Berserk status for auto-attack optimization
 
-## New Features Added
+## Features
+
+### Tactical Metrics & Build Analysis
+Each preset includes three key performance indicators:
+- **LP Sync**: License point efficiency (how well the jobs synergize)
+- **Power**: Offensive capability rating
+- **Flex**: Versatility and adaptability rating
+- Visual gauges with semantic color coding (system/offense/defense)
+- Expandable tactical snapshot in preset selector showing metrics, synergy markers, and requirements
+
+### Comprehensive Build Requirements
+Each preset has detailed requirements documentation:
+- **Availability**: When the build becomes accessible in the game
+- **License Unlocks**: What needs to be unlocked (with status annotations)
+- **Critical Gear**: Essential equipment with priority tags
+- **Key Espers**: Important Esper assignments with tactical purpose
+- **Recommended Level**: Target level range
+- **Notes**: Additional warnings and tactical considerations
+- Expandable detailed specifications panel in the Mission Briefing
 
 ### Interactive Party Compositions
 Each preset now includes 3 recommended 3-person team setups:
@@ -242,6 +339,14 @@ Each preset now includes 3 recommended 3-person team setups:
 - Only the 3 active party members show at a time
 - Smooth fade animations when switching between parties
 - Each party has a strategic purpose (general, DPS-focused, boss fights, etc.)
+- Leader character highlighted with bronze text (first character in formation)
+
+### Preset Grouping by Game Phase
+Presets are organized into categories:
+- **Early Game**: Accessible from the start
+- **Mid to Late Game**: Requires mid-game progression
+- **Late Game / Endgame**: Advanced builds for endgame content
+- Dynamic category headers with glowing indicators
 
 ### Gambit Recommendations
 Each character build includes 3-5 optimized gambit commands:
@@ -249,14 +354,36 @@ Each character build includes 3-5 optimized gambit commands:
 - Accounts for special mechanics (Berserk, Swiftness 3, Channeling 3)
 - Includes priority ordering (most important actions first)
 - Notes for special cases (e.g., "Remove other gambits - Berserk mode")
+- FFXII-inspired gambit row styling with target → action format
 
 ### Gear Recommendations
 Each character build includes 4-5 essential equipment items:
 - Primary weapon appropriate to job combination
 - Armor optimized for role (Heavy Armor, Black Robes, etc.)
-- Critical accessories marked with "(CRITICAL)" tag
+- Critical accessories marked with priority tags
 - Alternative/backup options noted where applicable
-- Corrected weapon types (e.g., Dragon Whisker for Pole users, not Yagyu Darkblade)
+- Corrected weapon types (e.g., Dragon Whisker for Pole users)
+
+### Random Memoir Quotes
+Footer displays random excerpts from Marquise Halim Ondore IV's memoirs:
+- Pulled from `MEMOIRS` array on page load
+- Includes chapter number and title
+- Adds narrative flavor and thematic immersion
+
+### Status Annotations
+Inline status badges for critical information:
+- `[STATUS: CRITICAL]` - Orange badge with alert icon (for critical requirements)
+- `[STATUS: MANDATORY]` - Amber badge with warning icon (for mandatory items)
+- Used throughout build requirements and notes
+- Automatically parsed and rendered by `renderStatusNote()` function
+
+### LocalStorage Persistence
+User preferences are saved across sessions:
+- Selected preset
+- Expanded character cards
+- Selected party composition
+- Team view (A or B)
+- Automatically restored on page load
 
 ## Reference Document
 

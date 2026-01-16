@@ -1,195 +1,195 @@
 const PRESETS = {
     'Max Efficiency': {
         shortName: 'Efficiency',
-        desc: 'Zero-redundancy configuration. Refined for total license synergy.',
-        metrics: { lp: 98, atk: 85, flex: 90 },
+        desc: 'Zero-waste build. Refined for perfect license synergy.',
+        metrics: { lp: 'S', atk: 'A', flex: 'S' },
         phase: 'mid',
         requirements: {
-            availability: 'Mid-Game Phase',
-            unlocks: 'Belias Defeated (Mt Bur-Omisace) - Dual-job authorization required.',
+            availability: 'Mid-Game',
+            unlocks: 'Belias Defeated (Mt Bur-Omisace) - Requires dual-job system unlocked.',
             criticalGear: [
-                'Main Gauche [PRIORITY: ALPHA - Evasion Mastery]',
-                'Genji Gloves [PRIORITY: ALPHA - Combo Optimization]'
+                'Main Gauche | Evasion Mastery',
+                'Genji Gloves | Combo Optimization'
             ],
             keyEspers: ['Exodus/Zeromus (Channeling)', 'Ultima/Zodiark (Swiftness/Renew)', 'Chaos (Hastega)'],
             recommendedLevel: 'Level 40-50',
-            notes: 'Optimization depends on dual-job unlocks. Single-job deployment significantly degrades efficiency metrics.'
+            notes: 'Requires dual-job system unlocked. Using only one job per character wastes most of the synergy.'
         },
-        why: 'Refined for dedicated completionists. This configuration ensures near-zero license overlap, maximizing the utility of every spent License Point. It facilitates rapid endgame scaling by providing early access to critical augments and Swiftness tiers across the primary rotation.',
+        why: 'Built for dedicated completionists. This setup ensures near-zero license overlap, maximizing every spent License Point. It enables rapid endgame scaling by providing early access to critical augments and Swiftness across the party.',
         parties: [
             { name: 'Core Party', members: ['Vaan', 'Fran', 'Penelo'], why: 'Balanced adventuring group. High-tier evasion tanking paired with Renew/Hastega support.' },
             { name: 'Frontline Vanguard', members: ['Balthier', 'Basch', 'Fran'], why: 'Prioritizes raw physical damage. Includes full Break suite and specialized Berserker combat strategy.' },
-            { name: 'Sustained Relief', members: ['Fran', 'Penelo', 'Balthier'], why: 'Formed for sustained engagements. Dual-channeling Renew and full status mitigation.' }
+            { name: 'Sustained Relief', members: ['Fran', 'Penelo', 'Balthier'], why: 'Built for long battles. Dual Renew casting and full status immunity.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Frontline Lead', why: 'Heavy Armor synergy. Provides critical buffs and high-tier physical mitigation.', gambits: ['Ally: HP < 50% → Curaga', 'Self: HP < 40% → X-Potion', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Demon Shield', 'Rose Corsage'] },
-            { char: 'Balthier', jobs: ['Foebreaker', 'Uhlan'], espers: ['Adrammelech', 'Shemhazai', 'Hashmal'], role: 'Heavy Artillery', why: 'Maximum STR-stat utilization. Zero Mystic Armor overlap. Optimized for Heavy Armor and Spear progression.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Status ≠ Wither → Wither', 'Foe: Nearest Visible → Attack'], gear: ['Holy Lance', 'Grand Armor', 'Zodiac Spear', 'Genji Gloves'] },
-            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Tactical Support', why: 'Critical Trinity Node: Swiftness 3, Channeling 3, and Renew access.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole)', 'Black Robes', 'Golden Amulet', 'Ribbon'] },
-            { char: 'Basch', jobs: ['Bushi', 'Black Mage'], espers: ['Famfrit'], role: 'Magic DPS', why: 'Bushi/Mage synergy. Katanas scale with MAG stat, optimized by Black Mage augments.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Primary: Automatic Physical Engagement)'], gear: ['Masamune', 'Black Robes', 'Black Mask', 'Genji Gloves'] },
-            { char: 'Ashe', jobs: ['Knight', 'Time Battlemage'], espers: ['Belias'], role: 'Paladin Flex', why: 'Heavy Armor plus high-tier White Magic support. Minimal license redundancy.', gambits: ['Ally: HP < 60% → Cura', 'Ally: Status ≠ Haste → Haste', 'Ally: Any → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Crystal Shield', 'Bubble Belt'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Chaos', 'Cuchulainn'], role: 'Evasion Healer', why: 'Maximum-tier evasion via Main Gauche and Shields. Integrated with Hastega and Remedy Lore 3.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Demon Shield', 'Ribbon'] }
+            { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Frontline Lead', why: 'Heavy Armor synergy. Provides critical buffs and strong physical defense.', gambits: ['Ally: HP < 50% → Curaga', 'Self: HP < 40% → X-Potion', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Grand Armor | Best heavy armor for defense', 'Demon Shield | High evasion with status immunity', 'Rose Corsage | HP boost accessory'] },
+            { char: 'Balthier', jobs: ['Foebreaker', 'Uhlan'], espers: ['Adrammelech', 'Shemhazai', 'Hashmal'], role: 'Heavy Artillery', why: 'Maximum STR-stat utilization. Zero Mystic Armor overlap. Optimized for Heavy Armor and Spear progression.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Status ≠ Wither → Wither', 'Foe: Nearest Visible → Attack'], gear: ['Holy Lance | High damage spear with Holy element', 'Grand Armor | Maximum physical defense', 'Zodiac Spear | Best spear in game', 'Genji Gloves | Essential for combo rate boost'] },
+            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Tactical Support', why: 'Critical Trinity Node: Swiftness 3, Channeling 3, and Renew access.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Dragon Whisker | Highest damage pole weapon', 'Black Robes | Boosts magic damage', 'Golden Amulet | LP boost accessory', 'Ribbon | Status immunity for support role'] },
+            { char: 'Basch', jobs: ['Bushi', 'Black Mage'], espers: ['Famfrit'], role: 'Magic DPS', why: 'Bushi/Mage synergy. Katanas scale with MAG stat, optimized by Black Mage augments.', gambits: ['Self: HP < 90% → Bubble', 'Ally: Any → Berserk'], gear: ['Masamune | Katana with MAG scaling synergy', 'Black Robes | Maximizes magic and katana damage', 'Black Mask | Additional MAG boost', 'Genji Gloves | Essential 1.8x combo rate for katanas'] },
+            { char: 'Ashe', jobs: ['Knight', 'Time Battlemage'], espers: ['Belias'], role: 'Paladin Flex', why: 'Heavy Armor plus high-tier White Magic support. Minimal license redundancy.', gambits: ['Ally: HP < 60% → Cura', 'Ally: Status ≠ Haste → Haste', 'Ally: Any → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Grand Armor | Maximum physical defense', 'Crystal Shield | High magic defense shield', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Chaos', 'Cuchulainn'], role: 'Evasion Healer', why: 'Maximum-tier evasion via Main Gauche and Shields. Integrated with Hastega and Remedy Lore 3.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for tanking', 'Crystal Shield | Best shield for evasion tank', 'Demon Shield | Alternative shield with immunities', 'Ribbon | Status immunity for healer role'] }
         ]
     },
     'DPS Nuclear': {
         shortName: 'Nuclear',
-        desc: 'Maximum lethality matrix. Optimized for apex-target elimination.',
-        metrics: { lp: 75, atk: 99, flex: 70 },
+        desc: 'Maximum damage build. Optimized for boss killing.',
+        metrics: { lp: 'B', atk: 'S', flex: 'B' },
         phase: 'mid',
         requirements: {
-            availability: 'Intermediary to Late Game',
-            unlocks: 'Advanced Esper Clearance - Anticipate significant LP investment.',
+            availability: 'Mid to Late Game',
+            unlocks: 'Most Espers unlocked - Requires significant LP investment.',
             criticalGear: [
-                'Genji Gloves [PRIORITY: ALPHA - Combo Threshold]',
-                'Berserk Bracers [PRIORITY: ALPHA - Offensive Automation]',
-                'Dragon Whisker / Masamune [PRIORITY: ALPHA - Apex DPS]'
+                'Genji Gloves | Combo boost essential',
+                'Berserk Bracers | Permanent Berserk status',
+                'Dragon Whisker / Masamune | Top DPS weapons'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit (Hastega)', 'Exodus (Channeling)'],
             recommendedLevel: 'Level 60+',
-            notes: 'Genji Gloves are [STATUS: ESSENTIAL] for all core DPS characters. Do not use with firearms or long-range ballistic protocols.'
+            notes: 'Genji Gloves are essential for all core DPS characters. Do not use with guns or bows.'
         },
-        why: 'Developed for supreme offensive dominance. Sacrifices license efficiency (LP) to maximize Battle Lore accumulation and STR-scaling. This configuration provides ~20% higher damage output compared to efficiency-focused builds at the cost of combat versatility.',
+        why: 'Built for pure offensive power. Sacrifices license efficiency (LP) to maximize Battle Lore stacking and STR-scaling. This build provides ~20% higher damage output compared to balanced builds at the cost of versatility.',
         parties: [
-            { name: 'Offensive Strike', members: ['Vaan', 'Balthier', 'Fran'], why: 'Maximum damage output. A triple-Berserker setup [STATUS: ESSENTIAL] for offensive optimization.' },
+            { name: 'Offensive Strike', members: ['Vaan', 'Balthier', 'Fran'], why: 'Maximum damage output. A triple-Berserker setup is essential for offensive optimization.' },
             { name: 'High Endurance', members: ['Balthier', 'Fran', 'Penelo'], why: 'Sustained high-output damage. Includes a full break suite and evasion-based recovery.' },
             { name: 'Arcanist\'s Wrath', members: ['Ashe', 'Basch', 'Penelo'], why: 'Specialized for magick-vulnerable targets, delivering high-tier Arcane Magick damage.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Primary DPS', why: 'Optimized for physical combos and Holy-elemental dominance.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Active: Physical engagement)'], gear: ['Masamune', 'Holy Lance', 'Genji Gloves', 'Berserk Bracers'] },
-            { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Heavy DPS', why: 'Dual-Heavy synergy. Leverages all 16 Battle Lores for theoretical maximum physical damage.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Self: HP = 100% → Berserk', 'Foe: Nearest Visible → Attack'], gear: ['Dragon Whisker', 'Grand Armor', 'Genji Gloves', 'Berserk Bracers'] },
-            { char: 'Fran', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Famfrit', 'Belias'], role: 'Combat Utility', why: 'Primary Hastega source and Zodiac Spear use.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Zodiac Spear', 'Dragon Mail', 'Golden Amulet', 'Bubble Belt'] },
-            { char: 'Basch', jobs: ['Knight', 'Black Mage'], espers: ['Mateus', 'Exodus'], role: 'Frontline Flex', why: 'Dual-role capability. Transitions between Holy Excalibur DPS and Arcane Magick support.', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Black Robes', 'Grand Armor', 'Demon Shield'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magick Carry', why: 'Ultimate Magick character. Synchronized Renew and Hastega output.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe', 'Ally: HP < 60% → Curaja'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'High-evasion survival character designed for sustained engagement stabilization.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Rubber Suit', 'Ribbon'] }
+            { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Primary DPS', why: 'Optimized for physical combos and Holy-elemental dominance.', gambits: ['Self: HP < 90% → Bubble', 'Ally: Any → Berserk'], gear: ['Masamune | Katana with MAG scaling for Bushi', 'Holy Lance | Backup Holy-element weapon', 'Genji Gloves | Essential 1.8x combo rate boost', 'Berserk Bracers | Permanent Berserk status'] },
+            { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Heavy DPS', why: 'Dual-Heavy synergy. Leverages all 16 Battle Lores for theoretical maximum physical damage.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Ally: Any → Berserk'], gear: ['Dragon Whisker | Highest damage pole weapon', 'Grand Armor | Maximum physical defense', 'Genji Gloves | Essential 1.8x combo rate for poles', 'Berserk Bracers | Permanent Berserk status'] },
+            { char: 'Fran', jobs: ['Uhlan', 'Time Battlemage'], espers: ['Adrammelech', 'Famfrit', 'Belias'], role: 'Combat Utility', why: 'Primary Hastega source and Zodiac Spear use.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Zodiac Spear | Best spear in the game', 'Dragon Mail | Heavy armor for survivability', 'Golden Amulet | LP boost for progression', 'Bubble Belt | HP boost for endgame'] },
+            { char: 'Basch', jobs: ['Knight', 'Black Mage'], espers: ['Mateus', 'Exodus'], role: 'Frontline Flex', why: 'Dual-role capability. Transitions between Holy Excalibur DPS and Arcane Magick support.', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Black Robes | Maximizes magic damage output', 'Grand Armor | Heavy armor for frontline durability', 'Demon Shield | High evasion with immunities'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magick Carry', why: 'Ultimate Magick character. Synchronized Renew and Hastega output.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe', 'Ally: HP < 60% → Curaja'], gear: ['Staff of the Magi | Best staff for magic power', 'Black Robes | Maximizes all magic damage', 'Circlet | MAG boost headgear', 'Sage\'s Ring | MP regeneration for casters'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'High-evasion healer designed for long fights and party stability.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for survival', 'Crystal Shield | Best shield for evasion tank', 'Rubber Suit | Thunder immunity light armor', 'Ribbon | Status immunity for healer'] }
         ]
     },
     'Beginner Friendly': {
         shortName: 'Beginner',
-        desc: 'Balanced stabilization matrix. High-synergy/Low-risk configuration.',
-        metrics: { lp: 88, atk: 80, flex: 95 },
+        desc: 'Balanced build. High synergy with low risk.',
+        metrics: { lp: 'A', atk: 'A', flex: 'S' },
         phase: 'early',
         requirements: {
-            availability: 'Standard Early-Game',
-            unlocks: 'Universal Authorization - Operational from Phase 1.',
+            availability: 'Early Game',
+            unlocks: 'Available from the start.',
             criticalGear: [
-                'Main Gauche [PRIORITY: ALPHA - Evasion Base]',
-                'Genji Gloves [PRIORITY: ALPHA - Combo Entry]'
+                'Main Gauche | Evasion base',
+                'Genji Gloves | Combo boost'
             ],
             keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)', 'Cuchulainn (Remedy Lore)'],
             recommendedLevel: 'Level 1+',
-            notes: 'High tolerance for gear substitution. Primary strategy remains effective with standard equipment.'
+            notes: 'Flexible gear options. Strategy works well with store-bought equipment.'
         },
-        why: 'The standard for first-time adventures. This configuration provides high stability and smooth progression across all game phases. It minimizes potential bottlenecks and offers a comprehensive suite of utility and healing.',
+        why: 'The standard for first-time playthroughs. This build provides stability and smooth progression across all game phases. It avoids potential bottlenecks and offers comprehensive utility and healing.',
         parties: [
             { name: 'Trusted Companions', members: ['Vaan', 'Fran', 'Ashe'], why: 'A versatile trio covering all primary combat roles and essential magicks.' },
             { name: 'Stalwart Defenders', members: ['Balthier', 'Fran', 'Penelo'], why: 'A stable physical assault group, featuring an automated Berserker strategy and dedicated healing.' },
             { name: 'Blade Masters', members: ['Basch', 'Balthier', 'Fran'], why: 'High-damage physical assault with minimal interference.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Frontline Lead', why: 'Tactical versatilty. Reliable physical damage and early-game recovery magicks.', gambits: ['Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Demon Shield', 'Flex: All available'] },
-            { char: 'Balthier', jobs: ['Foebreaker', 'Bushi'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserker DPS', why: 'Bushi/Break synergy. High-mitigation offensive character with automated combat actions.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Self: HP = 100% → Berserk', '(Active: Automated Engagement)'], gear: ['Masamune', 'Genji Gloves', 'Berserk Bracers', 'Golden Amulet'] },
-            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Combat Support', why: 'Highest utility density available. Core buff/debuff engine.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole)', 'Black Robes', 'Ribbon', 'Bubble Belt'] },
-            { char: 'Basch', jobs: ['Archer', 'Uhlan'], espers: ['Adrammelech', 'Belias', 'Famfrit'], role: 'Heavy Assault', why: 'Linear weapon progression. High-STR automated physical assault.', gambits: ['Self: HP = 100% → Berserker', 'Self: HP < 90% → Bubble', '(Primary: Automatic Physical Engagement)'], gear: ['Zodiac Spear', 'Perseus Bow', 'Genji Gloves', 'Berserk Bracers'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Primary magus character. Hastega and Arcane Magick prioritized.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'Mitigation-heavy healer. Remedy Lore mastery is tactical requirement.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Demon Shield', 'Ribbon'] }
+            { char: 'Vaan', jobs: ['Red Battlemage', 'Knight'], espers: ['Mateus', 'Exodus'], role: 'Frontline Lead', why: 'Tactical versatilty. Reliable physical damage and early-game recovery magicks.', gambits: ['Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Grand Armor | Best heavy armor for defense', 'Demon Shield | High evasion with immunities', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Balthier', jobs: ['Foebreaker', 'Bushi'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserker DPS', why: 'Bushi/Break synergy. High-mitigation offensive character with automated combat actions.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Ally: Any → Berserk'], gear: ['Masamune | Katana with MAG scaling', 'Genji Gloves | Essential 1.8x combo rate for katanas', 'Berserk Bracers | Permanent Berserk status', 'Golden Amulet | LP boost for faster progression'] },
+            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Combat Support', why: 'Highest utility density available. Core buff/debuff engine.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Dragon Whisker | Highest damage pole weapon', 'Black Robes | Boosts pole damage via MAG', 'Ribbon | Status immunity for support role', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Basch', jobs: ['Archer', 'Uhlan'], espers: ['Adrammelech', 'Belias', 'Famfrit'], role: 'Heavy Assault', why: 'Linear weapon progression. High-STR automated physical assault.', gambits: ['Self: HP < 90% → Bubble', 'Ally: Any → Berserk'], gear: ['Zodiac Spear | Best spear in game', 'Perseus Bow | Best bow for ranged damage', 'Genji Gloves | Essential combo rate boost', 'Berserk Bracers | Permanent Berserk status'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Primary magus character. Hastega and Arcane Magick prioritized.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Flying → Aeroga', 'Foe: HP ≥ 10000 → Ardor'], gear: ['Staff of the Magi | Best staff for magic power', 'Black Robes | Maximizes all magic damage', 'Circlet | MAG boost headgear', 'Sage\'s Ring | MP regeneration for casters'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'Mitigation-heavy healer. Remedy Lore mastery is tactical requirement.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for survival', 'Crystal Shield | Best shield for evasion tank', 'Demon Shield | Alternative shield with immunities', 'Ribbon | Status immunity for healer role'] }
         ]
     },
     'Leader Trinity': {
         shortName: 'Trinity',
-        desc: 'Avoidance-centric tactical build. Optimized for Lead-Aggro management.',
-        metrics: { lp: 92, atk: 82, flex: 88 },
+        desc: 'Evasion-focused build. Optimized for leader tanking.',
+        metrics: { lp: 'S', atk: 'A', flex: 'A' },
         phase: 'mid',
         requirements: {
-            availability: 'Mid-Game Operations',
-            unlocks: 'Belias Clearance - Vaan requires full dual-job authorization for evasion synergy.',
+            availability: 'Mid-Game',
+            unlocks: 'Belias defeated - Vaan needs dual-job unlocked for evasion synergy.',
             criticalGear: [
-                'Main Gauche [ASSERT: CRITICAL - Evasion Base]',
-                'Crystal Shield [ASSERT: CRITICAL - Avoidance Stacking]',
-                'Ribbon [ASSERT: CRITICAL - Status Mitigation]',
-                'Genji Gloves [ASSERT: CRITICAL - DPS Combo]'
+                'Main Gauche | Evasion base',
+                'Crystal Shield | Stacks with Main Gauche',
+                'Ribbon | Status immunity',
+                'Genji Gloves | DPS combo boost'
             ],
             keyEspers: ['Cuchulainn (Remedy Lore)', 'Ultima (Swiftness)', 'Chaos (Hastega)'],
             recommendedLevel: 'Level 45+',
-            notes: 'Tactical failure imminent without Main Gauche evasion stacking. Strategy is contingent on Party Lead avoiding all physical engagement.'
+            notes: 'Won\'t work without Main Gauche evasion stacking. Strategy relies on Party Lead dodging all physical attacks.'
         },
-        why: 'Engineered around Lead-Targeting mechanics. This configuration makes the party leader nearly untouchable via Evasion maximization, allowing support characters to focus on offensive output. Ideal for technical players who understand environmental positioning and threat management.',
+        why: 'Built around leader-targeting mechanics. This setup makes the party leader nearly untouchable via evasion stacking, letting support characters focus on offense. Ideal for technical players who understand positioning and threat management.',
         parties: [
-            { name: 'Evasion Masters', members: ['Vaan', 'Fran', 'Ashe'], why: 'LEAD: Vaan (Evasion Tank). Tactical evasion rating: 90%+. Provides high stability.' },
-            { name: 'Swift Assault', members: ['Vaan', 'Basch', 'Fran'], why: 'LEAD: Vaan (Evasion Tank). Offensive damage maximized through Berserker synchronization.' },
-            { name: 'Enduring Journey', members: ['Vaan', 'Ashe', 'Penelo'], why: 'LEAD: Vaan (Evasion Tank). Dual-magick recovery suite for high-duration encounters.' }
+            { name: 'Evasion Masters', members: ['Vaan', 'Fran', 'Ashe'], why: 'LEAD: Vaan (Evasion Tank). 90%+ evasion rating provides high stability.' },
+            { name: 'Swift Assault', members: ['Vaan', 'Basch', 'Fran'], why: 'LEAD: Vaan (Evasion Tank). Offensive damage maximized through Berserker pairing.' },
+            { name: 'Enduring Journey', members: ['Vaan', 'Ashe', 'Penelo'], why: 'LEAD: Vaan (Evasion Tank). Dual magic healers for long boss fights.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Red Battlemage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Evasion Lead', why: 'Main Gauche + Shield synergy. Effectively mitigates all standard physical engagement.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Demon Shield', 'Genji Armor', 'Ribbon'] },
-            { char: 'Balthier', jobs: ['Knight', 'Black Mage'], espers: ['Shemhazai', 'Hashmal'], role: 'Combat Magus', why: 'Evasion/Magick synergy. Leverages Holy Excalibur scaling with advanced Arcane Magick.', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Undead → Holy', 'Foe: Flying → Aeroga', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Black Robes', 'Grand Armor', 'Crystal Shield', 'Sage\'s Ring'] },
-            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility Engine', why: 'Buffer/Debuffer core. Primary Expose and Reverse synchronization source.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole)', 'Black Robes', 'Ribbon', 'Golden Amulet'] },
-            { char: 'Basch', jobs: ['Bushi', 'Knight'], espers: ['Famfrit'], role: 'Primary DPS', why: 'Swiftness 3 optimized Berserker. High-throughput physical engagement.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Primary: Automated Physical Engagement)'], gear: ['Masamune', 'Genji Gloves', 'Berserker Bracers', 'Bubble Belt'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magick Support', why: 'Apex magick character. Universal School authorization including Hastega and Renew.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Archer'], espers: ['Belias', 'Adrammelech'], role: 'Logistic Support', why: 'Item-based recovery specialist. Phoenix Down and Potion Lore synchronization for instant stabilization.', gambits: ['Ally: HP Critical → Phoenix Down', 'Ally: HP < 70% → Hi-Potion', 'Ally: Any Status → Echo Herbs/Eye Drops', 'Ally: HP < 90% → Potion', 'Foe: Nearest Visible → Attack'], gear: ['Burning Bow', 'Perseus Bow', 'White Robes', 'Opal Ring'] }
+            { char: 'Vaan', jobs: ['Red Battlemage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Evasion Lead', why: 'Main Gauche + Shield synergy. Dodges nearly all physical attacks.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for tank role', 'Crystal Shield | Best shield for evasion stacking', 'Demon Shield | Alternative shield with status immunities', 'Genji Armor | High defense for evasion build', 'Ribbon | Status immunity for lead position'] },
+            { char: 'Balthier', jobs: ['Knight', 'Black Mage'], espers: ['Shemhazai', 'Hashmal'], role: 'Combat Magus', why: 'Evasion/Magick synergy. Leverages Holy Excalibur scaling with advanced Arcane Magick.', gambits: ['Foe: Weak Holy → Attack (Excalibur)', 'Foe: Undead → Holy', 'Foe: Flying → Aeroga', 'Ally: HP < 50% → Curaga', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Black Robes | Maximizes magic and Holy damage', 'Grand Armor | Heavy armor for frontline durability', 'Crystal Shield | High magic defense shield', 'Sage\'s Ring | MP regeneration for spell casting'] },
+            { char: 'Fran', jobs: ['Monk', 'Time Battlemage'], espers: ['Ultima', 'Zeromus', 'Zodiark'], role: 'Utility Engine', why: 'Buff and debuff specialist. Primary source of Expose and Reverse.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Bravery', 'Ally: HP Critical → Renew', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Kanya (Pole) | High damage pole for Monk', 'Black Robes | Boosts pole damage via MAG', 'Ribbon | Status immunity for support role', 'Golden Amulet | LP boost for faster progression'] },
+            { char: 'Basch', jobs: ['Bushi', 'Knight'], espers: ['Famfrit'], role: 'Primary DPS', why: 'Swiftness 3 optimized Berserker for maximum damage.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Primary: Auto-attack mode)'], gear: ['Masamune | Katana with MAG scaling for Bushi', 'Genji Gloves | Essential 1.8x combo rate for katanas', 'Berserker Bracers | Permanent Berserk status', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Magick Support', why: 'Complete magic caster. Access to all schools including Hastega and Renew.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi | Best staff for magic power', 'Black Robes | Maximizes all magic damage', 'Circlet | MAG boost headgear', 'Sage\'s Ring | MP regeneration for casters'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Archer'], espers: ['Belias', 'Adrammelech'], role: 'Logistic Support', why: 'Item-based healer. Phoenix Down and Potion Lore pairing for instant recovery.', gambits: ['Ally: HP Critical → Phoenix Down', 'Ally: HP < 70% → Hi-Potion', 'Ally: Any Status → Echo Herbs/Eye Drops', 'Ally: HP < 90% → Potion', 'Foe: Nearest Visible → Attack'], gear: ['Burning Bow | Fire-element bow for weaknesses', 'Perseus Bow | Best bow for ranged damage', 'White Robes | Healing power boost', 'Opal Ring | Dark/Thunder immunity accessory'] }
         ]
     },
     'Yiazmat Specialist': {
         shortName: 'Endurance',
-        desc: 'Apex Endurance Configuration. Designed for high-duration/High-HP engagements.',
-        metrics: { lp: 70, atk: 95, flex: 60 },
+        desc: 'Endurance build. Designed for multi-hour superboss fights.',
+        metrics: { lp: 'B', atk: 'S', flex: 'C' },
         phase: 'late',
         requirements: {
-            availability: 'Apex Endgame Only',
-            unlocks: 'Total Esper Clearance - Max-tier equipment procurement [STATUS: ESSENTIAL].',
+            availability: 'Endgame Only',
+            unlocks: 'All Espers unlocked - Getting max-tier equipment is essential.',
             criticalGear: [
-                'Fomalhaut [PRIORITY: ALPHA - Dark Shot synergy]',
-                'Ribbon [PRIORITY: ALPHA - Confusion Mitigation]',
-                'Bubble Belt [PRIORITY: ALPHA - HP Threshold]',
-                'Genji Gloves [PRIORITY: ALPHA - Combo Mastery]',
-                'Grand Armor [PRIORITY: ALPHA - Mitigation Peak]'
+                'Fomalhaut | Dark Shot synergy',
+                'Ribbon | Confusion immunity',
+                'Bubble Belt | HP threshold',
+                'Genji Gloves | Combo boost',
+                'Grand Armor | Maximum defense'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit/Zeromus (Channeling/Hastega)', 'Chaos (Renew/Hastega)'],
             recommendedLevel: 'Level 80-99',
-            notes: 'Multi-hour engagement duration. Mission failure likely without Ribbon and Bubble Belt protocols.'
+            notes: 'Multi-hour fight duration. Will fail without Ribbon and Bubble Belt.'
         },
-        why: 'Refined exclusively for apex-level targets. Features Dark Shot/Black Robe synergy, automated Reverse/Decoy loops, and high-tier MP regeneration for infinite combat cycles. Not recommended for standard field operations.',
+        why: 'Built exclusively for superbosses. Features Dark Shot/Black Robe synergy, Reverse/Decoy loops, and MP regeneration for infinite healing. Not recommended for normal battles.',
         parties: [
             { name: 'Apex Rotation', members: ['Vaan', 'Balthier', 'Fran'], why: 'The primary endurance group. Features high-output DPS paired with Dark Shot/Reverse strategy.' },
             { name: 'Relief Squad', members: ['Basch', 'Ashe', 'Penelo'], why: 'Backup stability group. Uses Decoy tanking and dual-Reverse support to stabilize main group fatigue.' },
             { name: 'Magickal Bastion', members: ['Vaan', 'Ashe', 'Penelo'], why: 'Maximum-tier healing and Magickal defense for the final stages of the journey.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserker DPS', why: 'Holy Excalibur combo specialist. Permanent Berserker approach and status immunity focus.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Primary: Automated Physical Engagement)'], gear: ['Excalibur', 'Genji Gloves', 'Berserker Bracers', 'Bubble Belt'] },
-            { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zodiark'], role: 'Heavy Assault', why: 'Specialized for Pole-combo output and high-tier breaking suites. Apex physical mitigation.', gambits: ['Foe: Yiazmat → Expose', 'Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Active: Automated Combat Sequence)'], gear: ['Dragon Whisker', 'Grand Armor', 'Genji Gloves', 'Berserker Bracers', 'Ribbon'] },
-            { char: 'Fran', jobs: ['White Mage', 'Machinist'], espers: ['Famfrit', 'Zeromus'], role: 'Logistic Specialst', why: 'CRITICAL: Dark Shot platform synced with Reverse and Channeling 3 for infinite combat cycles.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Foe: Yiazmat → Dark Shot', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja'], gear: ['Fomalhaut', 'Dark Shot', 'White Robes', 'Sage\'s Ring', 'Bubble Belt'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Dual-school authorization. Optimized for Reverse throughput and Hastega synchronization.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Yiazmat → Bio'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring', 'Bubble Belt'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Recovery Node', why: 'Evasion-heavy recovery specialist for unit rotation during long-duration encounters.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Genji Armor', 'Ribbon'] }
+            { char: 'Vaan', jobs: ['Bushi', 'Knight'], espers: ['Hashmal', 'Shemhazai'], role: 'Berserker DPS', why: 'Holy Excalibur combo specialist. Permanent Berserker approach and status immunity focus.', gambits: ['Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Primary: Automated Physical Engagement)'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'Genji Gloves | Essential 1.8x combo rate boost', 'Berserker Bracers | Permanent Berserk status', 'Bubble Belt | HP boost critical for Yiazmat'] },
+            { char: 'Balthier', jobs: ['Monk', 'Foebreaker'], espers: ['Ultima', 'Zodiark'], role: 'Heavy Assault', why: 'Specialized for Pole-combo output and high-tier breaking suites. Apex physical mitigation.', gambits: ['Foe: Yiazmat → Expose', 'Self: HP = 100% → Berserk', 'Self: HP < 90% → Bubble', '(Active: Automated Combat Sequence)'], gear: ['Dragon Whisker | Highest damage pole weapon', 'Grand Armor | Maximum physical defense', 'Genji Gloves | Essential 1.8x combo rate for poles', 'Berserker Bracers | Permanent Berserk status', 'Ribbon | Status immunity critical for long fight'] },
+            { char: 'Fran', jobs: ['White Mage', 'Machinist'], espers: ['Famfrit', 'Zeromus'], role: 'Logistic Specialst', why: 'CRITICAL: Dark Shot platform synced with Reverse and Channeling 3 for infinite combat cycles.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Foe: Yiazmat → Dark Shot', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja'], gear: ['Fomalhaut | Best gun for Dark Shot synergy', 'Dark Shot | Dark-element ammo for damage', 'White Robes | Healing power boost', 'Sage\'s Ring | MP regeneration for infinite casts', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos'], role: 'Strategic Magick', why: 'Dual magic schools. Specializes in Reverse and Hastega spam.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP < 10% → Reverse', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Yiazmat → Bio'], gear: ['Staff of the Magi | Best staff for magic power', 'Black Robes | Maximizes all magic damage', 'Circlet | MAG boost headgear', 'Sage\'s Ring | MP regeneration for long fight', 'Bubble Belt | HP boost critical for Yiazmat'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn', 'Mateus', 'Exodus'], role: 'Recovery Node', why: 'Evasion healer for rotating between teams during marathon fights.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for survival', 'Crystal Shield | Best shield for evasion tank', 'Genji Armor | High defense for evasion build', 'Ribbon | Status immunity essential for long fight'] }
         ]
     },
     'Lore Friendly': {
         shortName: 'Lore',
-        desc: 'Iconic Archetype synchronization. Updated for competitive job-synergy.',
-        metrics: { lp: 90, atk: 85, flex: 90 },
+        desc: 'Story-based build. Matches character archetypes with strong job pairings.',
+        metrics: { lp: 'S', atk: 'B', flex: 'S' },
         phase: 'early',
         requirements: {
-            availability: 'Initial Deployment',
-            unlocks: 'Archetype Authorization - Operational from Phase 1.',
+            availability: 'Early Game',
+            unlocks: 'Available from the start.',
             criticalGear: [
-                'Main Gauche [PRIORITY: ALPHA - Street Thief signature]',
-                'Fomalhaut [PRIORITY: ALPHA - Sky Pirate signature]',
-                'Perseus Bow [PRIORITY: ALPHA - Viera Archer signature]',
-                'Grand Armor [PRIORITY: ALPHA - Royal Guard signature]'
+                'Main Gauche | Street thief signature',
+                'Fomalhaut | Sky pirate signature',
+                'Perseus Bow | Viera archer signature',
+                'Grand Armor | Royal guard signature'
             ],
             keyEspers: ['Chaos/Exodus (Channeling)', 'Famfrit (Hastega)', 'Ultima (Swiftness)'],
             recommendedLevel: 'Level 1+',
-            notes: 'Maintains narrative cohesion while fulfilling competitive tactical standards.'
+            notes: 'Maintains story roles while providing strong performance.'
         },
-        why: 'Synchronizes character iconic archetypes with high-tier job combinations. This configuration respects story-based weapon proficiencies (Balthier/Guns, Fran/Bows) without sacrificing the tactical requirements of the Zodiac Job System.',
+        why: 'Pairs character archetypes with strong job combos. This setup respects story-based weapon choices (Balthier/Guns, Fran/Bows) while still performing well.',
         parties: [
-            { name: 'Protagonist Trio', members: ['Vaan', 'Balthier', 'Fran'], why: 'Narrative-heavy unit. Balanced frontline mitigation, range support, and mystic archer utility.' },
-            { name: 'Kingdom Defense', members: ['Basch', 'Ashe', 'Penelo'], why: 'High-mitigation royal guard unit. Reliable physical assault and dual-magick coverage.' },
-            { name: 'Tactical Versatilty', members: ['Fran', 'Ashe', 'Penelo'], why: 'Maximized utility nodes. Covers all critical buff/recovery requirements.' }
+            { name: 'Protagonist Trio', members: ['Vaan', 'Balthier', 'Fran'], why: 'Story-focused team. Balanced defense, ranged damage, and support.' },
+            { name: 'Kingdom Defense', members: ['Basch', 'Ashe', 'Penelo'], why: 'Royal guard team. Strong defense with magic support.' },
+            { name: 'Tactical Versatilty', members: ['Fran', 'Ashe', 'Penelo'], why: 'Utility-focused team. Covers all buffs and healing.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Shikari', 'Knight'], espers: ['Cuchulainn', 'Hashmal'], role: 'Evasion Lead', why: 'Signature thief-tank. Effectively combines Main Gauche evasion with high-tier item support.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: Any → Bravery', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche', 'Crystal Shield', 'Demon Shield', 'Genji Armor', 'Ribbon'] },
-            { char: 'Balthier', jobs: ['Machinist', 'Foebreaker'], espers: ['Zeromus', 'Adrammelech'], role: 'Tactical Lead', why: 'Signature firearms platform. Synchronizes gun-mitigation with Break-stat suite.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Flying → Dark Shot', 'Foe: HP ≥ 5000 → Telekinesis', 'Foe: Nearest Visible → Attack'], gear: ['Fomalhaut', 'Aldebaran', 'Heavy Armor', 'Golden Amulet'] },
-            { char: 'Fran', jobs: ['Archer', 'Time Battlemage'], espers: ['Famfrit', 'Shemhazai'], role: 'Mystic Support', why: 'Signature ballistics platform. Core time-magick and elemental throughput node.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Perseus Bow', 'Burning Bow', 'Black Robes', 'Ribbon'] },
-            { char: 'Basch', jobs: ['Knight', 'Foebreaker'], espers: ['Mateus', 'Zodiark'], role: 'Frontline Shield', why: 'Iconic royal guard architecture. Primary physical mitigation and Break source.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Ally: Status ≠ Haste → Hastega', 'Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'Grand Armor', 'Crystal Shield', 'Bubble Belt'] },
-            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos', 'Exodus'], role: 'Apex Magus', why: 'Princess-archetype magick synchronization. Universal School authorization.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi', 'Black Robes', 'Circlet', 'Sage\'s Ring'] },
-            { char: 'Penelo', jobs: ['White Mage', 'Monk'], espers: ['Ultima', 'Belias'], role: 'Logistic Magus', why: 'High-agility healer. Combines Potion Lore mastery with high-tier physical synergy.', gambits: ['Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Ally: Any Status → Esuna', 'Ally: HP < 90% → Hi-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur', 'White Robes', 'Kanya (Pole)', 'Opal Ring'] }
+            { char: 'Vaan', jobs: ['Shikari', 'Knight'], espers: ['Cuchulainn', 'Hashmal'], role: 'Evasion Lead', why: 'Signature thief-tank. Effectively combines Main Gauche evasion with high-tier item support.', gambits: ['Self: HP < 70% → Decoy', 'Ally: Any Status → Remedy', 'Ally: Any → Bravery', 'Self: HP < 40% → X-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for street thief', 'Crystal Shield | Best shield for evasion stacking', 'Demon Shield | Alternative shield with immunities', 'Genji Armor | High defense for evasion build', 'Ribbon | Status immunity for lead position'] },
+            { char: 'Balthier', jobs: ['Machinist', 'Foebreaker'], espers: ['Zeromus', 'Adrammelech'], role: 'Tactical Lead', why: 'Sky pirate gun specialist. Pairs guns with full Break suite.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Foe: Status ≠ Shattered → Shear', 'Foe: Flying → Dark Shot', 'Foe: HP ≥ 5000 → Telekinesis', 'Foe: Nearest Visible → Attack'], gear: ['Fomalhaut | Best gun for sky pirate signature', 'Aldebaran | Backup high-damage gun', 'Heavy Armor | Physical defense for frontline', 'Golden Amulet | LP boost for progression'] },
+            { char: 'Fran', jobs: ['Archer', 'Time Battlemage'], espers: ['Famfrit', 'Shemhazai'], role: 'Mystic Support', why: 'Viera archer build. Pairs bows with time magic and buffs.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: Any → Bravery', 'Ally: Any → Faith', 'Foe: HP ≥ 10000 → Expose', 'Foe: Nearest Visible → Attack'], gear: ['Perseus Bow | Best bow for Viera archer signature', 'Burning Bow | Fire-element bow for weaknesses', 'Black Robes | Boosts magic damage', 'Ribbon | Status immunity for support role'] },
+            { char: 'Basch', jobs: ['Knight', 'Foebreaker'], espers: ['Mateus', 'Zodiark'], role: 'Frontline Shield', why: 'Royal knight and guard. Strong defense with Break abilities.', gambits: ['Foe: HP ≥ 10000 → Expose', 'Ally: Status ≠ Haste → Hastega', 'Ally: HP < 50% → Curaga', 'Ally: Status ≠ Protect → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword for royal knight', 'Grand Armor | Maximum defense for royal guard', 'Crystal Shield | High defense shield', 'Bubble Belt | HP boost for survivability'] },
+            { char: 'Ashe', jobs: ['Black Mage', 'White Mage'], espers: ['Chaos', 'Exodus'], role: 'Apex Magus', why: 'Princess mage. Access to all magic schools.', gambits: ['Ally: Status ≠ Haste → Hastega', 'Ally: HP Critical → Renew', 'Ally: HP < 60% → Curaja', 'Foe: Weak Element → -ga spell', 'Foe: HP ≥ 10000 → Scathe'], gear: ['Staff of the Magi | Best staff for princess mage', 'Black Robes | Maximizes all magic damage', 'Circlet | MAG boost headgear for royalty', 'Sage\'s Ring | MP regeneration for casters'] },
+            { char: 'Penelo', jobs: ['White Mage', 'Monk'], espers: ['Ultima', 'Belias'], role: 'Logistic Magus', why: 'Fast healer. Combines Potion Lore with strong physical backup.', gambits: ['Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Ally: Any Status → Esuna', 'Ally: HP < 90% → Hi-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Excalibur | Holy-element sword with MAG scaling', 'White Robes | Healing power boost', 'Kanya (Pole) | High damage pole for Monk', 'Opal Ring | Dark/Thunder immunity accessory'] }
         ]
     }
 };
