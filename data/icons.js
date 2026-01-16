@@ -3,15 +3,16 @@ const Icons = {
     'White Mage': '<path d="M12 2v20M5 12h14" stroke-width="2.5"/><circle cx="12" cy="12" r="8" stroke-dasharray="4 2"/>', // Holy Cross/Light
     'Black Mage': '<path d="m13 2-10 12h9l-1 8 10-12h-9l1-8Z"/><circle cx="12" cy="12" r="10" stroke-width="1" opacity="0.5"/>', // Lightning Bolt
     'Red Battlemage': '<path d="m14.5 17.5-11.5-11.5 3-3 11.5 11.5"/><path d="m13 19 6-6M16 16 20 20"/><path d="M19 21 21 19"/>', // Spellblade
-    'Bushi': `<path d="M20 4c-4 0-14 6-17 17" stroke-width="2" /> <path d="M17 3l3 3" stroke-width="3" stroke-linecap="butt" /> <path d="M18 6l2-2" stroke-width="1" opacity="0.5" />`,
+    'Bushi': '<path d="M5 8c2 4 4 6 7 6s5-2 7-6M12 3v11" stroke-width="2"/><path d="M8 17l4 3 4-3M12 14v6" opacity="0.5" stroke-width="1.5"/><path d="M12 3L9 6m3-3l3 3" stroke-width="1.5"/>',
+
     // --- Heavy Jobs ---
     'Knight': '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M9 11h6"/>', // Shield + Sword Cross
     'Monk': `<path d="M7 11V7a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" stroke-width="1.5" /> <path d="M11 11V6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v5" stroke-width="1.5" /> <path d="M15 11V7a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" stroke-width="1.5" /> <path d="M6 11h12v6a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3v-6Z" stroke-width="1.5" /> <path d="M6 12l4 3" stroke-width="1.5" /> `, 'Time Battlemage': '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/>', // Clock/Hourglass
-    'Foebreaker': '<path d="M7 7h10v3l-5 7-5-7V7ZM12 17v4M9 21h6"/>', // Heavy Axe/Mace
+    'Foebreaker': '<path d="M12 2L4 7v6c0 5 8 9 8 9s8-4 8-9V7l-8-5Z" stroke-width="1.5"/><path d="m8 10 3 2-2 3 5 2" stroke-width="2" opacity="0.7" stroke-linejoin="round"/>',
 
     // --- Light Jobs ---
-    'Shikari': '<path d="m15 2 6 6-12 12-4-1-1-4L15 2Z"/><path d="m9 8 7 7" opacity="0.5"/>', // Hunter's Dagger/Kukri
-    'Uhlan': '<path d="M12 2v20M9 5l3-3 3 3M12 2L5 9M12 2l7 7"/>', // Heavy Spear/Lance
+    'Uhlan': '<path d="M12 2v20M5 10l7-3 7 3" stroke-width="2"/><path d="M9 14l3-3 3 3" opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>',
+    'Shikari': '<path d="M12 2L4 21l8-4 8 4-8-19z" stroke-width="2"/><circle cx="12" cy="12" r="3" opacity="0.5"/>',
     'Archer': '<path d="M6 3a15 15 0 0 1 0 18M6 12h14l-3-3M20 12l-3 3"/>', // Bow and Arrow
     'Machinist': '<rect x="4" y="10" width="16" height="6" rx="1"/><path d="M16 10V7a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v3M10 16v3M14 16v3"/>', // Rifle/Tools
 
