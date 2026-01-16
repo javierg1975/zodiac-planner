@@ -627,7 +627,7 @@
                                                 <div class="flex flex-col md:flex-row items-end md:items-start gap-2">
                                                     <template x-for="job in build.jobs" :key="job">
                                                         <div class="ff-job-tag-tech !py-1 !px-3 md:!py-1.5 md:!px-4 w-fit"
-                                                            :style="`background-color: ${JOBS[job].color}60; border-color: ${JOBS[job].color}; color: #ffffff`">
+                                                            :style="`background-color: ${JOBS[job].bg}CC; border-color: ${JOBS[job].border}; color: ${JOBS[job].color}`">
                                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="2.5" stroke-linecap="round"
                                                                 stroke-linejoin="round"
