@@ -551,3 +551,59 @@ h3 {
     color: #00d4ff;
     border: 1px solid rgba(0, 212, 255, 0.3);
 }
+
+/* Gambit UI - FFXII Menu Style */
+.ff-gambit-row {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(20, 35, 50, 0.8) 0%, rgba(30, 50, 70, 0.4) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.05);
+    border-radius: 4px;
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.25rem;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.ff-gambit-row:hover {
+    border-color: rgba(0, 255, 255, 0.2);
+    background: linear-gradient(90deg, rgba(25, 45, 65, 0.9) 0%, rgba(35, 60, 85, 0.5) 100%);
+}
+
+.ff-gambit-number {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    color: #ffb000;
+    opacity: 0.5;
+    width: 1rem;
+    text-align: right;
+    font-size: 0.7rem;
+    flex-shrink: 0;
+}
+
+.ff-gambit-target {
+    color: #8beaff;
+    /* Light Blue-ish for targets */
+    font-weight: 500;
+    font-size: 0.8rem;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ff-gambit-arrow {
+    color: rgba(255, 176, 0, 0.4);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.ff-gambit-action {
+    color: #fcd34d;
+    /* Amber for actions */
+    font-weight: 600;
+    font-size: 0.8rem;
+    flex: 1.2;
+    min-width: 0;
+}
