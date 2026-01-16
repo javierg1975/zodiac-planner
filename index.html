@@ -521,13 +521,20 @@
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
                         class="relative ff-panel ff-cinematic-row rounded-lg overflow-hidden transition-all duration-300 mb-4"
-                        :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''" :style="`background-image: url('${CHAR_IMAGES[build.char]}'); background-position: center ${
-                                build.char === 'Fran' ? '30%' : 
-                                build.char === 'Vaan' ? '20%' : 
-                                build.char === 'Balthier' ? '25%' : 
-                                build.char === 'Basch' ? '20%' :
-                                build.char === 'Ashe' ? '35%' :
-                                build.char === 'Penelo' ? '30%' : '35%'}`">
+                        :class="{ 'ff-row-expanded': expanded[i], 'ring-1 ring-cyan-500/30': expanded[i] }">
+
+                        <!-- Cinematic Background Layer -->
+                        <div class="ff-cinematic-bg" :style="`background-image: url('${CHAR_IMAGES[build.char]}'); background-position: center ${
+                                    build.char === 'Balthier' ? '22%' : 
+                                    build.char === 'Vaan' ? '20%' : 
+                                    build.char === 'Basch' ? '20%' : 
+                                    build.char === 'Fran' ? '30%' : 
+                                    build.char === 'Ashe' ? '35%' : 
+                                    build.char === 'Penelo' ? '30%' : '35%'
+                                }`"></div>
+
+                        <!-- Legibility Layer -->
+                        <div class="ff-cinematic-overlay"></div>
 
                         <!-- Corner Flourishes -->
                         <div class="ff-row-tick-tl"></div>
@@ -538,21 +545,17 @@
 
                             <!-- Info Section - Unified Padding -->
                             <div class="flex-1 flex flex-col justify-center py-4 md:py-6 px-4 md:px-8">
-                                <div
-                                    class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                                    <!-- Left Side: Identification & Safe Job Zone -->
-                                    <div class="flex flex-col justify-center w-full md:max-w-[400px]">
-                                        <div class="space-y-2 md:space-y-3">
+                                <div class="flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                                    <!-- Identification & Safe Job Zone - Right Aligned on Mobile -->
+                                    <div
+                                        class="flex flex-col justify-center items-end md:items-start text-right md:text-left w-full md:max-w-[400px]">
+                                        <div class="space-y-2 md:space-y-3 w-full">
                                             <div>
                                                 <div class="ff-char-name-punch ff-punch-text"
                                                     :class="isLeader(build.char) ? 'ff-bronze-text' : ''"
                                                     x-text="build.char">
                                                 </div>
-                                                <div class="flex items-center gap-2 mb-2">
-                                                    <span
-                                                        class="text-[9px] md:text-[10px] font-black text-yellow-500 uppercase tracking-widest"
-                                                        x-text="build.role"></span>
-                                                    <div class="h-3 w-[1px] bg-white/20"></div>
+                                                <div class="flex items-center justify-end md:justify-start gap-2 mb-2">
                                                     <!-- Espers Mini-Readout -->
                                                     <div class="flex items-center gap-1"
                                                         x-show="build.espers.length > 0">
@@ -565,12 +568,16 @@
                                                             </div>
                                                         </template>
                                                     </div>
+                                                    <div class="h-3 w-[1px] bg-white/20"></div>
+                                                    <span
+                                                        class="text-[9px] md:text-[10px] font-black text-yellow-500 uppercase tracking-widest"
+                                                        x-text="build.role"></span>
                                                 </div>
 
-                                                <!-- Job Badges - Responsive wrap -->
-                                                <div class="flex flex-wrap gap-2">
+                                                <!-- Job Badges - Vertical List on Mobile -->
+                                                <div class="flex flex-col md:flex-row items-end md:items-start gap-2">
                                                     <template x-for="job in build.jobs" :key="job">
-                                                        <div class="ff-job-tag-tech !py-1 !px-3 md:!py-1.5 md:!px-4"
+                                                        <div class="ff-job-tag-tech !py-1 !px-3 md:!py-1.5 md:!px-4 w-fit"
                                                             :style="`background-color: ${JOBS[job].color}60; border-color: ${JOBS[job].color}; color: #ffffff`">
                                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="2.5" stroke-linecap="round"
@@ -585,18 +592,19 @@
                                         </div>
                                     </div>
 
-                                    <!-- Right Side: Level Pin & Status -->
+                                    <!-- Level & Expand Block -->
                                     <div
-                                        class="flex items-center justify-between md:flex-col md:items-end md:justify-center w-full md:w-auto">
-                                        <div class="flex items-baseline md:items-center">
-                                            <span class="ff-char-level-label !mr-1">LV</span>
-                                            <span class="ff-metric-value !text-3xl md:!text-4xl"
-                                                x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
+                                        class="flex items-center justify-between md:flex-col md:items-end md:justify-center w-full md:w-auto mt-2 md:mt-0">
+                                        <!-- Expand Indicator -->
+                                        <div
+                                            class="text-[10px] opacity-20 group-hover:opacity-100 transition-all md:order-2">
+                                            <span x-text="expanded[i] ? '▲' : '▼'"></span>
                                         </div>
 
-                                        <!-- Expand Indicator -->
-                                        <div class="text-[10px] opacity-20 group-hover:opacity-100 transition-all">
-                                            <span x-text="expanded[i] ? '▲' : '▼'"></span>
+                                        <div class="flex items-baseline md:items-center md:order-1">
+                                            <span class="ff-char-level-label !mr-1">LV</span>
+                                            <span class="ff-metric-value !text-2xl md:!text-4xl"
+                                                x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -604,8 +612,11 @@
                         </button>
 
                         <!-- Expanded Details -->
-                        <div x-show="expanded[i]" class="px-4 md:px-6 pb-6 border-t border-cyan-500/30"
-                            style="background: rgba(10, 20, 30, 0.5)">
+                        <div x-show="expanded[i]"
+                            class="px-4 md:px-6 pb-6 border-t border-cyan-500/30 ff-expanded-target"
+                            x-transition:enter="transition-all ease-out duration-300"
+                            x-transition:enter-start="opacity-0 max-h-0"
+                            x-transition:enter-end="opacity-100 max-h-[2000px]">
                             <div class="grid md:grid-cols-2 gap-6 pt-4">
                                 <!-- Left Column: Strategy & Unlocks -->
                                 <div class="space-y-6">
