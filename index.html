@@ -521,37 +521,43 @@
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
                         class="relative ff-panel ff-cinematic-row rounded-lg overflow-hidden transition-all duration-300 mb-4"
-                        :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''"
-                        :style="`background-image: url('${CHAR_IMAGES[build.char]}'); background-position: center ${build.char === 'Fran' ? '45%' : '35%'}`">
+                        :class="expanded[i] ? 'ring-1 ring-cyan-500/30' : ''" :style="`background-image: url('${CHAR_IMAGES[build.char]}'); background-position: center ${
+                                build.char === 'Fran' ? '30%' : 
+                                build.char === 'Vaan' ? '20%' : 
+                                build.char === 'Balthier' ? '25%' : 
+                                build.char === 'Basch' ? '20%' :
+                                build.char === 'Ashe' ? '35%' :
+                                build.char === 'Penelo' ? '30%' : '35%'}`">
 
                         <!-- Corner Flourishes -->
                         <div class="ff-row-tick-tl"></div>
                         <div class="ff-row-tick-br"></div>
 
                         <button @click="expanded[i] = !expanded[i]"
-                            class="w-full flex flex-col md:flex-row items-stretch text-left group relative min-h-[110px] ff-cinematic-content">
+                            class="w-full flex flex-col md:flex-row items-stretch text-left group relative min-h-[180px] md:min-h-[110px] ff-cinematic-content">
 
                             <!-- Info Section - Unified Padding -->
-                            <div class="flex-1 flex flex-col justify-center py-6 px-8">
-                                <div class="flex items-stretch justify-between gap-4">
+                            <div class="flex-1 flex flex-col justify-center py-4 md:py-6 px-4 md:px-8">
+                                <div
+                                    class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                                     <!-- Left Side: Identification & Safe Job Zone -->
-                                    <div class="flex flex-col justify-center max-w-[200px] md:max-w-[280px] md:pr-12">
-                                        <div class="space-y-3">
+                                    <div class="flex flex-col justify-center w-full md:max-w-[400px]">
+                                        <div class="space-y-2 md:space-y-3">
                                             <div>
                                                 <div class="ff-char-name-punch ff-punch-text"
                                                     :class="isLeader(build.char) ? 'ff-bronze-text' : ''"
                                                     x-text="build.char">
                                                 </div>
-                                                <div class="flex items-center gap-2">
+                                                <div class="flex items-center gap-2 mb-2">
                                                     <span
-                                                        class="text-[10px] font-black text-yellow-500 uppercase tracking-widest"
+                                                        class="text-[9px] md:text-[10px] font-black text-yellow-500 uppercase tracking-widest"
                                                         x-text="build.role"></span>
                                                     <div class="h-3 w-[1px] bg-white/20"></div>
                                                     <!-- Espers Mini-Readout -->
-                                                    <div class="flex items-center gap-1.5"
+                                                    <div class="flex items-center gap-1"
                                                         x-show="build.espers.length > 0">
                                                         <template x-for="e in build.espers" :key="e">
-                                                            <div class="w-4 h-4 opacity-70" :title="e">
+                                                            <div class="w-3.5 h-3.5 opacity-60" :title="e">
                                                                 <svg viewBox="0 0 24 24" fill="none"
                                                                     stroke="currentColor" stroke-width="1.5"
                                                                     stroke-linecap="round" stroke-linejoin="round"
@@ -561,38 +567,40 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- Job Badges - Safe Move to Left -->
+                                                <!-- Job Badges - Responsive wrap -->
                                                 <div class="flex flex-wrap gap-2">
                                                     <template x-for="job in build.jobs" :key="job">
-                                                        <div class="ff-job-tag-tech"
+                                                        <div class="ff-job-tag-tech !py-1 !px-3 md:!py-1.5 md:!px-4"
                                                             :style="`background-color: ${JOBS[job].color}60; border-color: ${JOBS[job].color}; color: #ffffff`">
                                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="2.5" stroke-linecap="round"
-                                                                stroke-linejoin="round" class="w-3.5 h-3.5"
+                                                                stroke-linejoin="round"
+                                                                class="w-3 h-3 md:w-3.5 md:h-3.5"
                                                                 x-html="Icons[JOBS[job].icon]"></svg>
-                                                            <span x-text="job"></span>
+                                                            <span class="text-[9px] md:text-[10px]" x-text="job"></span>
                                                         </div>
                                                     </template>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <!-- Right Side: Level Pin & Status -->
-                                        <div class="flex flex-col items-end justify-between py-1">
-                                            <div class="flex items-center">
-                                                <span class="ff-char-level-label">LV</span>
-                                                <span class="ff-metric-value !text-4xl"
-                                                    x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
-                                            </div>
+                                    <!-- Right Side: Level Pin & Status -->
+                                    <div
+                                        class="flex items-center justify-between md:flex-col md:items-end md:justify-center w-full md:w-auto">
+                                        <div class="flex items-baseline md:items-center">
+                                            <span class="ff-char-level-label !mr-1">LV</span>
+                                            <span class="ff-metric-value !text-3xl md:!text-4xl"
+                                                x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
+                                        </div>
 
-                                            <!-- Expand Indicator -->
-                                            <div
-                                                class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
-                                                <span x-text="expanded[i] ? '▲' : '▼'"></span>
-                                            </div>
+                                        <!-- Expand Indicator -->
+                                        <div class="text-[10px] opacity-20 group-hover:opacity-100 transition-all">
+                                            <span x-text="expanded[i] ? '▲' : '▼'"></span>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         </button>
 
                         <!-- Expanded Details -->

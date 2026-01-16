@@ -196,6 +196,15 @@ h3 {
     background-position: center 25%;
     overflow: hidden;
     transition: all 0.5s ease;
+    min-height: 180px;
+    /* Base for mobile */
+}
+
+@media (min-width: 768px) {
+    .ff-cinematic-row {
+        min-height: 110px;
+        /* Compact for desktop */
+    }
 }
 
 /* Legibility Gradient Overlay */
@@ -287,9 +296,15 @@ h3 {
 }
 
 .ff-char-name-punch {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     letter-spacing: -0.01em;
     text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+    .ff-char-name-punch {
+        font-size: 1.5rem;
+    }
 }
 
 .ff-char-level-label {
