@@ -570,6 +570,28 @@ h3 {
     background: linear-gradient(90deg, rgba(25, 45, 65, 0.9) 0%, rgba(35, 60, 85, 0.5) 100%);
 }
 
+/* Ally/Self Gambits - Vibrant Blue (FFXII style) */
+.ff-gambit-ally {
+    background: linear-gradient(90deg, rgba(30, 90, 140, 0.6) 0%, rgba(40, 110, 160, 0.35) 100%);
+    border-color: rgba(80, 160, 230, 0.4);
+}
+
+.ff-gambit-ally:hover {
+    border-color: rgba(100, 180, 250, 0.6);
+    background: linear-gradient(90deg, rgba(40, 110, 160, 0.75) 0%, rgba(50, 130, 180, 0.45) 100%);
+}
+
+/* Foe Gambits - Vibrant Salmon/Coral Red (FFXII style) */
+.ff-gambit-foe {
+    background: linear-gradient(90deg, rgba(180, 70, 70, 0.5) 0%, rgba(200, 90, 80, 0.3) 100%);
+    border-color: rgba(255, 120, 110, 0.4);
+}
+
+.ff-gambit-foe:hover {
+    border-color: rgba(255, 140, 130, 0.6);
+    background: linear-gradient(90deg, rgba(200, 90, 80, 0.65) 0%, rgba(220, 110, 100, 0.4) 100%);
+}
+
 .ff-gambit-number {
     font-family: 'Inter', sans-serif;
     font-weight: 900;

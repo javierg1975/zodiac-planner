@@ -37,8 +37,9 @@ Canonical character roles with optimized second jobs
 Since FFXII only allows **3 active party members** at a time, the planner helps you manage your full 6-person roster:
 
 ■ **Team A / Team B Toggle** — Switch between your active combat wing and leveling rotation
-■ **3-Person Partys** — Select specific tactical compositions (e.g., Evasion Core, Siege)
+■ **3-Person Parties** — Select specific tactical compositions (e.g., Evasion Core, Siege)
 ■ **Dynamic Filtering** — Character cards automatically show/hide based on your team selection
+■ **Leader Highlighting** — First character in formation highlighted with bronze text
 ■ **Smooth Transitions** — Cinematic animations when switching between units
 
 ---
@@ -47,10 +48,29 @@ Since FFXII only allows **3 active party members** at a time, the planner helps 
 
 The "Mission Briefing" panel provides a deep dive into the preset's logic:
 
-■ **Operational Context** — Narrative and tactical reasoning for the build
-■ **Technical Access** — Expandable technical specs including availability and authorization nodes
-■ **Zodiac Attunement** — Visual breakdown of key Esper assignments and their tactical purpose
-■ **Critical Armament** — Summary of essential endgame gear requirements
+■ **Build Overview** — Narrative and tactical reasoning for the build strategy
+■ **Expandable Specifications** — Detailed technical specs including:
+  - Availability timeline and unlock requirements
+  - Critical gear with priority tags
+  - Key Esper attunements with zodiac glyphs
+  - Recommended level ranges
+  - Tactical notes with status annotations
+■ **Party Formations** — Select from 3 recommended team compositions with strategic explanations
+
+---
+
+### Tactical Metrics & Preset Analysis
+
+The preset selector includes comprehensive build analysis:
+
+■ **Game Phase Grouping** — Presets organized by Early Game, Mid-Late, and Endgame
+■ **Performance Metrics** — Each preset shows three tactical ratings:
+  - **LP Sync** — License point efficiency and job synergy
+  - **Power** — Offensive capability rating
+  - **Flex** — Versatility and adaptability
+■ **Visual Gauges** — Color-coded progress bars for at-a-glance comparison
+■ **Expandable Snapshot** — Detailed tactical requirements and synergy markers
+■ **Persistent Selection** — Your chosen preset is remembered across sessions
 
 ---
 
@@ -59,10 +79,19 @@ The "Mission Briefing" panel provides a deep dive into the preset's logic:
 Each character includes:
 
 ■ **Job Combinations** — Dual job synergies optimized for efficiency
-■ **Cinematic Portraits** — Detailed character visuals with legibility overlays
-■ **Recommended Gambits** — AI commands tailored to role (tank, DPS, healer, support)
-■ **Gear Recommendations** — Essential equipment items for tactical deployment
+■ **Cinematic Portraits** — Dynamic character backgrounds with legibility overlays
+■ **Esper Assignments** — Zodiac symbol indicators and detailed license board unlocks
+■ **Recommended Gambits** — FFXII-styled AI commands with priority ordering
+■ **Gear Recommendations** — Essential equipment items with priority tags
 ■ **Strategy Explanations** — Deep dive into build logic and usage
+
+---
+
+### Thematic Immersion
+
+■ **Random Memoirs** — Footer displays excerpts from Marquise Halim Ondore IV's writings
+■ **FFXII Aesthetics** — Tactical dashboard design inspired by the game's menu system
+■ **Status Annotations** — Visual badges for critical and mandatory requirements
 
 ---
 
@@ -80,10 +109,12 @@ Each character includes:
 ```
 1. Clone or download this repository
 2. Open index.html in any modern web browser
-3. Select a preset from the left sidebar
-4. Use the Team A/B toggle and Party cards to explore compositions
-5. Click "Initialize Technical Access" in the Briefing for deep dives
-6. Expand character cards to view detailed builds, gambits, and gear
+3. Select a preset from the left sidebar (organized by game phase)
+4. Click preset names to view expandable tactical snapshots with metrics
+5. Expand "Detailed Specifications" in the Mission Briefing for full requirements
+6. Select a party formation from the three recommended compositions
+7. Use the Team A/B toggle to switch between active and reserve rosters
+8. Expand character cards to view strategies, esper unlocks, gambits, and gear
 ```
 
 > **Zero dependencies.** No installation, no build process. Just open and use.
@@ -168,7 +199,8 @@ zodiac-planner/
 │   ├── jobs.js             # Job definitions
 │   ├── characters.js       # Character metadata
 │   ├── espers.js           # Esper & Zodiac data
-│   └── presets.js          # Optimization builds
+│   ├── presets.js          # Optimization builds
+│   └── memoirs.js          # Marquise Ondore IV quotes
 ├── backgrounds/            # Cinematic backgrounds
 ├── portraits/              # Character portraits
 ├── CLAUDE.md              # Developer documentation
@@ -193,8 +225,21 @@ Edit `index.html` directly — no build process needed:
 
 ```javascript
 'Custom Build': {
-    desc: 'Short description',
-    eff: 90,
+    shortName: 'Custom',
+    desc: 'Short description for preset selector',
+    metrics: { lp: 90, atk: 85, flex: 88 },
+    phase: 'mid', // 'early', 'mid', or 'late'
+    requirements: {
+        availability: 'Mid-Game Phase',
+        unlocks: 'Dual-job authorization required',
+        criticalGear: [
+            'Main Gauche [PRIORITY: ALPHA - Essential]',
+            'Genji Gloves [PRIORITY: ALPHA - Combo optimization]'
+        ],
+        keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)'],
+        recommendedLevel: 'Level 40-50',
+        notes: 'Important notes here'
+    },
     why: 'Detailed explanation of the build strategy...',
     parties: [
         { name: 'Main Team', members: ['Vaan', 'Ashe', 'Penelo'], why: 'Strategy' },
@@ -214,6 +259,11 @@ Edit `index.html` directly — no build process needed:
         // ... 5 more characters
     ]
 }
+
+// Add to PRESET_ICONS in presets.js:
+const PRESET_ICONS = {
+    'Custom Build': 'IconName' // Must match Icons object
+};
 ```
 
 ---
