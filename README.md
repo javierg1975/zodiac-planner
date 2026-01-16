@@ -32,14 +32,25 @@ Canonical character roles with optimized second jobs
 
 ---
 
-### Interactive Party Compositions
+### Interactive Team Management
 
-Since FFXII only allows **3 active party members** at a time, each preset includes recommended team setups:
+Since FFXII only allows **3 active party members** at a time, the planner helps you manage your full 6-person roster:
 
-■ Click party composition cards to see which characters to use
-■ Only the 3 active party members are displayed
-■ Each party has a specific strategy (general purpose, DPS-focused, boss fights)
-■ Smooth transitions when switching between parties
+■ **Team A / Team B Toggle** — Switch between your active combat wing and leveling rotation
+■ **3-Person Partys** — Select specific tactical compositions (e.g., Evasion Core, Siege)
+■ **Dynamic Filtering** — Character cards automatically show/hide based on your team selection
+■ **Smooth Transitions** — Cinematic animations when switching between units
+
+---
+
+### Mission Briefing & Technical Specs
+
+The "Mission Briefing" panel provides a deep dive into the preset's logic:
+
+■ **Operational Context** — Narrative and tactical reasoning for the build
+■ **Technical Access** — Expandable technical specs including availability and authorization nodes
+■ **Zodiac Attunement** — Visual breakdown of key Esper assignments and their tactical purpose
+■ **Critical Armament** — Summary of essential endgame gear requirements
 
 ---
 
@@ -48,10 +59,10 @@ Since FFXII only allows **3 active party members** at a time, each preset includ
 Each character includes:
 
 ■ **Job Combinations** — Dual job synergies optimized for efficiency
-■ **Esper Assignments** — Which Espers unlock critical board nodes
-■ **Recommended Gambits** — 3-5 AI commands tailored to role (tank, DPS, healer, support)
-■ **Gear Recommendations** — 4-5 essential equipment items with priority marked
-■ **Strategy Explanations** — Why this build works and how to use it
+■ **Cinematic Portraits** — Detailed character visuals with legibility overlays
+■ **Recommended Gambits** — AI commands tailored to role (tank, DPS, healer, support)
+■ **Gear Recommendations** — Essential equipment items for tactical deployment
+■ **Strategy Explanations** — Deep dive into build logic and usage
 
 ---
 
@@ -70,8 +81,9 @@ Each character includes:
 1. Clone or download this repository
 2. Open index.html in any modern web browser
 3. Select a preset from the left sidebar
-4. Choose a party composition to see the recommended 3-person team
-5. Expand character cards to view detailed builds, gambits, and gear
+4. Use the Team A/B toggle and Party cards to explore compositions
+5. Click "Initialize Technical Access" in the Briefing for deep dives
+6. Expand character cards to view detailed builds, gambits, and gear
 ```
 
 > **Zero dependencies.** No installation, no build process. Just open and use.
@@ -149,11 +161,18 @@ Remedies cure all status effects (Shikari with Cuchulainn)
 ### File Structure
 ```
 zodiac-planner/
-├── index.html              # Main application (single file)
-├── backgrounds/            # Background images
-│   └── screenshot-337-cropped.jpg
+├── index.html              # Main application
+├── styles.css              # Premium tactical styling
+├── data/                   # Modular game data
+│   ├── icons.js            # SVG Path definitions
+│   ├── jobs.js             # Job definitions
+│   ├── characters.js       # Character metadata
+│   ├── espers.js           # Esper & Zodiac data
+│   └── presets.js          # Optimization builds
+├── backgrounds/            # Cinematic backgrounds
+├── portraits/              # Character portraits
 ├── CLAUDE.md              # Developer documentation
-└── README.md              # This file
+└── README.md              # Project overview
 ```
 
 ---
@@ -162,12 +181,11 @@ zodiac-planner/
 
 Edit `index.html` directly — no build process needed:
 
-| Section | Lines | Content |
-|---------|-------|---------|
-| **Presets data** | ~198-307 | Build configurations |
-| **Game data** | ~84-196 | JOBS, ESPERS, etc. |
-| **Styles** | ~14-80 | Custom CSS |
-| **UI structure** | ~330+ | HTML with Alpine.js directives |
+| Section | Path | Content |
+|---------|------|---------|
+| **Styles** | [styles.css](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/styles.css) | Custom FFXII tactical CSS |
+| **Presets** | [data/presets.js](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/data/presets.js) | Build configurations |
+| **Markup** | [index.html](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/index.html) | HTML with Alpine.js |
 
 ---
 

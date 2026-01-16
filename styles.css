@@ -121,6 +121,46 @@ h3 {
     max-width: 200px;
 }
 
+/* Category Headers - Build Grouping Tags */
+.ff-category-header {
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+}
+
+[x-show="phaseData.presets.length > 0"]:first-of-type .ff-category-header {
+    margin-top: 0.25rem;
+}
+
+.ff-category-header h3 {
+    font-size: 0.7rem;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ff-category-header h3::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--ff-defense);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--ff-defense);
+    display: inline-block;
+}
+
+.ff-category-header h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 212, 255, 0.3) 0%, transparent 100%);
+    margin-right: 2rem;
+}
+
 /* Tactical Data Matrix */
 .ff-rich-content {
     background: rgba(0, 0, 0, 0.3);

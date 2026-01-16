@@ -15,8 +15,8 @@ This is a **Final Fantasy XII: The Zodiac Age** job planner web application. It'
 This is a **static web application** with no build process or external dependencies beyond CDN-loaded libraries. The application uses a modular file structure:
 
 **Core Files:**
-- **`index.html`** (40K): Main HTML structure and Alpine.js markup
-- **`styles.css`** (1.5K): Custom CSS styling
+- **`index.html`** (~52K): Main HTML structure and Alpine.js markup
+- **`styles.css`** (~11K): Custom FFXII premium tactical styling
 
 **Data Modules (`data/` directory):**
 - **`icons.js`** (4.5K): SVG path definitions for all UI icons and job symbols
@@ -77,36 +77,38 @@ Each preset contains:
 **Reactive State** (x-data on root div):
 - `preset`: Currently selected build preset (string)
 - `expanded`: Object tracking which character cards are expanded ({ [index]: boolean })
-- `hoveredEsper`: Currently hovered esper for tooltip display (string | null)
-- `selectedParty`: Index of currently selected party composition (0-2, defaults to 0)
+- `selectedParty`: Index of currently selected party composition (0-2)
+- `teamView`: Current team view ('A' for active, 'B' for bench)
+- `showBuildDetails`: Toggle for the technical briefing expansion (boolean)
 
 **Computed Properties**:
 - `current`: Returns the current preset object (PRESETS[this.preset])
-- `getEsperOwner(esperName)`: Finds which character owns a specific Esper
-- `getUnassignedEspers()`: Returns array of Espers not assigned in current build
-- `isInActiveParty(charName)`: Determines if character should be visible based on selected party composition
+- `groupedPresets`: Organizes presets by game phase (Early/Mid/Late)
+- `activePartyMembers`: Returns members of the currently selected party
+- `bTeamMembers`: Returns characters not in the active party
+- `shouldShowCharacter(charName)`: Logic for filtering characters based on teamView and selection
 
 ### UI Layout
 
-- **Header**: Title + efficiency/esper count metrics
+- **Header**: Title + "Zodiac Planner" branding
 - **Left Column (4/12)**:
-  - Preset selector buttons (6 presets)
-  - Esper grid (grouped by character, shows zodiac symbols)
+  - Phase-grouped preset categories (Early Game, Mid-Late, etc.)
+  - Preset selector buttons with short names and efficiency descriptions
 - **Right Column (8/12)**:
-  - Build description + "Why This Build?" explanation
-  - **Interactive Party Compositions**: 3 clickable cards showing different team strategies
-  - Character cards (only 3 visible at a time based on selected party)
-  - Each character card expands to show:
-    - Strategy explanation
-    - Esper unlocks for their jobs
-    - Recommended gambits (5-10 commands)
-    - Recommended gear (4-5 items)
+  - **Mission Briefing Panel**: Amber-themed tactical briefed with technical Specs
+  - **Team Toggle**: Switch between Team A (Active) and Team B (Reserve)
+  - **Party Selectors**: 3 clickable tactical composition cards
+  - **Cinematic Character Cards**: Detailed cards with:
+    - Dynamic portrait backgrounds with legibility overlays
+    - Right-aligned jobs/roles (mobile optimized)
+    - Expandable builds (Strategy, Gambits, Gear)
 
-**Design Pattern**: The UI uses a dark blue FFXII-inspired theme with:
-- `ff-panel` class: Semi-transparent dark panels with cyan borders
-- Blurred game screenshot background
-- Yellow accent colors for active/selected states
-- Smooth transitions when switching party compositions (fade in/out animations)
+**Design Pattern**: The UI uses a premium "Tactical Dashboard" theme:
+- `ff-panel`: Obsidian-blue panels with cyan borders and amber accents
+- `ff-cinematic-bg`: High-quality character art with linear gradients
+- `ff-row-tick`: Corner flourishes for a technical look
+- `ff-category-header`: Glowing tactical indicators and phase separators
+- Smooth Alpine.js x-collapse transitions
 
 ## Development Workflow
 
