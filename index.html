@@ -22,6 +22,7 @@
     <script src="./data/characters.js"></script>
     <script src="./data/espers.js"></script>
     <script src="./data/presets.js"></script>
+    <script src="./data/memoirs.js"></script>
 
 
     <script>
@@ -32,7 +33,11 @@
                 selectedParty: parseInt(localStorage.getItem('ffxii_party') || '0'),
                 teamView: localStorage.getItem('ffxii_team') || 'A',
                 showBuildDetails: false,
+                memoir: null,
                 init() {
+                    // Pick a random memoir
+                    this.memoir = MEMOIRS[Math.floor(Math.random() * MEMOIRS.length)];
+
                     this.$watch('preset', val => localStorage.setItem('ffxii_preset', val));
                     this.$watch('expanded', val => localStorage.setItem('ffxii_expanded', JSON.stringify(val)));
                     this.$watch('selectedParty', val => localStorage.setItem('ffxii_party', val));
@@ -233,7 +238,7 @@
                         <div class="flex items-center gap-3">
                             <div class="w-1.5 h-6 bg-amber-500/50 rounded-full"></div>
                             <span
-                                class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Protocol_Tac_Brief_V2.9</span>
+                                class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archive_Records_V2.2</span>
                             <div class="hidden md:block w-px h-4 bg-amber-500/20"></div>
                         </div>
                         <div
@@ -245,7 +250,7 @@
                             <span class="flex items-center gap-1.5">
                                 <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
                                 <span
-                                    x-text="'Deploy_Auth_LV.' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
+                                    x-text="'Class_Proficiency_LV.' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
                             </span>
                         </div>
                     </div>
@@ -260,8 +265,8 @@
                                     x-html="Icons.Book"></svg>
                             </div>
                             <div class="flex-1 w-full">
-                                <h3 class="ff-punch-text text-xl md:text-2xl text-amber-400 mb-4 tracking-wide">MISSION
-                                    BRIEFING </h3>
+                                <h3 class="ff-punch-text text-xl md:text-2xl text-amber-400 mb-4 tracking-wide">BUILD
+                                    OVERVIEW </h3>
                                 <p class="text-[14px] text-gray-300 leading-relaxed font-normal mb-8 max-w-3xl"
                                     x-text="current.why"></p>
 
@@ -272,7 +277,7 @@
                                         class="w-2.5 h-2.5 rounded-full bg-amber-400 group-hover:animate-pulse shadow-[0_0_8px_rgba(255,176,0,0.5)]">
                                     </div>
                                     <span class="text-[10px] font-black uppercase tracking-[0.25em] text-amber-400"
-                                        x-text="showBuildDetails ? 'TERMINATE_TECHNICAL_ACCESS' : 'INITIALIZE_TECHNICAL_ACCESS'"></span>
+                                        x-text="showBuildDetails ? 'COLLAPSE_DETAILED_SPECIFICATIONS' : 'EXPAND_DETAILED_SPECIFICATIONS'"></span>
                                 </button>
                             </div>
                         </div>
@@ -286,7 +291,7 @@
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="w-6 h-6 text-amber-500" x-html="Icons.Target"></svg>
                             <h4 class="text-base font-bold text-amber-300 uppercase tracking-[0.15em] ff-punch-text">
-                                Technical Specifications</h4>
+                                Archetype Development</h4>
                         </div>
 
                         <div class="grid md:grid-cols-2 gap-6">
@@ -315,9 +320,8 @@
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-amber-400"
                                             x-html="Icons.Unlock"></svg>
-                                        <span
-                                            class="text-xs font-bold text-amber-300 uppercase tracking-widest">Authorization
-                                            Nodes</span>
+                                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">License
+                                            Unlocks</span>
                                     </div>
                                     <p class="text-[13px] text-gray-200 pl-6 leading-relaxed"
                                         x-html="renderStatusNote(current.requirements.unlocks)">
@@ -332,8 +336,7 @@
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-amber-400"
                                             x-html="Icons.TrendingUp"></svg>
-                                        <span
-                                            class="text-xs font-bold text-amber-300 uppercase tracking-widest">Operational
+                                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Target
                                             Level</span>
                                     </div>
                                     <p class="text-[13px] text-gray-200 pl-6"
@@ -353,8 +356,8 @@
                                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                         </svg>
                                         <span
-                                            class="text-xs font-bold text-yellow-300 uppercase tracking-widest">Critical
-                                            Armament</span>
+                                            class="text-xs font-bold text-yellow-300 uppercase tracking-widest">Essential
+                                            Armaments</span>
                                     </div>
                                     <ul class="space-y-3 pl-2">
                                         <template x-for="item in current.requirements.criticalGear" :key="item">
@@ -374,7 +377,7 @@
                                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="w-4 h-4 text-amber-500"
                                             x-html="Icons.Sparkles"></svg>
-                                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Zodiac
+                                        <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Esper
                                             Attunement</span>
                                     </div>
                                     <div class="space-y-3 pl-3">
@@ -398,7 +401,7 @@
                                                         x-text="esperStr.split(' (')[0]"></span>
                                                     <span
                                                         class="text-[9px] text-amber-500/60 font-bold uppercase tracking-tight"
-                                                        x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'TACTICAL_NODE'"></span>
+                                                        x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'SYNERGY_NODE'"></span>
                                                 </div>
                                             </div>
                                         </template>
@@ -716,6 +719,37 @@
             </div>
 
         </div>
+
+        <!-- Thematic Footer -->
+        <footer class="mt-20 pb-24 border-t border-cyan-500/10">
+            <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col items-center">
+                <!-- Random Memoir Excerpt -->
+                <div x-show="memoir" class="max-w-2xl text-center mb-10 animate-fade-in" x-cloak>
+                    <p class="text-sm md:text-base text-cyan-100/60 leading-relaxed italic font-serif mb-4"
+                        x-text="'&ldquo;' + memoir.text + '&rdquo;'"></p>
+                    <div class="text-[10px] font-bold text-amber-500/50 uppercase tracking-[0.2em]"
+                        x-text="'— Memoirs of Marquise Halim Ondore IV, Ch. ' + memoir.chapter + ': ' + memoir.title">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 mb-6 opacity-30">
+                    <div class="h-px w-24 bg-gradient-to-r from-transparent to-cyan-500"></div>
+                    <div class="w-2 h-2 rounded-full bg-cyan-500"></div>
+                    <div class="h-px w-24 bg-gradient-to-l from-transparent to-cyan-500"></div>
+                </div>
+                <div class="flex flex-col items-center text-center space-y-2">
+                    <div class="ff-punch-text text-sm opacity-40 uppercase tracking-[0.3em]">Dalmascan Archive Services
+                    </div>
+                    <div class="text-[9px] font-bold text-cyan-500/30 uppercase tracking-widest">Zodiac Age Optimization
+                        Protocol — v2.2</div>
+                </div>
+                <!-- Final Decorative Scroll Guard -->
+                <div
+                    class="mt-8 text-[10px] text-white/5 font-black uppercase tracking-[1em] pointer-events-none select-none">
+                    END_OF_RECORD
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 
