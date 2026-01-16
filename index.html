@@ -238,7 +238,8 @@
                         <div class="flex items-center gap-3">
                             <div class="w-1.5 h-6 bg-amber-500/50 rounded-full"></div>
                             <span
-                                class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archive_Records_V2.2</span>
+                                class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archives
+                                of the Marquise Halim Ondore IV</span>
                             <div class="hidden md:block w-px h-4 bg-amber-500/20"></div>
                         </div>
                         <div
@@ -250,7 +251,7 @@
                             <span class="flex items-center gap-1.5">
                                 <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
                                 <span
-                                    x-text="'Class_Proficiency_LV.' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
+                                    x-text="'Class Proficiency LV ' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
                             </span>
                         </div>
                     </div>
@@ -401,7 +402,7 @@
                                                         x-text="esperStr.split(' (')[0]"></span>
                                                     <span
                                                         class="text-[9px] text-amber-500/60 font-bold uppercase tracking-tight"
-                                                        x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'SYNERGY_NODE'"></span>
+                                                        x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'Synergy Node'"></span>
                                                 </div>
                                             </div>
                                         </template>
@@ -428,7 +429,7 @@
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                 class="w-6 h-6 text-yellow-500" x-html="Icons.Tactics"></svg>
                             <h4 class="text-base font-bold text-yellow-300 uppercase tracking-[0.15em] ff-punch-text">
-                                3-Person Party Compositions</h4>
+                                Party Formations</h4>
                         </div>
                         <div class="grid md:grid-cols-3 gap-4">
                             <template x-for="(party, pi) in current.parties" :key="party.name">
@@ -678,13 +679,19 @@
                                                 x-html="Icons.GambitSystem"></svg>
                                             Gambits
                                         </div>
-                                        <div class="p-3 rounded border border-cyan-500/20 shadow-sm font-mono text-[10px] leading-relaxed"
-                                            style="background: rgba(20, 35, 50, 0.6)">
+                                        <div class="space-y-1">
                                             <template x-for="(gambit, gi) in build.gambits" :key="gi">
-                                                <div class="text-gray-200 mb-1.5 last:mb-0 flex items-start gap-2">
-                                                    <span class="text-yellow-400 font-bold flex-shrink-0"
-                                                        x-text="(gi + 1) + '.'"></span>
-                                                    <span class="text-gray-300" x-text="gambit"></span>
+                                                <div class="ff-gambit-row">
+                                                    <span class="ff-gambit-number" x-text="gi + 1"></span>
+                                                    <span class="ff-gambit-target"
+                                                        x-text="gambit.includes(' → ') ? gambit.split(' → ')[0] : gambit"></span>
+                                                    <template x-if="gambit.includes(' → ')">
+                                                        <span class="ff-gambit-arrow">▸</span>
+                                                    </template>
+                                                    <template x-if="gambit.includes(' → ')">
+                                                        <span class="ff-gambit-action"
+                                                            x-text="gambit.split(' → ')[1]"></span>
+                                                    </template>
                                                 </div>
                                             </template>
                                         </div>
@@ -738,10 +745,8 @@
                     <div class="h-px w-24 bg-gradient-to-l from-transparent to-cyan-500"></div>
                 </div>
                 <div class="flex flex-col items-center text-center space-y-2">
-                    <div class="ff-punch-text text-sm opacity-40 uppercase tracking-[0.3em]">Dalmascan Archive Services
-                    </div>
                     <div class="text-[9px] font-bold text-cyan-500/30 uppercase tracking-widest">Zodiac Age Optimization
-                        Protocol — v2.2</div>
+                        Records</div>
                 </div>
                 <!-- Final Decorative Scroll Guard -->
                 <div
