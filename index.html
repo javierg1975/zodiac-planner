@@ -190,9 +190,10 @@
                                                 <div class="ff-punch-label"
                                                     :class="preset === item.name ? 'ff-punch-text ff-bronze-text' : ''"
                                                     x-text="item.data.shortName || item.name.split(' ')[0]"></div>
-                                                <div class="flex flex-col gap-0.5 overflow-hidden">
+                                                <div class="flex flex-col gap-0.5">
                                                     <div class="ff-detail-title" x-text="item.name"></div>
-                                                    <div class="ff-detail-desc truncate opacity-40 uppercase tracking-tight"
+                                                    <div class="ff-detail-desc opacity-40 uppercase tracking-tight leading-snug"
+                                                        :class="preset !== item.name ? 'truncate' : ''"
                                                         x-text="item.data.desc"></div>
                                                 </div>
                                                 <div
@@ -272,7 +273,7 @@
             <!-- Character Cards - Order 2 on mobile, spans 8 cols + 2 rows on desktop -->
             <div class="order-2 lg:col-span-8 lg:row-span-2 lg:order-none space-y-6 pl-0 lg:pl-4">
 
-                <!-- Mission Briefing -->
+                <!-- Mission Briefing - Compact Expandable Strip -->
                 <div class="ff-panel ff-briefing-panel rounded-lg overflow-hidden border border-amber-500/40">
                     <!-- Technical Grid Layer -->
                     <div class="absolute inset-0 ff-briefing-grid opacity-20 pointer-events-none"></div>
@@ -281,61 +282,70 @@
                     <div class="ff-row-tick-tl scale-75 opacity-40"></div>
                     <div class="ff-row-tick-br scale-75 opacity-40"></div>
 
-                    <!-- Briefing Header / Metadata -->
-                    <div
-                        class="ff-briefing-header flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-8 py-4 gap-2">
-                        <div class="flex items-center gap-3">
-                            <div class="w-1.5 h-6 bg-amber-500/50 rounded-full"></div>
-                            <span
-                                class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archives
-                                of the Marquise Halim Ondore IV</span>
-                            <div class="hidden md:block w-px h-4 bg-amber-500/20"></div>
-                        </div>
-                        <div
-                            class="flex items-center gap-4 text-[9px] md:text-[10px] font-bold text-amber-500/40 uppercase tracking-tighter ff-mono">
-                            <span class="flex items-center gap-1.5">
-                                <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
-                                Ref: AX-Zodiac
-                            </span>
-                            <span class="flex items-center gap-1.5">
-                                <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
-                                <span
-                                    x-text="'Class Proficiency LV ' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
-                            </span>
-                        </div>
-                    </div>
+                    <!-- Compact Header -->
+                    <button @click="showBuildDetails = !showBuildDetails"
+                        class="w-full text-left group hover:bg-amber-500/5 transition-all">
+                        <div class="flex items-center justify-between px-4 md:px-8 py-5 gap-4">
+                            <div class="flex items-center gap-4 flex-1 min-w-0">
+                                <!-- Icon -->
+                                <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded bg-amber-500/10 border border-amber-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(255,176,0,0.1)]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-amber-500"
+                                        x-html="Icons.Book"></svg>
+                                </div>
 
-                    <div class="p-4 md:p-10 relative z-10">
-                        <div class="flex flex-col md:flex-row items-start gap-4 md:gap-8">
-                            <div
-                                class="flex-shrink-0 w-14 h-14 rounded bg-amber-500/10 border border-amber-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(255,176,0,0.1)]">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" class="w-7 h-7 text-amber-500 font-bold"
-                                    x-html="Icons.Book"></svg>
+                                <!-- Preset Info -->
+                                <div class="flex-1 min-w-0">
+                                    <div class="ff-punch-label mb-1 !text-xl md:!text-2xl ff-bronze-text"
+                                        x-text="current.shortName || preset.split(' ')[0]"></div>
+                                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide leading-snug"
+                                        :class="!showBuildDetails ? 'truncate' : ''"
+                                        x-text="current.desc"></div>
+                                </div>
                             </div>
-                            <div class="flex-1 w-full">
-                                <h3 class="ff-punch-text text-xl md:text-2xl text-amber-400 mb-4 tracking-wide">BUILD
-                                    OVERVIEW </h3>
-                                <p class="text-[14px] text-gray-300 leading-relaxed font-normal mb-8 max-w-3xl"
-                                    x-text="current.why"></p>
 
-                                <!-- Command Protocol Toggle -->
-                                <button @click="showBuildDetails = !showBuildDetails"
-                                    class="flex items-center gap-4 group/toggle py-2.5 px-8 rounded-sm border border-amber-500/50 bg-amber-500/5 hover:bg-amber-500/20 transition-all shadow-[0_4px_10px_rgba(0,0,0,0.3)]">
-                                    <div
-                                        class="w-2.5 h-2.5 rounded-full bg-amber-400 group-hover:animate-pulse shadow-[0_0_8px_rgba(255,176,0,0.5)]">
-                                    </div>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.25em] text-amber-400"
-                                        x-text="showBuildDetails ? 'Hide Details' : 'Show Details'"></span>
-                                </button>
+                            <!-- Expand Indicator -->
+                            <div class="flex items-center gap-3">
+                                <span class="hidden md:block text-[10px] font-black uppercase tracking-[0.25em] text-amber-400"
+                                    x-text="showBuildDetails ? 'Collapse' : 'Expand'"></span>
+                                <div class="text-amber-400 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <span x-text="showBuildDetails ? '▲' : '▼'"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </button>
 
-                    <!-- Build Requirements - Expandable -->
-                    <div x-show="showBuildDetails" x-collapse
-                        class="border-t border-amber-500/20 pt-8 px-4 md:px-8 mb-8">
+                    <!-- Expanded Build Overview -->
+                    <div x-show="showBuildDetails" x-collapse>
+                        <!-- Metadata Header -->
+                        <div class="ff-briefing-header flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-8 py-4 gap-2 border-t border-amber-500/20">
+                            <div class="flex items-center gap-3">
+                                <div class="w-1.5 h-6 bg-amber-500/50 rounded-full"></div>
+                                <span class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archives
+                                    of the Marquise Halim Ondore IV</span>
+                                <div class="hidden md:block w-px h-4 bg-amber-500/20"></div>
+                            </div>
+                            <div class="flex items-center gap-4 text-[9px] md:text-[10px] font-bold text-amber-500/40 uppercase tracking-tighter ff-mono">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
+                                    Ref: AX-Zodiac
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
+                                    <span x-text="'Class Proficiency LV ' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Strategy Overview -->
+                        <div class="px-4 md:px-10 py-6 relative z-10">
+                            <h3 class="ff-punch-text text-lg md:text-xl text-amber-400 mb-4 tracking-wide">BUILD STRATEGY</h3>
+                            <p class="text-[14px] text-gray-300 leading-relaxed font-normal max-w-3xl" x-text="current.why"></p>
+                        </div>
+
+                        <!-- Build Requirements - Expandable -->
+                        <div class="border-t border-amber-500/20 pt-8 px-4 md:px-8 mb-8">
                         <div class="flex items-center gap-3 mb-6">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -434,10 +444,10 @@
                                         <template x-for="esperStr in current.requirements.keyEspers" :key="esperStr">
                                             <div
                                                 class="flex items-center gap-4 bg-amber-500/[0.03] p-2.5 rounded border border-amber-500/20 hover:border-amber-500/40 transition-colors">
-                                                <div class="flex items-center">
+                                                <div class="flex items-center gap-1">
                                                     <template x-for="eName in esperStr.split(' (')[0].split('/')"
                                                         :key="eName">
-                                                        <div class="w-6 h-6 text-amber-400 mr-[-4px]" :title="eName">
+                                                        <div class="w-6 h-6 text-amber-400" :title="eName">
                                                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                                 stroke-width="1.2" stroke-linecap="round"
                                                                 stroke-linejoin="round"
@@ -448,7 +458,7 @@
                                                 <div class="flex flex-col">
                                                     <span
                                                         class="text-[11px] font-black text-gray-100 uppercase tracking-wider"
-                                                        x-text="esperStr.split(' (')[0]"></span>
+                                                        x-text="esperStr.split(' (')[0].replace('/', ' & ')"></span>
                                                     <span
                                                         class="text-[9px] text-amber-500/60 font-bold uppercase tracking-tight"
                                                         x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'Synergy Node'"></span>
@@ -470,33 +480,34 @@
                                 x-html="renderNotes(current.requirements.notes)"></div>
                         </div>
                     </div>
+                    </div>
 
-                    <!-- Party Compositions -->
-                    <div x-show="current.parties" class="border-t border-amber-500/20 pt-8 px-4 md:px-8 pb-10">
-                        <div class="flex items-center gap-3 mb-6">
+                    <!-- Party Compositions - Always Visible (Compact) -->
+                    <div x-show="current.parties" class="border-t border-amber-500/20 pt-5 px-4 md:px-8 pb-6">
+                        <div class="flex items-center gap-2 mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="w-6 h-6 text-yellow-500" x-html="Icons.Tactics"></svg>
-                            <h4 class="text-base font-bold text-yellow-300 uppercase tracking-[0.15em] ff-punch-text">
+                                class="w-4 h-4 text-yellow-500" x-html="Icons.Tactics"></svg>
+                            <h4 class="text-xs font-bold text-yellow-300 uppercase tracking-[0.15em]">
                                 Party Formations</h4>
                         </div>
-                        <div class="grid md:grid-cols-3 gap-4">
+                        <div class="flex flex-col md:flex-row gap-2">
                             <template x-for="(party, pi) in current.parties" :key="party.name">
                                 <button @click="selectedParty = pi; teamView = 'A'"
-                                    class="rounded-lg p-4 border transition-all text-left group relative overflow-hidden"
+                                    class="flex-1 rounded p-2.5 border transition-all text-left group relative"
                                     :class="{
-                                        'border-yellow-500 bg-yellow-500/20 shadow-lg shadow-yellow-500/20': selectedParty === pi,
+                                        'border-yellow-500 bg-yellow-500/20': selectedParty === pi,
                                         'border-amber-500/30 hover:border-amber-500/50 hover:bg-amber-500/10': selectedParty !== pi
-                                    }" style="background: rgba(20, 35, 50, 0.4)">
-                                    <div class="text-xs font-black text-amber-300 mb-2 uppercase tracking-widest"
-                                        x-text="party.name"></div>
-                                    <p class="text-[11px] text-gray-300 leading-relaxed font-normal" x-text="party.why">
-                                    </p>
-
-                                    <!-- Selection Indicator -->
-                                    <div x-show="selectedParty === pi" class="absolute top-1 right-1">
-                                        <div
-                                            class="w-1.5 h-1.5 rounded-full bg-yellow-400 shadow-[0_0_5px_rgba(255,200,0,0.8)]">
+                                    }">
+                                    <div class="flex items-center gap-2">
+                                        <!-- Selection Indicator -->
+                                        <div class="flex-shrink-0 w-1.5 h-1.5 rounded-full transition-all"
+                                            :class="selectedParty === pi ? 'bg-yellow-400 shadow-[0_0_5px_rgba(255,200,0,0.8)]' : 'bg-amber-500/20'">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="text-[10px] font-black text-amber-300 uppercase tracking-wider mb-0.5"
+                                                x-text="party.name"></div>
+                                            <p class="text-[9px] text-gray-400 leading-tight line-clamp-2" x-text="party.why"></p>
                                         </div>
                                     </div>
                                 </button>

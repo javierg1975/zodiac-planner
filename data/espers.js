@@ -21,13 +21,14 @@ const ZodiacGlyphs = {
                   <circle cx="12" cy="10" r="2" fill="currentColor"/>`,
       '♋': `<path d="M12 4v16M4 12c0-5 4-8 8-8s8 3 8 8-8 8-8 8-8-3-8-8" stroke-width="2"/>
                   <path d="M8 12h8" stroke-width="1.5"/>`,
-      '♍': `<path d="M12 2v20M5 5l14 14M19 5L5 19" stroke-width="1.2"/>
-                  <circle cx="12" cy="12" r="6" stroke-width="2" fill="none"/>
-                  <path d="M12 8v8M8 12h8" stroke-width="1.5"/>`,
-      '♉': `<path d="M12 12m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" stroke-width="2"/>
-                  <path d="M6 7c-2-4 0-7 6-7s8 3 6 7" stroke-width="2"/>`,
-      '♎': `<path d="M4 20h16M12 11h8M4 11h2M8 11c0-2 1.5-4 4-4s4 2 4 4" stroke-width="2"/>
-                  <path d="M12 11h8M4 11h8" stroke-width="1.2" opacity="0.5"/>`,
+      // '♍': `<path d="M12 2v20M5 5l14 14M19 5L5 19" stroke-width="1.2"/>
+      //             <circle cx="12" cy="12" r="6" stroke-width="2" fill="none"/>
+      //             <path d="M12 8v8M8 12h8" stroke-width="1.5"/>`,
+      '♍': `<path d="M4 7c0-3 3-3 4 0v11M8 7c0-3 3-3 4 0v11M12 7c0-3 3-3 4 0v8c0 5 5 4 5 1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M21 16c0 3-3 5-6 4" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
+      '♉': `<path d="M6 6c0 4 3 6 6 6s6-2 6-6" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="12" cy="15" r="5" stroke-width="2" fill="none"/>`,
+      '♎': `<path d="M12 5v14M7 19h10M5 9l7-3 7 3" stroke-width="2" fill="none" stroke-linecap="round"/>
+             <path d="M5 9l-1 5h2l-1-5z M19 9l-1 5h2l-1-5z" fill="currentColor"/>`,
       '⛎': `<path d="M12 2v20M9 22h6" stroke-width="1.5" />
                   <path d="M12 6c4 0 7 2 7 5s-3 5-7 5-7-2-7-5 3-5 7-5" stroke-width="1.2" />
                   <path d="M12 18c-3 0-5-1.5-5-3.5s2-3.5 5-3.5 5 1.5 5 3.5-2 3.5-5 3.5" stroke-width="1.2" />
