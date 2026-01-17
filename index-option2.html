@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFXII Zodiac Planner</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Cinzel:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Game Data Modules -->
+    <script src="./data/icons.js"></script>
+    <script src="./data/jobs.js"></script>
+    <script src="./data/characters.js"></script>
+    <script src="./data/espers.js"></script>
+    <script src="./data/presets.js"></script>
+    <script src="./data/memoirs.js"></script>
+
+    <!-- Alpine.js Application Logic -->
+    <script src="./app-option2.js"></script>
+
+    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30"
+        x-init="window.addEventListener('scroll', () => { headerScrolled = window.scrollY > 50 })">
+
+        <!-- FF XII Header - OPTION 2: Sticky Collapsing -->
+        <div class="sticky top-0 z-50 overflow-hidden border-b border-cyan-500/20 transition-all duration-500 ease-out"
+            :class="headerScrolled ? 'shadow-2xl' : ''"
+            :style="`background: rgba(10, 20, 30, ${headerScrolled ? '0.95' : '0.7'}); min-height: ${headerScrolled ? '80px' : '320px'}`">
+            <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col transition-all duration-500"
+                :class="headerScrolled ? 'min-h-[80px]' : 'min-h-[320px]'">
+                <div class="text-center relative flex-1 flex items-center justify-center transition-all duration-500">
+                    <div class="absolute inset-0 flex items-center justify-center ff-title-watermark transition-all duration-500"
+                        :style="`transform: translateY(-5%) scale(${headerScrolled ? '0.8' : '2.5'}); opacity: ${headerScrolled ? '0.15' : '1'}`">
+                        <img src="./logo/hc-logo.png" alt="" class="h-full w-auto object-contain">
+                    </div>
+
+                    <h1 class="relative flex items-center gap-3 transition-all duration-500"
+                        :class="headerScrolled ? 'flex-row' : 'flex-col'">
+                        <span class="tracking-[-0.02em] leading-none transition-all duration-500"
+                            :class="headerScrolled ? 'text-3xl md:text-4xl' : 'text-7xl md:text-8xl'"
+                            style="font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #fff; transform: scaleY(1.7) scaleX(0.85); paint-order: stroke fill; -webkit-text-stroke: 3px rgba(0,0,0,0.8); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                            ZODIAC
+                        </span>
+                        <span x-show="headerScrolled" x-transition
+                            class="text-xl md:text-2xl font-black tracking-[0.3em] uppercase"
+                            style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 10px rgba(255, 51, 85, 0.6);">
+                            PLANNER
+                        </span>
+                    </h1>
+                </div>
+
+                <div class="text-center relative transition-all duration-500"
+                    :class="headerScrolled ? 'pb-0 opacity-0 h-0 overflow-hidden' : 'pb-8 opacity-100'">
+                    <div class="w-48 md:w-96 h-[1px] mx-auto mb-6"
+                        style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); box-shadow: 0 0 12px rgba(255,255,255,0.4);">
+                    </div>
+
+                    <span
+                        class="block text-[11px] md:text-[14px] font-black tracking-[1.6em] uppercase mb-6 mr-[-1.6em]"
+                        style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 15px rgba(255, 51, 85, 0.6);">
+                        PLANNER
+                    </span>
+
+                    <p
+                        class="relative z-10 text-gray-400 text-xs md:text-sm font-normal italic opacity-40 tracking-wide">
+                        Optimization based on the Unnecessary Class Guide v2.2
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col lg:grid lg:grid-cols-12 lg:auto-rows-auto gap-8">
+
+            <!-- Presets - Order 1 on mobile -->
+            <div class="order-1 lg:col-span-4 lg:order-none">
+                <div class="ff-panel rounded-lg p-2 overflow-hidden">
+                    <div class="space-y-4">
+                        <template x-for="(phaseData, phaseKey) in groupedPresets" :key="phaseKey">
+                            <div x-show="phaseData.presets.length > 0">
+                                <!-- Category Header -->
+                                <div class="ff-category-header">
+                                    <h3 x-text="phaseData.label"></h3>
+                                </div>
+
+                                <!-- Presets in this category -->
+                                <div class="flex flex-col">
+                                    <template x-for="item in phaseData.presets" :key="item.name">
+                                        <div class="ff-preset-btn" :class="{ 'active': preset === item.name }">
+                                            <button
+                                                @click="preset = item.name; expanded = {}; selectedParty = 0; teamView = 'A'; showBuildDetails = false"
+                                                class="w-full text-left focus:outline-none group">
+                                                <div class="ff-punch-label"
+                                                    :class="preset === item.name ? 'ff-punch-text ff-bronze-text' : ''"
+                                                    x-text="item.data.shortName || item.name.split(' ')[0]"></div>
+                                                <div class="flex flex-col gap-0.5">
+                                                    <div class="ff-detail-title" x-text="item.name"></div>
+                                                    <div class="ff-detail-desc opacity-40 uppercase tracking-tight leading-snug"
+                                                        :class="preset !== item.name ? 'truncate' : ''"
+                                                        x-text="item.data.desc"></div>
+                                                </div>
+                                                <div
+                                                    class="text-[10px] opacity-20 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                                                    ▶
+                                                </div>
+                                            </button>
+
+                                            <!-- Tactical Snapshot Expansion -->
+                                            <div x-show="preset === item.name" x-collapse>
+                                                <div class="ff-rich-content p-4 space-y-6">
+                                                    <!-- Technical Metric Matrix -->
+                                                    <div class="grid grid-cols-3 gap-8">
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.lp)"
+                                                                x-text="gradeToWord(item.data.metrics.lp)">
+                                                            </div>
+                                                            <div class="ff-metric-label mb-2">LP Sync</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-system"
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.lp)}%`">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.atk)"
+                                                                x-text="gradeToWord(item.data.metrics.atk)">
+                                                            </div>
+                                                            <div class="ff-metric-label mb-2">Power</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-offense"
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.atk)}%`">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex flex-col">
+                                                            <div class="ff-metric-value font-black text-xl tracking-wider"
+                                                                :class="gradeColor(item.data.metrics.flex)"
+                                                                x-text="gradeToWord(item.data.metrics.flex)"></div>
+                                                            <div class="ff-metric-label mb-2">Flex</div>
+                                                            <div class="ff-gauge-container !h-1 bg-white/10">
+                                                                <div class="ff-gauge-fill bar-defense"
+                                                                    :style="`width: ${gradeToPercent(item.data.metrics.flex)}%`">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Synergy Markers -->
+                                                    <div
+                                                        class="flex flex-wrap gap-2 text-[9px] font-black tracking-widest uppercase">
+                                                        <template
+                                                            x-for="esper in item.data.requirements.keyEspers.slice(0, 2)">
+                                                            <span
+                                                                class="bg-[#2a4555] border border-cyan-400/30 px-2 py-1"
+                                                                x-text="esper.split(' ')[0]"></span>
+                                                        </template>
+                                                    </div>
+
+                                                    <!-- Notes -->
+                                                    <div class="ff-selector-alert">
+                                                        <div
+                                                            class="font-black text-[10px] uppercase tracking-widest text-[#ffd700] mb-3">
+                                                            Notes
+                                                        </div>
+                                                        <div class="opacity-90 space-y-2"
+                                                            x-html="renderNotes(item.data.requirements.notes)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Character Cards - Order 2 on mobile, spans 8 cols + 2 rows on desktop -->
+            <div class="order-2 lg:col-span-8 lg:row-span-2 lg:order-none space-y-6 pl-0 lg:pl-4">
+
+                <!-- Mission Briefing - Compact Expandable Strip -->
+                <div class="ff-panel ff-briefing-panel rounded-lg overflow-hidden border border-amber-500/40">
+                    <!-- Technical Grid Layer -->
+                    <div class="absolute inset-0 ff-briefing-grid opacity-20 pointer-events-none"></div>
+
+                    <!-- Corner Flourishes -->
+                    <div class="ff-row-tick-tl scale-75 opacity-40"></div>
+                    <div class="ff-row-tick-br scale-75 opacity-40"></div>
+
+                    <!-- Compact Header -->
+                    <button @click="showBuildDetails = !showBuildDetails"
+                        class="w-full text-left group hover:bg-amber-500/5 transition-all">
+                        <div class="flex items-center justify-between px-4 md:px-8 py-5 gap-4">
+                            <div class="flex items-center gap-4 flex-1 min-w-0">
+                                <!-- Icon -->
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded bg-amber-500/10 border border-amber-500/40 flex items-center justify-center shadow-[0_0_15px_rgba(255,176,0,0.1)]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-amber-500"
+                                        x-html="Icons.Book"></svg>
+                                </div>
+
+                                <!-- Preset Info -->
+                                <div class="flex-1 min-w-0">
+                                    <div class="ff-punch-label mb-1 !text-xl md:!text-2xl ff-bronze-text"
+                                        x-text="current.shortName || preset.split(' ')[0]"></div>
+                                    <div class="text-xs md:text-sm text-gray-400 uppercase tracking-wide leading-snug"
+                                        :class="!showBuildDetails ? 'truncate' : ''" x-text="current.desc"></div>
+                                </div>
+                            </div>
+
+                            <!-- Expand Indicator -->
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="hidden md:block text-[10px] font-black uppercase tracking-[0.25em] text-amber-400"
+                                    x-text="showBuildDetails ? 'Collapse' : 'Expand'"></span>
+                                <div class="text-amber-400 opacity-60 group-hover:opacity-100 transition-opacity">
+                                    <span x-text="showBuildDetails ? '▲' : '▼'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- Expanded Build Overview -->
+                    <div x-show="showBuildDetails" x-collapse>
+                        <!-- Metadata Header -->
+                        <div
+                            class="ff-briefing-header flex flex-col md:flex-row items-start md:items-center justify-between px-4 md:px-8 py-4 gap-2 border-t border-amber-500/20">
+                            <div class="flex items-center gap-3">
+                                <div class="w-1.5 h-6 bg-amber-500/50 rounded-full"></div>
+                                <span
+                                    class="text-[10px] md:text-xs font-black text-amber-500 uppercase tracking-[0.2em] ff-punch-text">Archives
+                                    of the Marquise Halim Ondore IV</span>
+                                <div class="hidden md:block w-px h-4 bg-amber-500/20"></div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 text-[9px] md:text-[10px] font-bold text-amber-500/40 uppercase tracking-tighter ff-mono">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
+                                    Ref: AX-Zodiac
+                                </span>
+                                <span class="flex items-center gap-1.5">
+                                    <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
+                                    <span
+                                        x-text="'Class Proficiency LV ' + (() => { const m = current.requirements.recommendedLevel.match(/(\d+)(?:-(\d+))?/); return m ? (m[2] || m[1]) : '99'; })()"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Strategy Overview -->
+                        <div class="px-4 md:px-10 py-6 relative z-10">
+                            <h3 class="ff-punch-text text-lg md:text-xl text-amber-400 mb-4 tracking-wide">BUILD
+                                STRATEGY</h3>
+                            <p class="text-[14px] text-gray-300 leading-relaxed font-normal max-w-3xl"
+                                x-text="current.why"></p>
+                        </div>
+
+                        <!-- Build Requirements - Expandable -->
+                        <div class="border-t border-amber-500/20 pt-8 px-4 md:px-8 mb-8">
+                            <div class="flex items-center gap-3 mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-6 h-6 text-amber-500" x-html="Icons.Target"></svg>
+                                <h4
+                                    class="text-base font-bold text-amber-300 uppercase tracking-[0.15em] ff-punch-text">
+                                    Archetype Development</h4>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <!-- Left Column: Availability & Unlocks -->
+                                <div class="space-y-6">
+                                    <!-- Availability -->
+                                    <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                        <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-amber-400"
+                                                x-html="Icons.Clock"></svg>
+                                            <span
+                                                class="text-xs font-bold text-amber-300 uppercase tracking-widest">Availability</span>
+                                        </div>
+                                        <p class="text-[13px] text-gray-200 pl-6"
+                                            x-text="current.requirements.availability"></p>
+                                    </div>
+
+                                    <!-- Unlocks -->
+                                    <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                        <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-amber-400"
+                                                x-html="Icons.Unlock"></svg>
+                                            <span
+                                                class="text-xs font-bold text-amber-300 uppercase tracking-widest">License
+                                                Unlocks</span>
+                                        </div>
+                                        <p class="text-[13px] text-gray-200 pl-6 leading-relaxed"
+                                            x-html="renderStatusNote(current.requirements.unlocks)">
+                                        </p>
+                                    </div>
+
+                                    <!-- Recommended Level -->
+                                    <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                        <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-amber-400"
+                                                x-html="Icons.TrendingUp"></svg>
+                                            <span
+                                                class="text-xs font-bold text-amber-300 uppercase tracking-widest">Target
+                                                Level</span>
+                                        </div>
+                                        <p class="text-[13px] text-gray-200 pl-6"
+                                            x-text="current.requirements.recommendedLevel"></p>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Gear & Espers -->
+                                <div class="space-y-6">
+                                    <!-- Critical Gear -->
+                                    <div class="p-5 rounded border border-yellow-500/30 relative overflow-hidden"
+                                        style="background: rgba(40, 35, 20, 0.4)">
+                                        <div class="flex items-center gap-2 mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-yellow-500">
+                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            </svg>
+                                            <span
+                                                class="text-xs font-bold text-yellow-300 uppercase tracking-widest">Essential
+                                                Armaments</span>
+                                        </div>
+                                        <ul class="space-y-3 pl-2">
+                                            <template x-for="item in current.requirements.criticalGear" :key="item">
+                                                <li class="text-[13px] text-gray-200 flex items-start gap-3">
+                                                    <span
+                                                        class="text-yellow-500/60 flex-shrink-0 mt-1 scale-125">▸</span>
+                                                    <span x-html="renderGearItem(item)"></span>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Key Espers -->
+                                    <div class="p-5 rounded ff-briefing-tile relative overflow-hidden">
+                                        <div class="ff-row-tick-tl scale-75 opacity-20"></div>
+                                        <div class="flex items-center gap-2 mb-5">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-amber-500"
+                                                x-html="Icons.Sparkles"></svg>
+                                            <span
+                                                class="text-xs font-bold text-amber-300 uppercase tracking-widest">Esper
+                                                Attunement</span>
+                                        </div>
+                                        <div class="space-y-3 pl-3">
+                                            <template x-for="esperStr in current.requirements.keyEspers"
+                                                :key="esperStr">
+                                                <div
+                                                    class="flex items-center gap-4 bg-amber-500/[0.03] p-2.5 rounded border border-amber-500/20 hover:border-amber-500/40 transition-colors">
+                                                    <div class="flex items-center gap-1">
+                                                        <template x-for="eName in esperStr.split(' (')[0].split('/')"
+                                                            :key="eName">
+                                                            <div class="w-6 h-6 text-amber-400" :title="eName">
+                                                                <svg viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="1.2"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    x-html="ZodiacGlyphs[ESPER_ZODIAC[eName]]"></svg>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                    <div class="flex flex-col">
+                                                        <span
+                                                            class="text-[11px] font-black text-gray-100 uppercase tracking-wider"
+                                                            x-text="esperStr.split(' (')[0].replace('/', ' & ')"></span>
+                                                        <span
+                                                            class="text-[9px] text-amber-500/60 font-bold uppercase tracking-tight"
+                                                            x-text="esperStr.includes('(') ? esperStr.split('(')[1].replace(')', '') : 'Synergy Node'"></span>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notes Footer -->
+                            <div x-show="current.requirements.notes"
+                                class="mt-8 p-5 rounded border border-yellow-500/30 bg-yellow-500/[0.03] flex items-start gap-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0"
+                                    x-html="Icons.AlertCircle"></svg>
+                                <div class="text-[13px] text-gray-300 leading-relaxed space-y-2"
+                                    x-html="renderNotes(current.requirements.notes)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Party Compositions / Combat Stages - Always Visible (Compact) -->
+                    <div x-show="current.parties" class="border-t border-amber-500/20 pt-5 px-4 md:px-8 pb-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="w-4 h-4 text-yellow-500" x-html="Icons.Tactics"></svg>
+                            <h4 class="text-xs font-bold text-yellow-300 uppercase tracking-[0.15em]"
+                                x-text="current.isSequential ? 'Combat Stages' : 'Party Formations'"></h4>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-2">
+                            <template x-for="(party, pi) in current.parties" :key="party.name">
+                                <button @click="selectedParty = pi; teamView = 'A'"
+                                    class="flex-1 rounded p-2.5 border transition-all text-left group relative" :class="{
+                                        'border-yellow-500 bg-yellow-500/20': selectedParty === pi,
+                                        'border-amber-500/30 hover:border-amber-500/50 hover:bg-amber-500/10': selectedParty !== pi
+                                    }">
+                                    <div class="flex items-center gap-2">
+                                        <!-- Selection Indicator -->
+                                        <div class="flex-shrink-0 w-1.5 h-1.5 rounded-full transition-all"
+                                            :class="selectedParty === pi ? 'bg-yellow-400 shadow-[0_0_5px_rgba(255,200,0,0.8)]' : 'bg-amber-500/20'">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="text-[10px] font-black text-amber-300 uppercase tracking-wider mb-0.5"
+                                                x-text="party.name"></div>
+                                            <p class="text-[9px] text-gray-400 leading-tight line-clamp-2"
+                                                x-text="party.why"></p>
+                                        </div>
+                                    </div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team A/B Toggle -->
+                <div x-show="current.parties && current.parties.length > 0" class="mb-6">
+                    <div class="flex items-center justify-center gap-3">
+                        <button @click="teamView = 'A'"
+                            class="px-6 py-2.5 rounded-lg font-bold text-sm uppercase tracking-wider transition-all duration-200"
+                            :class="{
+                                'bg-yellow-500/20 border-2 border-yellow-500 text-yellow-300 shadow-lg shadow-yellow-500/20': teamView === 'A',
+                                'bg-white/5 border border-gray-600 text-gray-400 hover:bg-white/10': teamView !== 'A'
+                            }">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-4 h-4">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                                <span x-text="current.isSequential ? 'Active Stage' : 'Main Team'"></span>
+                            </div>
+                        </button>
+                        <button @click="teamView = 'B'"
+                            class="px-6 py-2.5 rounded-lg font-bold text-sm uppercase tracking-wider transition-all duration-200"
+                            :class="{
+                                'bg-green-500/20 border-2 border-green-500 text-green-300 shadow-lg shadow-green-500/20': teamView === 'B',
+                                'bg-white/5 border border-gray-600 text-gray-400 hover:bg-white/10': teamView !== 'B'
+                            }">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-4 h-4">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                                <span x-text="current.isSequential ? 'Resting Team' : 'Backup Team'"></span>
+                            </div>
+                        </button>
+                    </div>
+                    <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'A'">
+                        <template x-if="current.isSequential">
+                            <span><span x-text="current.parties[selectedParty].name"></span> - Currently deployed</span>
+                        </template>
+                        <template x-if="!current.isSequential">
+                            <span><span x-text="current.parties[selectedParty].name"></span> - Active party</span>
+                        </template>
+                    </p>
+                    <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'B'">
+                        <template x-if="current.isSequential">
+                            <span>Reserve rotation - Recovering MP/HP</span>
+                        </template>
+                        <template x-if="!current.isSequential">
+                            <span>Reserve characters - Switch in for leveling</span>
+                        </template>
+                    </p>
+                </div>
+
+
+                <template x-for="(build, i) in current.builds" :key="build.char + '-' + selectedParty">
+                    <div x-show="shouldShowCharacter(build.char)" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        class="relative ff-panel ff-cinematic-row rounded-lg overflow-hidden transition-all duration-300 mb-4"
+                        :class="{ 'ff-row-expanded': expanded[i], 'ring-1 ring-cyan-500/30': expanded[i] }">
+
+                        <!-- Cinematic Background Layer -->
+                        <div class="ff-cinematic-bg" :style="`background-image: url('${CHAR_IMAGES[build.char]}'); background-position: center ${
+                                    build.char === 'Balthier' ? '22%' : 
+                                    build.char === 'Vaan' ? '20%' : 
+                                    build.char === 'Basch' ? '20%' : 
+                                    build.char === 'Fran' ? '30%' : 
+                                    build.char === 'Ashe' ? '35%' : 
+                                    build.char === 'Penelo' ? '30%' : '35%'
+                                }`"></div>
+
+                        <!-- Legibility Layer -->
+                        <div class="ff-cinematic-overlay"></div>
+
+                        <!-- Corner Flourishes -->
+                        <div class="ff-row-tick-tl"></div>
+                        <div class="ff-row-tick-br"></div>
+
+                        <button @click="expanded[i] = !expanded[i]"
+                            class="w-full flex flex-col md:flex-row items-stretch text-left group relative min-h-[180px] md:min-h-[110px] ff-cinematic-content">
+
+                            <!-- Info Section - Unified Padding -->
+                            <div class="flex-1 flex flex-col justify-center py-4 md:py-6 px-4 md:px-8">
+                                <div class="flex flex-col md:flex-row items-end md:items-center justify-between gap-4">
+                                    <!-- Identification & Safe Job Zone - Right Aligned on Mobile -->
+                                    <div
+                                        class="flex flex-col justify-center items-end md:items-start text-right md:text-left w-full md:max-w-[400px]">
+                                        <div class="space-y-2 md:space-y-3 w-full">
+                                            <div>
+                                                <div class="ff-char-name-punch ff-punch-text"
+                                                    :class="isLeader(build.char) ? 'ff-bronze-text' : ''"
+                                                    x-text="build.char">
+                                                </div>
+                                                <div class="flex items-center justify-end md:justify-start gap-2 mb-2">
+                                                    <!-- Espers Mini-Readout -->
+                                                    <div class="flex items-center gap-1"
+                                                        x-show="build.espers.length > 0">
+                                                        <template x-for="e in build.espers" :key="e">
+                                                            <div class="w-3.5 h-3.5 opacity-60" :title="e">
+                                                                <svg viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    stroke-linecap="round" stroke-linejoin="round"
+                                                                    x-html="ZodiacGlyphs[ESPER_ZODIAC[e]]"></svg>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                    <div class="h-3 w-[1px] bg-white/20"></div>
+                                                    <span
+                                                        class="text-[9px] md:text-[10px] font-black text-yellow-500 uppercase tracking-widest"
+                                                        x-text="build.role"></span>
+                                                </div>
+
+                                                <!-- Job Badges - Vertical List on Mobile -->
+                                                <div class="flex flex-col md:flex-row items-end md:items-start gap-2">
+                                                    <template x-for="job in build.jobs" :key="job">
+                                                        <div class="ff-job-tag-tech !py-1 !px-3 md:!py-1.5 md:!px-4 w-fit"
+                                                            :style="`background-color: ${JOBS[job].bg}CC; border-color: ${JOBS[job].border}; color: ${JOBS[job].color}`">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2.5" stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                class="w-3 h-3 md:w-3.5 md:h-3.5"
+                                                                x-html="Icons[JOBS[job].icon]"></svg>
+                                                            <span class="text-[9px] md:text-[10px]" x-text="job"></span>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Level & Expand Block -->
+                                    <div
+                                        class="flex items-center justify-between md:flex-col md:items-end md:justify-center w-full md:w-auto mt-2 md:mt-0">
+                                        <!-- Expand Indicator -->
+                                        <div
+                                            class="text-[10px] opacity-20 group-hover:opacity-100 transition-all md:order-2">
+                                            <span x-text="expanded[i] ? '▲' : '▼'"></span>
+                                        </div>
+
+                                        <div class="flex items-baseline md:items-center md:order-1">
+                                            <span class="ff-char-level-label !mr-1">LV</span>
+                                            <span class="ff-metric-value !text-2xl md:!text-4xl"
+                                                x-text="(() => { const m = current.requirements.recommendedLevel.match(/(\d+)(?:-(\d+))?/); return m ? (m[2] || m[1]) : '99'; })()"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- Expanded Details -->
+                        <div x-show="expanded[i]"
+                            class="px-4 md:px-6 pb-6 border-t border-cyan-500/30 ff-expanded-target"
+                            x-transition:enter="transition-all ease-out duration-300"
+                            x-transition:enter-start="opacity-0 max-h-0"
+                            x-transition:enter-end="opacity-100 max-h-[2000px]">
+                            <div class="grid md:grid-cols-2 gap-6 pt-4">
+                                <!-- Left Column: Strategy & Unlocks -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <div
+                                            class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-yellow-400"
+                                                x-html="Icons.Tactics"></svg>
+                                            Strategy
+                                        </div>
+                                        <p class="text-sm text-white leading-relaxed p-4 rounded border border-cyan-500/20 shadow-sm font-normal"
+                                            style="background: rgba(20, 35, 50, 0.6)" x-text="build.why"></p>
+                                    </div>
+
+                                    <div x-show="build.espers.length > 0">
+                                        <div
+                                            class="flex items-center gap-2 mb-4 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
+                                                x-html="Icons.Sparkles"></svg>
+                                            Esper Unlocks
+                                        </div>
+                                        <div class="space-y-3">
+                                            <template x-for="esper in build.espers" :key="esper">
+                                                <div
+                                                    class="relative p-4 rounded-lg border-2 border-cyan-400/40 bg-gradient-to-br from-cyan-500/15 via-cyan-500/10 to-transparent hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
+                                                    <div class="flex items-start gap-3">
+                                                        <!-- Circular Zodiac Icon -->
+                                                        <div
+                                                            class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-cyan-400/70 bg-gradient-to-br from-cyan-500/40 to-cyan-600/30 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="none" stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" class="w-6 h-6 text-cyan-300"
+                                                                stroke-width="2.5"
+                                                                x-html="ZodiacGlyphs[ESPER_ZODIAC[esper]]"></svg>
+                                                        </div>
+                                                        <!-- Esper Name & Unlocks -->
+                                                        <div class="flex-1 min-w-0">
+                                                            <div class="font-bold text-cyan-300 text-sm uppercase tracking-wider mb-2 flex items-center gap-2"
+                                                                x-text="esper"></div>
+                                                            <div class="space-y-1.5">
+                                                                <template x-for="job in build.jobs" :key="job">
+                                                                    <div x-show="ESPER_UNLOCKS[esper]?.[job]"
+                                                                        class="text-xs bg-black/20 rounded px-2 py-1">
+                                                                        <span class="font-bold text-white"
+                                                                            x-text="job + ': '"></span>
+                                                                        <span class="text-gray-300 font-normal"
+                                                                            x-text="ESPER_UNLOCKS[esper]?.[job]"></span>
+                                                                    </div>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right Column: Gambits & Gear -->
+                                <div class="space-y-6">
+                                    <div x-show="build.gambits">
+                                        <div
+                                            class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-yellow-400"
+                                                x-html="Icons.GambitSystem"></svg>
+                                            Gambits
+                                        </div>
+                                        <div class="space-y-1">
+                                            <template x-for="(gambit, gi) in build.gambits" :key="gi">
+                                                <div class="ff-gambit-row"
+                                                    :class="'ff-gambit-' + getGambitType(gambit)">
+                                                    <span class="ff-gambit-number" x-text="gi + 1"></span>
+                                                    <span class="ff-gambit-target"
+                                                        x-text="gambit.includes(' → ') ? gambit.split(' → ')[0] : gambit"></span>
+                                                    <template x-if="gambit.includes(' → ')">
+                                                        <span class="ff-gambit-arrow">▸</span>
+                                                    </template>
+                                                    <template x-if="gambit.includes(' → ')">
+                                                        <span class="ff-gambit-action"
+                                                            x-text="gambit.split(' → ')[1]"></span>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <div x-show="build.gear">
+                                        <div
+                                            class="flex items-center gap-2 mb-3 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="w-4 h-4 text-cyan-400">
+                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                            </svg>
+                                            Recommended Gear
+                                        </div>
+                                        <div class="p-3 rounded border border-cyan-500/20 shadow-sm"
+                                            style="background: rgba(20, 35, 50, 0.6)">
+                                            <template x-for="(item, gi) in build.gear" :key="gi">
+                                                <div
+                                                    class="text-xs text-gray-200 mb-2 last:mb-0 flex items-start gap-2 leading-relaxed">
+                                                    <span class="text-yellow-400 flex-shrink-0 mt-0.5">▸</span>
+                                                    <span x-html="renderGearItem(item)"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+        </div>
+
+        <!-- Thematic Footer -->
+        <footer class="mt-20 pb-24 border-t border-cyan-500/10">
+            <div class="max-w-7xl mx-auto px-6 py-12 flex flex-col items-center">
+                <!-- Random Memoir Excerpt -->
+                <div x-show="memoir" class="max-w-2xl text-center mb-10 animate-fade-in" x-cloak>
+                    <p class="text-sm md:text-base text-cyan-100/60 leading-relaxed italic font-serif mb-4"
+                        x-text="'&ldquo;' + memoir.text + '&rdquo;'"></p>
+                    <div class="text-[10px] font-bold text-amber-500/50 uppercase tracking-[0.2em]"
+                        x-text="'— Memoirs of Marquise Halim Ondore IV, Ch. ' + memoir.chapter + ': ' + memoir.title">
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 mb-6 opacity-30">
+                    <div class="h-px w-24 bg-gradient-to-r from-transparent to-cyan-500"></div>
+                    <div class="w-2 h-2 rounded-full bg-cyan-500"></div>
+                    <div class="h-px w-24 bg-gradient-to-l from-transparent to-cyan-500"></div>
+                </div>
+                <div class="flex flex-col items-center text-center space-y-2">
+                    <div class="text-[9px] font-bold text-cyan-500/30 uppercase tracking-widest">Zodiac Age Optimization
+                        Records
+                    </div>
+                </div>
+                <!-- Final Decorative Scroll Guard - Zodiac Glyphs -->
+                <div
+                    class="mt-8 flex flex-wrap items-center justify-center gap-3 md:gap-4 opacity-5 pointer-events-none select-none">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♈']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♉']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♊']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♋']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♌']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♍']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♎']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♏']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['⛎']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♐']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♑']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♒']"></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
+                        x-html="ZodiacGlyphs['♓']"></svg>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
