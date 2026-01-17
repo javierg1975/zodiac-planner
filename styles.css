@@ -40,6 +40,28 @@ h3 {
     color: white;
 }
 
+/* Title Animation */
+@keyframes breathe {
+
+    0%,
+    100% {
+        opacity: 0.08;
+        transform: translateY(-5%) scale(2.5);
+    }
+
+    50% {
+        opacity: 0.12;
+        transform: translateY(-5%) scale(2.55);
+    }
+}
+
+.ff-title-watermark {
+    animation: breathe 8s ease-in-out infinite;
+    filter: grayscale(1) brightness(1.2);
+    pointer-events: none;
+    user-select: none;
+}
+
 /* Gambit Slot Panel */
 .ff-panel {
     background: var(--ff-panel-bg);
