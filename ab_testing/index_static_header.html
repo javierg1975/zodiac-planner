@@ -17,69 +17,54 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&display=swap"
         rel="stylesheet">
-    <link href="./styles.css" rel="stylesheet">
+    <link href="../styles.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Game Data Modules -->
-    <script src="./data/icons.js"></script>
-    <script src="./data/jobs.js"></script>
-    <script src="./data/characters.js"></script>
-    <script src="./data/espers.js"></script>
-    <script src="./data/presets.js"></script>
-    <script src="./data/memoirs.js"></script>
+    <script src="../data/icons.js"></script>
+    <script src="../data/jobs.js"></script>
+    <script src="../data/characters.js"></script>
+    <script src="../data/espers.js"></script>
+    <script src="../data/presets.js"></script>
+    <script src="../data/memoirs.js"></script>
 
     <!-- Alpine.js Application Logic -->
-    <script src="./app-option4.js"></script>
+    <script src="../app.js"></script>
 
-    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30"
-        x-init="
-            let lastScrollY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
+    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30">
 
-                // At the very top, always show header
-                if (currentScrollY < 50) {
-                    headerHidden = false;
-                }
-                // Scrolling down - hide header
-                else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                    headerHidden = true;
-                }
-                // Scrolling up - show header
-                else if (currentScrollY < lastScrollY) {
-                    headerHidden = false;
-                }
-
-                lastScrollY = currentScrollY;
-            });
-        ">
-
-        <!-- FF XII Header - OPTION 4: Auto-Hide -->
-        <div class="sticky top-0 z-50 overflow-hidden border-b border-cyan-500/20 transition-transform duration-300 ease-out"
-            :class="headerHidden ? '-translate-y-full' : 'translate-y-0'"
-            style="background: rgba(10, 20, 30, 0.95); min-height: 200px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
-            <div class="relative max-w-7xl mx-auto px-6 h-full min-h-[200px] flex flex-col">
+        <!-- FF XII Header -->
+        <div class="relative overflow-hidden border-b border-cyan-500/20"
+            style="background: rgba(10, 20, 30, 0.7); min-height: 320px;">
+            <div class="relative max-w-7xl mx-auto px-6 h-full min-h-[320px] flex flex-col">
                 <div class="text-center relative flex-1 flex items-center justify-center">
-                    <div class="absolute inset-0 flex items-center justify-center ff-title-watermark opacity-20"
-                        style="transform: translateY(-5%) scale(1.8);">
-                        <img src="./logo/hc-logo.png" alt="" class="h-full w-auto object-contain">
+                    <div class="absolute inset-0 flex items-center justify-center ff-title-watermark"
+                        style="transform: translateY(-5%) scale(2.5);">
+                        <img src="../logo/hc-logo.png" alt="" class="h-full w-auto object-contain">
                     </div>
 
-                    <h1 class="relative flex flex-col md:flex-row items-center gap-2 md:gap-3">
-                        <span class="text-5xl md:text-6xl tracking-[-0.02em] leading-none"
-                            style="font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #fff; transform: scaleY(1.7) scaleX(0.85); paint-order: stroke fill; -webkit-text-stroke: 2px rgba(0,0,0,0.8); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                    <h1 class="relative flex flex-col items-center gap-0">
+                        <span class="text-7xl md:text-8xl tracking-[-0.02em] leading-none"
+                            style="font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #fff; transform: scaleY(1.7) scaleX(0.85); paint-order: stroke fill; -webkit-text-stroke: 3px rgba(0,0,0,0.8); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
                             ZODIAC
-                        </span>
-                        <span class="text-base md:text-xl font-black tracking-[0.4em] uppercase"
-                            style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 10px rgba(255, 51, 85, 0.6);">
-                            PLANNER
                         </span>
                     </h1>
                 </div>
 
-                <div class="text-center relative pb-3">
-                    <p class="relative z-10 text-gray-400 text-[10px] md:text-xs font-normal italic opacity-30 tracking-wide">
+                <div class="text-center relative pb-8">
+                    <div class="w-48 md:w-96 h-[1px] mx-auto mb-6"
+                        style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); box-shadow: 0 0 12px rgba(255,255,255,0.4);">
+                    </div>
+
+                    <span
+                        class="block text-[11px] md:text-[14px] font-black tracking-[1.6em] uppercase mb-6 mr-[-1.6em]"
+                        style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 15px rgba(255, 51, 85, 0.6);">
+                        PLANNER
+                    </span>
+
+                    <p
+                        class="relative z-10 text-gray-400 text-xs md:text-sm font-normal italic opacity-40 tracking-wide">
                         Optimization based on the Unnecessary Class Guide v2.2
                     </p>
                 </div>
