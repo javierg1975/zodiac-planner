@@ -355,7 +355,7 @@
                                 </span>
                             <span class="flex items-center gap-1.5">
                                     <span class="w-1 h-1 rounded-full bg-amber-500/40"></span>
-                                    <span x-text="'Class Proficiency LV ' + (current.requirements.recommendedLevel.split('-')[1] || '99')"></span>
+                                    <span x-text="'Class Proficiency LV ' + (() => { const m = current.requirements.recommendedLevel.match(/(\d+)(?:-(\d+))?/); return m ? (m[2] || m[1]) : '99'; })()"></span>
                                 </span>
                         </div>
                     </div>
@@ -506,14 +506,14 @@
                     </div>
                 </div>
 
-                <!-- Party Compositions - Always Visible (Compact) -->
+                <!-- Party Compositions / Combat Stages - Always Visible (Compact) -->
                 <div x-show="current.parties" class="border-t border-amber-500/20 pt-5 px-4 md:px-8 pb-6">
                     <div class="flex items-center gap-2 mb-3">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="w-4 h-4 text-yellow-500" x-html="Icons.Tactics"></svg>
-                        <h4 class="text-xs font-bold text-yellow-300 uppercase tracking-[0.15em]">
-                            Party Formations</h4>
+                        <h4 class="text-xs font-bold text-yellow-300 uppercase tracking-[0.15em]"
+                            x-text="current.isSequential ? 'Combat Stages' : 'Party Formations'"></h4>
                     </div>
                     <div class="flex flex-col md:flex-row gap-2">
                         <template x-for="(party, pi) in current.parties" :key="party.name">
@@ -559,7 +559,7 @@
                                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                             </svg>
-                            <span>Main Team</span>
+                            <span x-text="current.isSequential ? 'Active Stage' : 'Main Team'"></span>
                         </div>
                     </button>
                     <button @click="teamView = 'B'"
@@ -577,15 +577,25 @@
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                             </svg>
-                            <span>Backup Team</span>
+                            <span x-text="current.isSequential ? 'Resting Team' : 'Backup Team'"></span>
                         </div>
                     </button>
                 </div>
                 <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'A'">
-                    <span x-text="current.parties[selectedParty].name"></span> - Active party
+                    <template x-if="current.isSequential">
+                        <span><span x-text="current.parties[selectedParty].name"></span> - Currently deployed</span>
+                    </template>
+                    <template x-if="!current.isSequential">
+                        <span><span x-text="current.parties[selectedParty].name"></span> - Active party</span>
+                    </template>
                 </p>
                 <p class="text-center text-xs text-gray-400 mt-3" x-show="teamView === 'B'">
-                    Reserve characters - Switch in for leveling
+                    <template x-if="current.isSequential">
+                        <span>Reserve rotation - Recovering MP/HP</span>
+                    </template>
+                    <template x-if="!current.isSequential">
+                        <span>Reserve characters - Switch in for leveling</span>
+                    </template>
                 </p>
             </div>
 
@@ -678,7 +688,7 @@
                                     <div class="flex items-baseline md:items-center md:order-1">
                                         <span class="ff-char-level-label !mr-1">LV</span>
                                         <span class="ff-metric-value !text-2xl md:!text-4xl"
-                                              x-text="(current.requirements.recommendedLevel.split('-')[1] || '99').replace(/[^0-9]/g, '')"></span>
+                                              x-text="(() => { const m = current.requirements.recommendedLevel.match(/(\d+)(?:-(\d+))?/); return m ? (m[2] || m[1]) : '99'; })()"></span>
                                     </div>
                                 </div>
                             </div>
