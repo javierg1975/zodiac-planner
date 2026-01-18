@@ -1,6 +1,6 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('planner', () => ({
-        preset: localStorage.getItem('ffxii_preset') || 'Max Efficiency',
+        preset: localStorage.getItem('ffxii_preset') || 'First Jobs',
         expanded: JSON.parse(localStorage.getItem('ffxii_expanded') || '{}'),
         selectedParty: parseInt(localStorage.getItem('ffxii_party') || '0'),
         teamView: localStorage.getItem('ffxii_team') || 'A',
