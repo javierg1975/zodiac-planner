@@ -42,7 +42,7 @@
     <script src="./data/memoirs.js"></script>
 
     <!-- Alpine.js Application Logic - Reusing Option 2 logic as it is compatible -->
-    <script src="./app-option2.js"></script>
+    <script src="ab_testing/app-option2.js"></script>
 
     <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30" x-init="
             let ticking = false;
@@ -73,16 +73,18 @@
             :style="`background: rgba(10, 20, 30, ${headerScrolled ? '0.95' : '0.9'}); height: ${headerScrolled ? '60px' : '240px'}`">
             <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col transition-all duration-500"
                 :class="headerScrolled ? 'justify-center' : 'justify-center'">
+                <!-- Watermark - Moved to root to span full height -->
+                <div class="absolute inset-0 flex items-end justify-center transition-all duration-500 pointer-events-none"
+                    :style="`transform: translateY(5%) scale(${headerScrolled ? '0.6' : '3.2'}); opacity: ${headerScrolled ? '0.1' : '0.4'}`">
+                    <img src="./logo/hc-logo.png" alt=""
+                        class="h-full w-auto object-contain ff-title-watermark ff-watermark-mask">
+                </div>
+
                 <!-- Always centered, let content flow determine spacing -->
 
                 <div class="text-center relative flex items-center justify-center transition-all duration-500 shrink-0"
                     :class="headerScrolled ? 'transform-none' : '-translate-y-4'">
                     <!-- Slight nudge up when open to balance the bottom block -->
-                    <!-- Watermark -->
-                    <div class="absolute inset-0 flex items-center justify-center ff-title-watermark transition-all duration-500"
-                        :style="`transform: translateY(-5%) scale(${headerScrolled ? '0.6' : '1.8'}); opacity: ${headerScrolled ? '0.1' : '0.8'}`">
-                        <img src="./logo/hc-logo.png" alt="" class="h-full w-auto object-contain">
-                    </div>
 
                     <!-- Main Title Group -->
                     <h1 class="relative flex flex-row items-center gap-3 transition-all duration-500 z-10">

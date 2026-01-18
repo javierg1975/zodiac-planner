@@ -45,21 +45,26 @@ h3 {
 
     0%,
     100% {
-        opacity: 0.15;
-        transform: translateY(-5%) scale(2.5);
+        opacity: 0.9;
+        transform: scale(1);
     }
 
     50% {
-        opacity: 0.25;
-        transform: translateY(-5%) scale(2.55);
+        opacity: 1;
+        transform: scale(1.02);
     }
 }
 
 .ff-title-watermark {
     animation: breathe 8s ease-in-out infinite;
-    filter: grayscale(1) brightness(1.2);
+    filter: grayscale(1) brightness(1.2) contrast(1.2);
     pointer-events: none;
     user-select: none;
+}
+
+.ff-watermark-mask {
+    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 /* Gambit Slot Panel */
