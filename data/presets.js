@@ -1,4 +1,35 @@
 const PRESETS = {
+    'First Jobs': {
+        shortName: 'Starter',
+        desc: 'Single-job prologue build. Replace when dual jobs unlock.',
+        metrics: { lp: 'C', atk: 'C', flex: 'B' },
+        phase: 'early',
+        requirements: {
+            availability: 'Prologue - Single Job Phase Only',
+            unlocks: 'None - Available from first Clan Hall visit.',
+            criticalGear: [
+                'Potions/Phoenix Downs | Vaan\'s Potion Lore essential',
+                'Store-bought equipment | Leather armor, Bronze gear'
+            ],
+            keyEspers: ['None - No Espers in single-job phase'],
+            recommendedLevel: 'Level 1+',
+            notes: 'TEMPORARY BUILD. Visit Montblanc at Clan Centurio to reset jobs when dual-job system unlocks (after Tomb of Raithwall). Party composition is fragmented - Vaan is your only constant member.'
+        },
+        why: 'Designed for the chaotic prologue where party constantly shifts (Vaan solo → Vaan+Penelo → rotating cast). Vaan as Shikari ensures consistent item-based healing since he\'s the only guaranteed party member. This build is meant to be REPLACED once dual-job unlocks.',
+        parties: [
+            { name: 'Vaan\'s Core', members: ['Vaan', 'Penelo', 'Balthier'], why: 'Common early trio. Vaan handles healing via Potions, Penelo provides magic when available.' },
+            { name: 'Physical Front', members: ['Vaan', 'Balthier', 'Basch'], why: 'Heavy physical damage. Vaan as constant, supported by Knight and Uhlan.' },
+            { name: 'Full Roster', members: ['Vaan', 'Fran', 'Ashe'], why: 'Balanced once full party available. Magic DPS and buffs complement Vaan\'s survival.' }
+        ],
+        builds: [
+            { char: 'Vaan', jobs: ['Shikari'], espers: [], role: 'Item Healer', why: 'Your only constant. Potion Lore makes items actually useful. Main Gauche (when available) adds survivability.', gambits: ['Ally: HP < 70% → Potion', 'Ally: HP Critical → Phoenix Down', 'Ally: HP < 40% → Hi-Potion', 'Foe: Nearest Visible → Attack'], gear: ['Dagger → Main Gauche (eventually)', 'Leather Armor progression', 'Buckler → Round Shield', 'Stock Potions/Phoenix Downs'] },
+            { char: 'Penelo', jobs: ['White Mage'], espers: [], role: 'Magic Healer', why: 'Traditional healer when available. Cure spells supplement Vaan\'s items.', gambits: ['Ally: HP < 70% → Cure', 'Ally: HP < 40% → Cura', 'Ally: HP Critical → Phoenix Down', 'Foe: Nearest Visible → Attack'], gear: ['Staff → Serpent Rod', 'Mystic Armor progression', 'MAG focus', 'MP items'] },
+            { char: 'Balthier', jobs: ['Knight'], espers: [], role: 'Physical Tank', why: 'Heavy Armor provides early durability. Solid sword damage.', gambits: ['Foe: Leader\'s Target → Attack', 'Foe: Nearest Visible → Attack'], gear: ['Sword progression', 'Heavy Armor (Bronze → Steel)', 'Shield', 'STR accessories'] },
+            { char: 'Fran', jobs: ['Time Battlemage'], espers: [], role: 'Buffer', why: 'Haste and buffs valuable when available. Mystic Armor progression.', gambits: ['Ally: Status ≠ Haste → Haste', 'Ally: Any → Protect', 'Foe: Nearest Visible → Attack'], gear: ['Staff progression', 'Mystic Armor', 'MAG focus', 'Time Magick licenses'] },
+            { char: 'Basch', jobs: ['Uhlan'], espers: [], role: 'Physical DPS', why: 'Spear progression provides consistent damage. Heavy Armor for frontline.', gambits: ['Foe: HP ≥ 1000 → Attack', 'Foe: Nearest Visible → Attack'], gear: ['Spear progression (Javelin → Heavy Lance)', 'Heavy Armor', 'STR focus', 'HP accessories'] },
+            { char: 'Ashe', jobs: ['Black Mage'], espers: [], role: 'Magic DPS', why: 'Elemental magic for exploiting weaknesses. Mystic Armor progression.', gambits: ['Foe: Flying → Thunder', 'Foe: Weak Fire → Fire', 'Foe: Weak Ice → Blizzard', 'Foe: Nearest Visible → Attack'], gear: ['Rod progression', 'Mystic Armor', 'MAG focus', 'Elemental licenses'] }
+        ]
+    },
     'Max Efficiency': {
         shortName: 'Efficiency',
         desc: 'Zero-waste build. Refined for perfect license synergy.',
@@ -12,7 +43,7 @@ const PRESETS = {
                 'Genji Gloves | Combo Optimization'
             ],
             keyEspers: ['Exodus/Zeromus (Channeling)', 'Ultima/Zodiark (Swiftness/Renew)', 'Chaos (Hastega)'],
-            recommendedLevel: 'Level 35-45',
+            recommendedLevel: 'Level 35+',
             notes: 'Requires dual-job system unlocked. Using only one job per character wastes most of the synergy.'
         },
         why: 'Built for dedicated completionists. This setup ensures near-zero license overlap, maximizing every spent License Point. It enables rapid endgame scaling by providing early access to critical augments and Swiftness across the party.',
@@ -44,7 +75,7 @@ const PRESETS = {
                 'Dragon Whisker / Masamune | Top DPS weapons'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit (Hastega)', 'Exodus (Channeling)'],
-            recommendedLevel: 'Level 50-65',
+            recommendedLevel: 'Level 50+',
             notes: 'Genji Gloves are essential for all core DPS characters. Do not use with guns or bows.'
         },
         why: 'Built for pure offensive power. Sacrifices license efficiency (LP) to maximize Battle Lore stacking and STR-scaling. This build provides ~20% higher damage output compared to balanced builds at the cost of versatility.',
@@ -62,8 +93,8 @@ const PRESETS = {
             { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Combat Healer', why: 'High-evasion healer designed for long fights and party stability.', gambits: ['Ally: Any Status → Remedy', 'Ally: HP < 70% → Curaga', 'Ally: HP Critical → Phoenix Down', 'Self: HP < 40% → Decoy', 'Foe: Nearest Visible → Attack'], gear: ['Main Gauche | 50% evasion dagger for survival', 'Crystal Shield | Best shield for evasion tank', 'Rubber Suit | Thunder immunity light armor', 'Ribbon | Status immunity for healer'] }
         ]
     },
-    'Beginner Friendly': {
-        shortName: 'Beginner',
+    'Balanced': {
+        shortName: 'Balanced',
         desc: 'Balanced build. High synergy with low risk.',
         metrics: { lp: 'S', atk: 'A', flex: 'S' },
         phase: 'early',
@@ -75,7 +106,7 @@ const PRESETS = {
                 'Genji Gloves | Combo boost'
             ],
             keyEspers: ['Chaos (Hastega)', 'Ultima (Swiftness)', 'Cuchulainn (Remedy Lore)'],
-            recommendedLevel: 'Level 01+',
+            recommendedLevel: 'Level 20+',
             notes: 'Flexible gear options. Strategy works well with store-bought equipment.'
         },
         why: 'The standard for first-time playthroughs. This build provides stability and smooth progression across all game phases. It avoids potential bottlenecks and offers comprehensive utility and healing.',
@@ -108,7 +139,7 @@ const PRESETS = {
                 'Genji Gloves | DPS combo boost'
             ],
             keyEspers: ['Cuchulainn (Remedy Lore)', 'Ultima (Swiftness)', 'Chaos (Hastega)'],
-            recommendedLevel: 'Level 35-45',
+            recommendedLevel: 'Level 35+',
             notes: 'Won\'t work without Main Gauche evasion stacking. Strategy relies on Party Lead dodging all physical attacks.'
         },
         why: 'Built around leader-targeting mechanics. This setup makes the party leader nearly untouchable via evasion stacking, letting support characters focus on offense. Ideal for technical players who understand positioning and threat management.',
@@ -143,7 +174,7 @@ const PRESETS = {
                 'Bubble Belt | HP threshold survival'
             ],
             keyEspers: ['Ultima/Zodiark (Swiftness)', 'Famfrit/Zeromus (Channeling/Hastega)', 'Chaos (Renew/Hastega)'],
-            recommendedLevel: 'Level 70-80',
+            recommendedLevel: 'Level 70+',
             notes: 'Yiazmat is Dark-weak. Primary strategy: Berserked Yagyu Darkblade with Black Robes (50% Dark boost). Multi-hour fight requires all 6 characters rotating through stages.'
         },
         why: 'Built exclusively for Dark-weak superbosses like Yiazmat. Primary DPS: Berserked Penelo with Dark-boosted Yagyu Darkblade exploiting weakness. Support cast provides Hastega, Reverse, Expose, and infinite MP regeneration through rotation cycles. Not optimized for general use.',
@@ -176,7 +207,7 @@ const PRESETS = {
                 'Grand Armor | Royal guard signature'
             ],
             keyEspers: ['Chaos/Exodus (Channeling)', 'Famfrit (Hastega)', 'Ultima (Swiftness)'],
-            recommendedLevel: 'Level 01+',
+            recommendedLevel: 'Level 20+',
             notes: 'Maintains story roles while providing strong performance.'
         },
         why: 'Pairs character archetypes with strong job combos. This setup respects story-based weapon choices (Balthier/Guns, Fran/Bows) while still performing well.',
@@ -198,9 +229,10 @@ const PRESETS = {
 
 // Preset Icon Mapping
 const PRESET_ICONS = {
+    'First Jobs': 'Beginner',
     'Max Efficiency': 'Efficiency',
     'DPS Nuclear': 'Nuclear',
-    'Beginner Friendly': 'Beginner',
+    'Balanced': 'Beginner',
     'Leader Trinity': 'Trinity',
     'Yiazmat Specialist': 'Endurance',
     'Lore Friendly': 'Lore'
