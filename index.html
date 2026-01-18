@@ -75,7 +75,7 @@
                 :class="headerScrolled ? 'justify-center' : 'justify-center'">
                 <!-- Watermark - Moved to root to span full height -->
                 <div class="absolute inset-0 flex items-end justify-center transition-all duration-500 pointer-events-none"
-                    :style="`transform: translateY(5%) scale(${headerScrolled ? '0.6' : '3.2'}); opacity: ${headerScrolled ? '0.1' : '0.4'}`">
+                    :style="`transform: translateY(5%) scale(${headerScrolled ? '0.6' : '3.2'}); opacity: ${headerScrolled ? '0.1' : '0.4'}; transform-origin: bottom center;`">
                     <img src="./logo/hc-logo.png" alt=""
                         class="h-full w-auto object-contain ff-title-watermark ff-watermark-mask">
                 </div>
