@@ -60,7 +60,7 @@ h3 {
     filter: grayscale(1) brightness(1.2) contrast(1.2);
     pointer-events: none;
     user-select: none;
-    transform-origin: bottom center;
+    transform-origin: top center;
 }
 
 .ff-watermark-mask {
