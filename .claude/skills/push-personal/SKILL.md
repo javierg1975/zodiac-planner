@@ -1,7 +1,6 @@
 ---
 name: push-personal
-description: Push committed changes to javierg1975/zodiac-planner by switching GitHub accounts, pushing, and switching back to NYU account
-disable-model-invocation: true
+description: Use this skill when the user asks to push to personal repository, push to personal account, push personal repo, push with account switch, or push to javierg1975. Switches GitHub accounts (javierg1975), pushes changes, and switches back to NYU account.
 user-invocable: true
 allowed-tools: Bash(git:*), Bash(gh:*)
 ---
