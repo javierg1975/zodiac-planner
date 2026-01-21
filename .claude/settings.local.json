@@ -20,7 +20,10 @@
       "Bash(qlmanage:*)",
       "Bash(wc:*)",
       "Bash({ sed -n '46,80p' /Users/javierg/Projects/GitHub/Personal/zodiac-planner/app.js)",
-      "Bash(textutil -convert txt:*)"
+      "Bash(textutil -convert txt:*)",
+      "WebFetch(domain:underbuffed.com)",
+      "Bash(node validate-presets.js:*)",
+      "Bash(node -c:*)"
     ]
   }
 }

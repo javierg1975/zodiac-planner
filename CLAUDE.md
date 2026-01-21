@@ -2,6 +2,26 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Recent Changes (January 2026)
+
+### Full Esper Titles Implementation
+- Added `ESPER_FULL_NAMES` mapping in `data/espers.js` with complete titles
+- Updated all UI display locations to use `ESPER_FULL_NAMES[esper]` instead of short names
+- Applied to: Esper Unlocks section, tooltips, image alt text, key espers zodiac glyphs
+
+### Time Battlemage Hastega Fixes
+Fixed multiple presets that incorrectly suggested Famfrit was needed for Hastega when the character was Time Battlemage:
+- **Leader Trinity**: Removed Famfrit from Fran's espers (TBM has natural Hastega)
+- **Yiazmat Specialist**: Removed Famfrit from Fran's espers, updated keyEspers
+- **Max Efficiency**: Removed Famfrit from Fran's espers, fixed keyEspers to remove incorrect "Chaos (Hastega)"
+- **Spare No Expense**: Fixed misleading "Famfrit (Time Battlemage natural Hastega)" in keyEspers
+- **DPS Nuclear**: Fixed misleading "Famfrit (Hastega)" in keyEspers
+
+### Improved Tactical Documentation
+- Replaced obvious game mechanic descriptions with actionable tactical advice
+- Changed "Fran is the ONLY Hastega source (natural Time Battlemage spell)" to tactical notes like "No backup Hastega source - keep Fran alive"
+- Updated keyEspers descriptions to be more specific about what the Esper actually unlocks for the build
+
 ## Project Overview
 
 This is a **Final Fantasy XII: The Zodiac Age** job planner web application. It's a single-page, standalone HTML file that helps players plan optimal job combinations for their party characters. The app is based on the "Unnecessary Class Guide v2.2" optimization framework.
@@ -22,8 +42,8 @@ This is a **static web application** with no build process or external dependenc
 - **`icons.js`** (4.5K): SVG path definitions for all UI icons, job symbols, and preset icons
 - **`jobs.js`** (1.1K): Job class definitions with colors and types
 - **`characters.js`** (671B): Character portrait URLs from Final Fantasy Wiki
-- **`espers.js`** (4.4K): Zodiac glyphs, esper unlocks, and zodiac mappings
-- **`presets.js`** (28K): All 6 pre-configured party builds with requirements, gambits, and gear
+- **`espers.js`** (~5K): Zodiac glyphs, full Esper titles, esper unlocks, and zodiac mappings
+- **`presets.js`** (28K): All 8 pre-configured party builds with requirements, gambits, and gear
 - **`memoirs.js`** (1.5K): Random memoir quotes from Marquise Halim Ondore IV
 
 **External Dependencies (CDN)**:
@@ -47,17 +67,20 @@ All game data is hardcoded in JavaScript objects:
 - **`ZodiacGlyphs`**: SVG representations of zodiac symbols for each Esper
 - **`JOBS`**: 12 job classes with type (Mystic/Heavy/Light), color scheme, and associated icon
 - **`CHAR_IMAGES`**: Character portrait URLs from Final Fantasy Wiki
+- **`ESPER_FULL_NAMES`**: Mapping of short Esper names to full titles (e.g., 'Zeromus' → 'Zeromus, the Condemner')
 - **`ESPER_UNLOCKS`**: Mapping of Espers → Jobs → License Board unlocks
 - **`ESPER_ZODIAC`**: Mapping of Espers to zodiac symbols
 - **`PRESET_ICONS`**: Mapping of preset names to their icon keys in the Icons object
 - **`MEMOIRS`**: Array of memoir quotes with chapter, title, and text
-- **`PRESETS`**: 6 pre-configured party builds:
-  - "Max Efficiency" (98% - zero wasted licenses)
-  - "DPS Nuclear" (85% - superboss focused)
-  - "Beginner Friendly" (92% - guide recommended)
-  - "Leader Trinity" (94% - leader mechanic optimized)
-  - "Yiazmat Specialist" (82% - 50M HP superboss)
-  - "Lore Friendly" (91% - canonical character roles)
+- **`PRESETS`**: 8 pre-configured party builds:
+  - "First Jobs" - Single-job prologue build (temporary, replaced at dual-job unlock)
+  - "Max Efficiency" - Zero wasted licenses, mathematically perfect
+  - "DPS Nuclear" - Maximum damage for superbosses
+  - "Balanced" - High synergy with low risk
+  - "Leader Trinity" - Evasion-focused, leader mechanic optimized
+  - "Yiazmat Specialist" - Endurance build for 50M HP marathon fight
+  - "Lore Friendly" - Story-based canonical character roles
+  - "Spare No Expense" - Trial Mode luxury build with no equipment compromises
 
 Each preset contains:
 - `shortName`: Shortened name for compact display (e.g., "Efficiency")
@@ -385,9 +408,24 @@ User preferences are saved across sessions:
 - Team view (A or B)
 - Automatically restored on page load
 
-## Reference Document
+## Reference Documentation
 
-The Word document `FFXII TZA_ The Unneccessary Class Guide v2.2.docx` contains the source optimization data. Refer to it when validating or adding new build strategies.
+The original Word document has been converted to markdown and split into specialized auxiliary files for easier consumption:
+
+### Primary Reference
+- **`docs/FFXII TZA_ The Unneccessary Class Guide v2.2.md`** - Complete guide in markdown format
+
+### Auxiliary Reference Files (Topical)
+- **`docs/job-classes.md`** - Detailed job class breakdowns and synergies
+- **`docs/espers-reference.md`** - Esper assignments and license board unlocks
+- **`docs/equipment-reference.md`** - Comprehensive gear guide with priority tags
+- **`docs/build-strategies.md`** - Optimization strategies and theoretical frameworks
+- **`docs/team-compositions.md`** - Party formation strategies and synergies
+- **`docs/advanced-tactics.md`** - Endgame mechanics and superboss strategies
+- **`docs/beginner-guide.md`** - New player walkthrough and progression tips
+- **`docs/theoretical-analysis.md`** - Mathematical analysis and optimization theory
+
+When validating or adding new build strategies, consult the relevant auxiliary files for focused information rather than searching through the full guide.
 
 ## Common Equipment Notes
 
@@ -413,3 +451,32 @@ The Word document `FFXII TZA_ The Unneccessary Class Guide v2.2.docx` contains t
 - **Sage's Ring**: MP boost/regeneration
 
 **Note on Genji Gloves**: Only useful with weapons that can combo (ninja swords, poles, katanas, Wyrmhero Blade). Do NOT use with bows, crossbows, guns, hand-bombs, rods, or measures as they cannot combo.
+
+## Important Esper & Job Clarifications
+
+### Time Battlemage Hastega Confusion
+**CRITICAL**: Time Battlemage has **natural Hastega** on its license board. Do NOT assign Famfrit "for Hastega" to a Time Battlemage character.
+
+- **Famfrit unlocks for Time Battlemage**: Battle Lore only (NOT Hastega)
+- **Famfrit unlocks Hastega for**: Machinist only
+
+When documenting builds:
+- ✅ CORRECT: "Fran (Time Battlemage) provides natural Hastega"
+- ✅ CORRECT: "Balthier (Machinist) gets Hastega from Famfrit"
+- ❌ WRONG: "Fran needs Famfrit for Hastega" (when she's Time Battlemage)
+- ❌ WRONG: "Famfrit (Time Battlemage Hastega)" in keyEspers
+
+### Writing Tactical Notes
+When documenting Hastega sources, focus on tactical implications, not obvious game mechanics:
+
+- ✅ GOOD: "No backup Hastega source - keep Fran alive"
+- ✅ GOOD: "Remember: Fran must be in every party rotation"
+- ❌ BAD: "Fran is the ONLY Hastega source (natural Time Battlemage spell)"
+- ❌ BAD: "Fran (Time Battlemage) is the ONLY Hastega source via Famfrit"
+
+### Esper Display Names
+All Esper names should use the full title format when displayed in the UI:
+- Use `ESPER_FULL_NAMES[esperName]` for display
+- Short names ('Zeromus') are used in data structures
+- Full titles ('Zeromus, the Condemner') are shown to users
+- Applied in: Esper Unlocks section, tooltips, image alt text, zodiac glyph titles

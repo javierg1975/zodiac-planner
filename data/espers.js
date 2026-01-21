@@ -39,19 +39,38 @@ const ZodiacGlyphs = {
 
 // --- DATA CONFIGURATION ---
 
+// Full Esper Titles
+const ESPER_FULL_NAMES = {
+      'Belias': 'Belias, the Gigas',
+      'Adrammelech': 'Adrammelech, the Wroth',
+      'Zalera': 'Zalera, the Death Seraph',
+      'Cuchulainn': 'Cuchulainn, the Impure',
+      'Mateus': 'Mateus, the Corrupt',
+      'Hashmal': 'Hashmal, Bringer of Order',
+      'Famfrit': 'Famfrit, the Darkening Cloud',
+      'Exodus': 'Exodus, the Judge-Sal',
+      'Zeromus': 'Zeromus, the Condemner',
+      'Chaos': 'Chaos, Walker of the Wheel',
+      'Shemhazai': 'Shemhazai, the Whisperer',
+      'Ultima': 'Ultima, the High Seraph',
+      'Zodiark': 'Zodiark, Keeper of Precepts'
+};
+
+// SOURCE: https://underbuffed.com/final-fantasy-xii-the-zodiac-age-esper-licenses/
 const ESPER_UNLOCKS = {
-      'Belias': { 'White Mage': 'Potion Lore 3', 'Uhlan': 'Heavy Armor 12', 'Monk': 'Phoenix Lore 2' },
-      'Mateus': { 'Knight': 'Curaga/Regen/Cleanse/Esuna', 'Red Battlemage': 'Esuna', 'Time Battlemage': 'Stamp/Numerology' },
-      'Adrammelech': { 'Foebreaker': 'Telekinesis', 'Uhlan': 'Heavy Armor 9', 'Shikari': 'Libra' },
-      'Shemhazai': { 'Foebreaker': 'Heavy Armor 10-11', 'Archer': 'Firaga (Heavy Armor 10-12)', 'Knight': 'Protectga/Shellga' },
-      'Hashmal': { 'Foebreaker': 'Curaga', 'Bushi': 'Confuse', 'Knight': 'Confuse/Faith/Bravery' },
-      'Exodus': { 'White Mage': 'Channeling 3', 'Black Mage': 'Channeling 3', 'Red Battlemage': 'Heavy Armor 8-10' },
-      'Cuchulainn': { 'Shikari': 'Remedy Lore 3', 'Time Battlemage': 'Status breaks', 'Monk': 'Telekinesis' },
-      'Zeromus': { 'Monk': 'Channeling 3', 'Machinist': 'Channeling 3', 'Uhlan': 'Heavy Armor 11' },
-      'Chaos': { 'White Mage': 'Hastega', 'Black Mage': 'Renew', 'Monk': 'Dispelga/Protectga/Shellga' },
-      'Ultima': { 'Monk': 'Swiftness 3', 'White Mage': 'Excalibur', 'Knight': 'Bravery' },
-      'Zodiark': { 'Monk': 'Renew', 'Knight': 'Hastega', 'Foebreaker': 'Magick Lore 5' },
-      'Famfrit': { 'Machinist': 'Hastega', 'Time Battlemage': 'Hastega', 'Shikari': 'Heavy Armor 3-8' }
+      'Belias': { 'Knight': 'Potion Lore 1', 'Foebreaker': 'Horology', 'Bushi': 'Libra' },
+      'Adrammelech': { 'White Mage': 'Souleater, Battle Lore', 'Uhlan': 'Battle Lore', 'Time Battlemage': 'Cura, Raise', 'Foebreaker': 'Battle Lore', 'Black Mage': 'Fumarole, Tumulus', 'Bushi': 'Souleater', 'Shikari': 'Shades of Black' },
+      'Zalera': { 'Monk': 'Traveler', 'Time Battlemage': 'Ether Lore 3', 'Black Mage': 'Steal, Poach', 'Bushi': 'Blood Sword, Karkata', 'Shikari': 'HP +435' },
+      'Cuchulainn': { 'White Mage': 'Libra', 'Uhlan': 'Wither', 'Red Battlemage': 'Firaga, Thundaga, Blizzaga, Sleepga', 'Knight': 'Battle Lore', 'Foebreaker': 'Shades of Black', 'Bushi': 'Stamp', 'Shikari': 'Protectga, Shellga' },
+      'Mateus': { 'Uhlan': 'Magick Lore (x2)', 'Knight': 'Curaga, Esuna, Cleanse, Regen', 'Time Battlemage': 'HP +230', 'Black Mage': 'Caldera, Volcano', 'Shikari': 'Gil Toss' },
+      'Hashmal': { 'Uhlan': 'Bonecrusher', 'Red Battlemage': 'Steal', 'Knight': 'Curaja, Bravery, Faith, Confuse', 'Monk': 'Cura, Raise', 'Time Battlemage': 'Channeling', 'Foebreaker': 'Swiftness', 'Black Mage': 'Makara', 'Shikari': 'Bonecrusher' },
+      'Famfrit': { 'White Mage': 'Orichalcum Dirk, Platinum Dagger, Numerology', 'Uhlan': 'Potion Lore 3', 'Machinist': 'Hastega, Slowga, Vanishga, Reflectga, Warp, Graviga', 'Red Battlemage': 'Battle Lore (x2)', 'Monk': 'Arise, Dispelga', 'Time Battlemage': 'Battle Lore', 'Foebreaker': 'Magick Lore', 'Archer': 'HP+390, HP+435', 'Black Mage': 'HP+190, HP+230, HP+310' },
+      'Exodus': { 'White Mage': 'Battle Lore', 'Machinist': 'Oil, Decoy', 'Red Battlemage': 'Heavy Armor (Platinum/Giant/Dragon Helm, Platinum/Carabineer/Dragon Armor)', 'Knight': 'HP +350', 'Monk': 'Souleater', 'Time Battlemage': 'Battle Lore', 'Foebreaker': 'Magick Lore (x4)', 'Black Mage': 'Heavy Armor (Platinum Helm, Platinum Armor)', 'Shikari': 'Stamp', 'Bushi': 'HP +500' },
+      'Zeromus': { 'White Mage': 'HP +270', 'Machinist': 'Makara', 'Red Battlemage': 'Channeling', 'Monk': 'Sight Unseeing', 'Time Battlemage': 'Addle, Shear', 'Foebreaker': 'Magick Lore (x4)', 'Black Mage': 'Heavy Armor (Giant\'s Helm, Carabineer Mail)', 'Bushi': 'Magick Lore (x2)' },
+      'Chaos': { 'White Mage': 'Defender, Save the Queen, HP +310', 'Uhlan': 'Aeroga, Bio, Blindga, Silencega', 'Machinist': 'HP+350', 'Red Battlemage': 'Ultima Blade', 'Knight': 'Excalipur, Revive, HP+390', 'Monk': 'Esunaga, Protectga, Shellga, Holy', 'Time Battlemage': 'HP+270', 'Archer': 'Magick Lore', 'Bushi': 'Brawler' },
+      'Shemhazai': { 'White Mage': 'HP+230', 'Machinist': 'Caldera, Volcano', 'Red Battlemage': 'Cleanse, Esuna', 'Knight': 'Potion Lore 2', 'Monk': 'Potion Lore 3', 'Archer': 'Heavy Armor (Dragon/Magepower/Grand Helm, Dragon/Maximilian/Grand Armor)', 'Black Mage': 'Steel Mask, Mirror Mail', 'Bushi': 'Shield Block', 'Shikari': 'Guns (Spica, Antares, Arcturus, Fomalhaut)' },
+      'Ultima': { 'Uhlan': 'Expose', 'Machinist': 'Magick Lore (x3)', 'Red Battlemage': 'Claymore, Defender, Save the Queen', 'Knight': 'Telekinesis, Battle Lore', 'Monk': 'Swiftness (x2)', 'Time Battlemage': 'Swords (Diamond Sword, Runeblade, Deathbringer, Stoneblade)', 'Foebreaker': 'Swiftness', 'Archer': 'Infuse, 1000 Needles', 'Black Mage': 'Telekinesis', 'Bushi': 'Stamp', 'Shikari': 'Phoenix Lore (x2)' },
+      'Zodiark': { 'White Mage': 'Claymore', 'Machinist': 'HP+390', 'Red Battlemage': 'Ragnarok', 'Knight': 'Excalipur, Revive, HP+390', 'Monk': 'Renew', 'Time Battlemage': 'Swords (Durandal, Simha)', 'Archer': 'Infuse, 1000 Needles', 'Bushi': 'Heavy Armor (Giant/Dragon/Magepower Helm, Carabineer/Dragon/Maximilian Armor)' }
 };
 
 const ESPER_ZODIAC = {

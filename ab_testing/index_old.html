@@ -17,54 +17,109 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;700&display=swap"
         rel="stylesheet">
-    <link href="../styles.css" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet">
+    <style>
+        /* Optimization for header animation */
+        .header-optimize {
+            will-change: min-height, background-color, transform;
+            transform: translateZ(0);
+            /* Hardware Acceleration hint */
+        }
+
+        .title-optimize {
+            will-change: transform, font-size;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Game Data Modules -->
-    <script src="../data/icons.js"></script>
-    <script src="../data/jobs.js"></script>
-    <script src="../data/characters.js"></script>
-    <script src="../data/espers.js"></script>
-    <script src="../data/presets.js"></script>
-    <script src="../data/memoirs.js"></script>
+    <script src="./data/icons.js"></script>
+    <script src="./data/jobs.js"></script>
+    <script src="./data/characters.js"></script>
+    <script src="./data/espers.js"></script>
+    <script src="./data/presets.js"></script>
+    <script src="./data/memoirs.js"></script>
 
-    <!-- Alpine.js Application Logic -->
-    <script src="../app.js"></script>
+    <!-- Alpine.js Application Logic - Reusing Option 2 logic as it is compatible -->
+    <script src="ab_testing/app-option2.js"></script>
 
-    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30">
+    <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30" x-init="
+            let ticking = false;
+            window.addEventListener('scroll', () => { 
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        // Add hysteresis to prevent flickering at boundary
+                        const currentScroll = window.scrollY;
+                        if (!headerScrolled && currentScroll > 50) {
+                            headerScrolled = true;
+                        } else if (headerScrolled && currentScroll < 30) {
+                            headerScrolled = false;
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            })
+        ">
 
-        <!-- FF XII Header -->
-        <div class="relative overflow-hidden border-b border-cyan-500/20"
-            style="background: rgba(10, 20, 30, 0.7); min-height: 320px;">
-            <div class="relative max-w-7xl mx-auto px-6 h-full min-h-[320px] flex flex-col">
-                <div class="text-center relative flex-1 flex items-center justify-center">
-                    <div class="absolute inset-0 flex items-center justify-center ff-title-watermark"
-                        style="transform: translateY(-5%) scale(2.5);">
-                        <img src="../logo/hc-logo.png" alt="" class="h-full w-auto object-contain">
-                    </div>
+        <!-- Fixed Header Spacer - Maintains layout flow -->
+        <div class="w-full h-[240px] pointer-events-none"></div>
 
-                    <h1 class="relative flex flex-col items-center gap-0">
-                        <span class="text-7xl md:text-8xl tracking-[-0.02em] leading-none"
+        <!-- FF XII Header - OPTION 5: Fixed + Spacer (No Flicker) -->
+        <!-- Using position: fixed prevents layout shifts from triggering scroll events recursively -->
+        <div class="fixed top-0 left-0 right-0 z-50 overflow-hidden border-b border-cyan-500/20 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] header-optimize"
+            :class="headerScrolled ? 'shadow-2xl' : ''"
+            :style="`background: rgba(10, 20, 30, ${headerScrolled ? '0.95' : '0.9'}); height: ${headerScrolled ? '60px' : '240px'}`">
+            <div class="relative max-w-7xl mx-auto px-6 h-full flex flex-col transition-all duration-500"
+                :class="headerScrolled ? 'justify-center' : 'justify-center'">
+                <!-- Watermark - Moved to root to span full height -->
+                <div class="absolute inset-0 flex items-end justify-center transition-all duration-500 pointer-events-none"
+                    :style="`transform: translateY(5%) scale(${headerScrolled ? '0.6' : '3.8'}); opacity: ${headerScrolled ? '0.1' : '0.4'}`">
+                    <img src="./logo/hc-logo.png" alt=""
+                        class="h-full w-auto object-contain ff-title-watermark ff-watermark-mask">
+                </div>
+
+                <!-- Always centered, let content flow determine spacing -->
+
+                <div class="text-center relative flex items-center justify-center transition-all duration-500 shrink-0"
+                    :class="headerScrolled ? 'transform-none' : '-translate-y-4'">
+                    <!-- Slight nudge up when open to balance the bottom block -->
+
+                    <!-- Main Title Group -->
+                    <h1 class="relative flex flex-row items-center gap-3 transition-all duration-500 z-10">
+                        <span class="tracking-[-0.02em] leading-none transition-all duration-500 title-optimize"
+                            :class="headerScrolled ? 'text-3xl' : 'text-6xl md:text-7xl'"
                             style="font-family: 'Cormorant Garamond', serif; font-weight: 600; color: #fff; transform: scaleY(1.7) scaleX(0.85); paint-order: stroke fill; -webkit-text-stroke: 3px rgba(0,0,0,0.8); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
                             ZODIAC
+                        </span>
+
+                        <!-- Inline Planner Text -->
+                        <span
+                            class="font-black tracking-[0.3em] uppercase transition-all duration-500 overflow-hidden whitespace-nowrap"
+                            :class="headerScrolled ? 'text-xl w-auto opacity-100 ml-2' : 'w-0 opacity-0 ml-0'"
+                            style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 10px rgba(255, 51, 85, 0.6);">
+                            PLANNER
                         </span>
                     </h1>
                 </div>
 
-                <div class="text-center relative pb-8">
-                    <div class="w-48 md:w-96 h-[1px] mx-auto mb-6"
+                <!-- Expanded Info Block - Fades out & Collapses Height -->
+                <!-- Removed 'absolute' to ensure it takes space and doesn't overlap title -->
+                <div class="text-center relative transition-all duration-500 overflow-hidden"
+                    :class="headerScrolled ? 'h-0 opacity-0 mt-0' : 'h-auto opacity-100 mt-6'">
+                    <div class="w-32 md:w-64 h-[1px] mx-auto mb-4"
                         style="background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); box-shadow: 0 0 12px rgba(255,255,255,0.4);">
                     </div>
 
                     <span
-                        class="block text-[11px] md:text-[14px] font-black tracking-[1.6em] uppercase mb-6 mr-[-1.6em]"
+                        class="block text-[12px] md:text-[14px] font-black tracking-[1.2em] uppercase mb-4 mr-[-1.2em]"
                         style="font-family: 'Inter', sans-serif; color: #ff3355; text-shadow: 0 0 15px rgba(255, 51, 85, 0.6);">
                         PLANNER
                     </span>
 
                     <p
-                        class="relative z-10 text-gray-400 text-xs md:text-sm font-normal italic opacity-40 tracking-wide">
+                        class="relative z-10 text-gray-400 text-[10px] md:text-xs font-normal italic opacity-50 tracking-wide">
                         Optimization based on the Unnecessary Class Guide v2.2
                     </p>
                 </div>
@@ -783,9 +838,6 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
                         x-html="ZodiacGlyphs['♒']"></svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6 text-white"
-                        x-html="ZodiacGlyphs['♓']"></svg>
                 </div>
             </div>
         </footer>

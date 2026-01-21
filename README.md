@@ -8,27 +8,43 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 
 ---
 
+## Recent Updates
+
+### January 2026
+- **Full Esper Titles** - All Espers now display with their complete titles (e.g., "Zeromus, the Condemner", "Famfrit, the Darkening Cloud")
+- **Fixed Time Battlemage Hastega Confusion** - Corrected preset descriptions that incorrectly suggested Famfrit was needed for Hastega when Time Battlemage has it naturally
+- **Improved Esper Attunement Clarity** - Updated keyEspers descriptions to be more accurate and tactically useful
+- **Better Tactical Notes** - Replaced obvious game mechanic descriptions with actionable tactical advice
+
+---
+
 ## Features
 
-### 6 Optimized Build Presets
+### 8 Optimized Build Presets
 
-**Max Efficiency (98%)**
+**First Jobs**
+Single-job prologue build (temporary - replace at dual-job unlock)
+
+**Max Efficiency**
 Zero wasted licenses, mathematically perfect
 
-**DPS Nuclear (85%)**
+**DPS Nuclear**
 Maximum damage for superbosses
 
-**Beginner Friendly (92%)**
-Guide recommended, forgiving progression
+**Balanced**
+High synergy with low risk, excellent for first playthroughs
 
-**Leader Trinity (94%)**
-Optimized for leader mechanic and evasion
+**Leader Trinity**
+Evasion-focused, optimized for leader mechanic
 
-**Yiazmat Specialist (82%)**
-Hyper-optimized for 50M HP marathon fight
+**Yiazmat Specialist**
+Endurance build for 50M HP marathon fight
 
-**Lore Friendly (91%)**
-Canonical character roles with optimized second jobs
+**Lore Friendly**
+Story-based canonical character roles with strong second jobs
+
+**Spare No Expense**
+Trial Mode luxury build with no equipment compromises
 
 ---
 
@@ -201,6 +217,16 @@ zodiac-planner/
 │   ├── espers.js           # Esper & Zodiac data
 │   ├── presets.js          # Optimization builds
 │   └── memoirs.js          # Marquise Ondore IV quotes
+├── docs/                   # Reference documentation
+│   ├── FFXII TZA_ The Unneccessary Class Guide v2.2.md
+│   ├── job-classes.md      # Job class breakdowns
+│   ├── espers-reference.md # Esper assignments
+│   ├── equipment-reference.md # Gear guide
+│   ├── build-strategies.md # Optimization strategies
+│   ├── team-compositions.md # Party formations
+│   ├── advanced-tactics.md # Endgame mechanics
+│   ├── beginner-guide.md   # New player guide
+│   └── theoretical-analysis.md # Math & theory
 ├── backgrounds/            # Cinematic backgrounds
 ├── portraits/              # Character portraits
 ├── CLAUDE.md              # Developer documentation
@@ -267,6 +293,19 @@ const PRESET_ICONS = {
 ```
 
 ---
+
+## Reference Documentation
+
+This planner includes comprehensive reference documentation in the `docs/` directory:
+
+- **Complete Guide** - Full "Unnecessary Class Guide v2.2" in markdown format
+- **Job Classes** - Detailed job breakdowns and synergies
+- **Espers Reference** - License board unlocks and assignments
+- **Equipment Guide** - Comprehensive gear recommendations
+- **Build Strategies** - Optimization frameworks and theory
+- **Team Compositions** - Party formation strategies
+- **Advanced Tactics** - Endgame and superboss mechanics
+- **Beginner Guide** - New player walkthrough
 
 ## Credits
 
