@@ -258,7 +258,7 @@
                             <h3 class="ff-punch-text text-lg md:text-xl text-amber-400 mb-4 tracking-wide">BUILD
                                 STRATEGY</h3>
                             <p class="text-[14px] text-gray-300 leading-relaxed font-normal max-w-3xl"
-                                x-text="current.why"></p>
+                                x-html="formatStrategy(current.why)"></p>
                         </div>
 
                         <!-- Build Requirements - Expandable -->
@@ -613,7 +613,7 @@
                                             Strategy
                                         </div>
                                         <p class="text-sm text-white leading-relaxed p-4 rounded border border-cyan-500/20 shadow-sm font-normal"
-                                            style="background: rgba(20, 35, 50, 0.6)" x-text="build.why"></p>
+                                            style="background: rgba(20, 35, 50, 0.6)" x-html="formatStrategy(build.why)"></p>
                                     </div>
 
                                     <div x-show="build.espers.length > 0">

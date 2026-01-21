@@ -23,7 +23,10 @@
       "Bash(textutil -convert txt:*)",
       "WebFetch(domain:underbuffed.com)",
       "Bash(node validate-presets.js:*)",
-      "Bash(node -c:*)"
+      "Bash(node -c:*)",
+      "Bash(GIT_ASKPASS=gh gh auth git-credential)",
+      "Bash(gh auth:*)",
+      "Bash(git remote set-url:*)"
     ]
   }
 }
