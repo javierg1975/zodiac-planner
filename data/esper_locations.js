@@ -2,7 +2,7 @@ const ESPER_LOCATIONS = {
     'Belias': {
         location: 'Tomb of Raithwall',
         title: 'The Gigas',
-        desc: "Belias, the Gigas, is found guarding the Dawn Shard at the bottom of the Tomb of Raithwall. Created by the gods, he is a being of fire and fury suitable for a guardian.\n\nHe is the first Esper obtained in the main storyline.",
+        desc: "Belias is found in the Tomb of Raithwall, guarding King Raithwall's tomb, and is the first Esper obtained. Belias is the only Esper that must be summoned during the main storyline, to open the gate to the Ancient City of Giruvegan.",
         zodiac: 'Aries',
         glyph: '♈',
         element: 'Fire',
@@ -12,7 +12,7 @@ const ESPER_LOCATIONS = {
     'Mateus': {
         location: 'Stilshrine of Miriam',
         title: 'The Corrupt',
-        desc: "Found in the Stilshrine of Miriam, guarding the Sword of Kings. Mateus is an aquatic creature with multiple limbs wielding a trident, with a goddess chained to his chest he uses as a living shield.\n\nHe is obtained during the main storyline.",
+        desc: "Mateus is fought during the main storyline. He is found in the Stilshrine of Miriam, guarding the Sword of Kings left by King Raithwall.",
         zodiac: 'Pisces',
         glyph: '♓',
         element: 'Ice',
@@ -22,27 +22,29 @@ const ESPER_LOCATIONS = {
     'Adrammelech': {
         location: 'Zertinan Caverns',
         title: 'The Wroth',
-        desc: "An optional Esper located in the Athroza Quicksands area of the Zertinan Caverns. He commands the thunder and is surrounded by Shambling Corpses.\n\nAdrammelech becomes available after the events at the Tomb of Raithwall.",
+        desc: "Adrammelech is fought as an optional boss in the middle of the Zertinan Caverns and summons several undead to aid him during the fight. He is found in the Athroza Quicksands area. Once defeated, Adrammelech's license can be purchased for 25 LP.",
         zodiac: 'Capricorn',
         glyph: '♑',
         element: 'Thunder',
         cost: 1,
-        image: './espers/Adrammelech-bnw.png'
+        image: './espers/Adrammelech-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Adrammelech_(Final_Fantasy_XII)'
     },
     'Zalera': {
         location: 'Barheim Passage',
         title: 'The Death Seraph',
-        desc: "Found in Terminus No. 7 within the Barheim Passage. Accessing him requires the Barheim Key and the battle has a strict time limit.\n\nHe is a heretic scion who fused with a shamaness to cheat death.",
+        desc: "Zalera is fought as an optional boss in the Barheim Passage, in Terminus No. 7. The party must obtain the Barheim Key in the Dalmasca Estersand to find him. If the player cannot defeat Zalera within five minutes they are teleported out of the room and must begin the battle over. Once defeated, Zalera's license can be purchased for 25 LP.",
         zodiac: 'Gemini',
         glyph: '♊',
         element: 'Death',
         cost: 1,
-        image: './espers/Zalera-bnw.png'
+        image: './espers/Zalera-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Zalera_(Final_Fantasy_XII)'
     },
     'Shemhazai': {
         location: 'Giruvegan',
         title: 'The Whisperer',
-        desc: "Guardian of the waystone to the Occurian realm, found at the end of Giruvegan. Shemhazai manipulates the souls of the living and acts as a spy for the gods.\n\nObtained as part of the main storyline.",
+        desc: "Shemhazai is found in the lowest reaches of Giruvegan, just before the warp point leading to the Occuria, in the Gate of Fire. Shemhazai is the third of the five Espers obtained during the main story.",
         zodiac: 'Sagittarius',
         glyph: '♐',
         element: 'Soul',
@@ -52,7 +54,7 @@ const ESPER_LOCATIONS = {
     'Hashmal': {
         location: 'Pharos of Ridorana',
         title: 'Bringer of Order',
-        desc: "Fought at the peak of the Pharos, guarding the way to the Sun-Cryst. He served the Occuria faithfully until his rebellion.\n\nObtained near the end of the main storyline.",
+        desc: "Hashmal is one of the five storyline Espers and is the fourth obtained. He is found at the Pharos, guarding one of the platforms leading up to the Sun-Cryst. The Occuria sealed him here to protect the Sun-Cryst from intruders. Princess Ashe and her entourage brave the tower to reach the Sun-Cryst and defeat Hashmal along their way to the top.",
         zodiac: 'Leo',
         glyph: '♌',
         element: 'Earth',
@@ -62,37 +64,40 @@ const ESPER_LOCATIONS = {
     'Cuchulainn': {
         location: 'Garamsythe Waterway',
         title: 'The Impure',
-        desc: "Resides in the pestilent Cloaca No. 1 of the Garamsythe Waterway. Players must complete specific Hunts to obtain the Sluice Gate Key to drain the area.\n\nHe slowly drains the party's HP during battle with his vile aura.",
+        desc: "Cúchulainn is an optional Esper residing in the central area of the Garamsythe Waterway (Cloaca No. 1). To reach him, the player must complete the 'Waterway Haunting' and 'Lost in the Pudding' hunts to obtain the Sluice Gate Key. By manipulating the water level control panels, the party can drain the central area to face him. The battle has a permanent HP drain field effect.",
         zodiac: 'Scorpio',
         glyph: '♏',
         element: 'Poison',
         cost: 2,
-        image: './espers/Cuchulainn-bnw.png'
+        image: './espers/Cuchulainn-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Cuchulainn_(Final_Fantasy_XII)'
     },
     'Zeromus': {
         location: 'Stilshrine of Miriam',
         title: 'The Condemner',
-        desc: "Sealed in a hidden chamber within the Stilshrine of Miriam. Access requires the Stone of the Condemner, obtained from the Nu Mou Acolyte at Mt. Bur-Omisace.\n\nHe hates all things and utilizes gravity magic to crush his foes.",
+        desc: "Zeromus is located in a hidden chamber in the Stilshrine of Miriam that can be accessed by using the Stone of the Condemner, received by speaking to an acolyte at the bottom of the temple in Mt Bur-Omisace after Judge Bergan has been defeated. Use the Stone at the Way Stone to transport to the Throne of the Veiled Gods.",
         zodiac: 'Cancer',
         glyph: '♋',
         element: 'Gravity',
         cost: 2,
-        image: './espers/Zeromus-bnw.png'
+        image: './espers/Zeromus-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Zeromus_(Final_Fantasy_XII)'
     },
     'Exodus': {
         location: 'Mosphoran Highwaste',
         title: 'The Judge-Sal',
-        desc: "Exodus waits at the Empyrean Seat, the highest peak of the Mosphoran Highwaste. Reaching him requires activating shrines to float islands of moss.\n\nHe is the most ancient of scions, judging the world from his high perch.",
+        desc: "Exodus is found on the highest peak of the Mosphoran Highwaste, in the Empyrean Seat. The player must activate the shrines in a correct order to float the moss islands and create a path. This involves enabling the South Wind Shrine, feeding a Chocobo Gysahl Greens to cross the ridge, and then activating the West and Northwest Wind Shrines.",
         zodiac: 'Libra',
         glyph: '♎',
         element: 'None',
         cost: 2,
-        image: './espers/Exodus-bnw.png'
+        image: './espers/Exodus-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Exodus_(Final_Fantasy_XII)'
     },
     'Famfrit': {
         location: 'Pharos of Ridorana',
         title: 'The Darkening Cloud',
-        desc: "Summoned by Dr. Cid in the Pharos of Ridorana. He wields a massive ewer from which he pours rain of darkness.\n\nHe is the final Esper obtained in the main story.",
+        desc: "Famfrit is summoned by Dr. Cid when the party fights him at the top of the Pharos. Dr. Cid uses the nethicite to obtain him at that moment from the Pharos's peak. When both Cid and Famfrit are defeated, the player obtains the glyph needed to command the Esper. He is the fifth of the five Espers obtained during the main storyline.",
         zodiac: 'Aquarius',
         glyph: '♒',
         element: 'Water',
@@ -102,31 +107,34 @@ const ESPER_LOCATIONS = {
     'Chaos': {
         location: 'Necrohol of Nabudis',
         title: 'Walker of the Wheel',
-        desc: "Located in the glowing Cloister of the Highborn within the Necrohol. Access requires the Medallions of Might and significant sidequest progression.\n\nHe was the guardian of the sacred crystals until he turned against the gods.",
+        desc: "To find Chaos in the Necrohol of Nabudis, the player needs to complete the 'Three Medallions' sidequest. This involves utilizing the Sluice Gate Key in the Garamsythe Waterway and completing hunts to obtain the blackened fragments. Once the medallions are assembled, the player must defeat two optional bosses, Fury and Humbaba Mistant, in the Necrohol before unlocking the door to the Cloister of the Highborn where Chaos waits.",
         zodiac: 'Taurus',
         glyph: '♉',
         element: 'Wind',
         cost: 3,
-        image: './espers/Chaos-bnw.png'
+        image: './espers/Chaos-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Chaos_(Final_Fantasy_XII)'
     },
     'Ultima': {
         location: 'Great Crystal',
         title: 'The High Seraph',
-        desc: "Found at the very apex of the Great Crystal in Giruvegan. She is the masterpiece of the gods who led the rebellion against them.\n\nThe path to her is a complex maze that requires the Treaty Blade.",
+        desc: "Ultima is located within the deepest reaches of the Great Crystal (Crystal Peak). Reaching her requires the Treaty Blade. The path involves navigating the upper layer of the Great Crystal, toggling the Scorpio, Sagittarius, Leo, Libra, Capricorn, and Virgo gates in a specific sequence, often under strict time limits, to unseal the path to the Crystal Peak.",
         zodiac: 'Virgo',
         glyph: '♍',
         element: 'Holy',
         cost: 3,
-        image: './espers/Ultima-bnw.png'
+        image: './espers/Ultima-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Ultima_(Final_Fantasy_XII)'
     },
     'Zodiark': {
         location: 'Henne Mines',
         title: 'Keeper of Precepts',
-        desc: "The most powerful Esper, hidden in the deepest Special Charter Shaft of the Henne Mines. Access requires collecting at least 10 other Espers.\n\nHe is the strongest scion, banished for his dangerous power.",
+        desc: "Zodiark is located in the Henne Mines, in the Special Charter Dig area. To unlock the Special Dig site, the player must collect at least ten Espers, go to Jahara and speak to Geomancer Yugelu. He will unlock the gate to the Phase 2 Dig, which leads to the Special Charter Dig area. Zodiark is found at the very end. The path to Zodiark is littered with strong foes, but the player can use the Immobilize glitch to avoid them.",
         zodiac: 'Ophiuchus',
         glyph: '⛎',
         element: 'Dark',
         cost: 3,
-        image: './espers/Zodiark-bnw.png'
+        image: './espers/Zodiark-bnw.png',
+        url: 'https://finalfantasy.fandom.com/wiki/Zodiark_(Final_Fantasy_XII)'
     }
 };

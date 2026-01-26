@@ -92,7 +92,15 @@ const EsperModal = {
                         </div>
                         
                         <!-- Actions -->
-                        <div class="mt-6 flex justify-center md:justify-end">
+                        <div class="mt-6 flex flex-col md:flex-row items-center justify-center md:justify-end gap-4">
+                            ${data.url ? `
+                            <a href="${data.url}" target="_blank" rel="noopener noreferrer" class="group px-6 py-3 bg-cyan-900/40 border border-cyan-500/30 text-cyan-300 font-serif uppercase tracking-[0.15em] hover:bg-cyan-900/60 hover:text-cyan-100 transition-all shadow-[0_0_20px_rgba(0,212,255,0.05)] hover:shadow-[0_0_30px_rgba(0,212,255,0.15)] flex items-center gap-2 text-sm decoration-0">
+                                <span>Wiki Guide</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-70 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                            ` : ''}
                              <button @click="modalOpen = false" class="group px-8 py-3 bg-amber-500/5 border border-amber-500/30 text-amber-400 font-serif uppercase tracking-[0.2em] hover:bg-amber-500/20 hover:text-amber-100 transition-all shadow-[0_0_20px_rgba(255,179,0,0.05)] hover:shadow-[0_0_30px_rgba(255,179,0,0.15)] flex items-center gap-3">
                                 <span>Close Archives</span>
                                 <span class="group-hover:translate-x-1 transition-transform">→</span>
