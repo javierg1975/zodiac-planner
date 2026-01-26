@@ -683,3 +683,170 @@ h3 {
         grayscale(0.5) brightness(1.5) contrast(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
     z-index: 10;
 }
+
+/* Modal Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 212, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.3);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 212, 255, 0.6);
+}
+
+/* Grimoire Amber Scrollbar */
+.custom-scrollbar-amber::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar-amber::-webkit-scrollbar-track {
+    background: rgba(255, 179, 0, 0.05);
+}
+
+.custom-scrollbar-amber::-webkit-scrollbar-thumb {
+    background: rgba(255, 179, 0, 0.3);
+    border-radius: 3px;
+}
+
+.custom-scrollbar-amber::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 179, 0, 0.6);
+}
+
+/* --- CLICKABLE ESPER UPDATE --- */
+.clickable-esper {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+.clickable-esper:hover .ff-esper-watermark {
+    /* Enhanced hover for clickable ones */
+    opacity: 1;
+    transform: scale(1.15);
+    filter: grayscale(0) brightness(1.3) contrast(1.1) drop-shadow(0 0 12px rgba(255, 215, 0, 0.5));
+}
+
+
+/* --- MODAL SYSTEM --- */
+.ff-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Option A: Grimoire Style */
+.ff-modal-grimoire {
+    width: 100%;
+    max-width: 800px;
+    background: radial-gradient(circle at center, #1a0f05 0%, #0a0502 100%);
+    border: 2px solid #5c3a1e;
+    box-shadow:
+        0 0 0 4px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(255, 179, 0, 0.1),
+        inset 0 0 100px rgba(0, 0, 0, 0.8);
+    padding: 3rem;
+    position: relative;
+    border-radius: 4px;
+    color: #ffd700;
+}
+
+.ff-modal-grimoire::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(255, 179, 0, 0.2);
+    pointer-events: none;
+}
+
+.ff-grimoire-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 179, 0, 0.2);
+    position: relative;
+}
+
+.ff-grimoire-header::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: #0a0502;
+    border: 1px solid rgba(255, 179, 0, 0.4);
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.ff-grimoire-ornament-l,
+.ff-grimoire-ornament-r {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent, rgba(255, 179, 0, 0.5));
+}
+
+.ff-grimoire-ornament-r {
+    background: linear-gradient(-90deg, transparent, rgba(255, 179, 0, 0.5));
+}
+
+.text-shadow-amber {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 179, 0, 0.2);
+}
+
+/* Option B: System Style */
+.ff-modal-system {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(10, 20, 30, 0.95);
+    border: 1px solid #00d4ff;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
+    padding: 2rem;
+    position: relative;
+    /* Corner Accents */
+    clip-path: polygon(0 0, 100% 0, 100% 100%,
+            20px 100%, 0 calc(100% - 20px));
+}
+
+.ff-modal-system::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+    height: 1px;
+    background: #00d4ff;
+    transform: rotate(-45deg);
+    transform-origin: bottom left;
+}

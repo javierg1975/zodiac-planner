@@ -7,6 +7,17 @@ document.addEventListener('alpine:init', () => {
         showBuildDetails: false,
         memoir: null,
         headerScrolled: false,
+        modalOpen: false,
+        modalContent: '',
+        openEsperModal(esperName) {
+            // Universal Esper Modal (Grimoire Style)
+            if (ESPER_LOCATIONS[esperName]) {
+                this.modalContent = EsperModal.render(esperName);
+                this.modalOpen = true;
+            } else {
+                console.log('Esper data missing for: ' + esperName);
+            }
+        },
         init() {
             // Pick a random memoir
             this.memoir = MEMOIRS[Math.floor(Math.random() * MEMOIRS.length)];

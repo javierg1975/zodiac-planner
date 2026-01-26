@@ -40,8 +40,12 @@
     <script src="./data/espers.js"></script>
     <script src="./data/presets.js"></script>
     <script src="./data/memoirs.js"></script>
+    <script src="./data/esper_locations.js"></script>
 
-    <!-- Alpine.js Application Logic - Reusing Option 2 logic as it is compatible -->
+    <!-- App Components -->
+    <script src="./esper_modal.js"></script>
+
+    <!-- Alpine.js Application Logic -->
     <script src="ab_testing/app-option2.js"></script>
 
     <div x-data="planner" class="min-h-screen text-white selection:bg-cyan-500/30" x-init="
@@ -62,6 +66,18 @@
                 }
             })
         ">
+
+        <!-- A/B Test Modal Overlay -->
+        <template x-teleport="body">
+            <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0" class="ff-modal-overlay" @click.self="modalOpen = false">
+
+                <div x-html="modalContent" @click.stop></div>
+            </div>
+        </template>
+
 
         <!-- Fixed Header Spacer - Maintains layout flow -->
         <div class="w-full h-[240px] pointer-events-none"></div>
@@ -667,7 +683,8 @@
                                             Strategy
                                         </div>
                                         <p class="text-sm text-white leading-relaxed p-4 rounded border border-cyan-500/20 shadow-sm font-normal"
-                                            style="background: rgba(20, 35, 50, 0.6)" x-html="formatStrategy(build.why)"></p>
+                                            style="background: rgba(20, 35, 50, 0.6)"
+                                            x-html="formatStrategy(build.why)"></p>
                                     </div>
 
                                     <div x-show="build.espers.length > 0">
@@ -681,7 +698,8 @@
                                         </div>
                                         <div class="space-y-3">
                                             <template x-for="esper in build.espers" :key="esper">
-                                                <div
+                                                <div @click.stop="openEsperModal(esper)"
+                                                    :class="{'clickable-esper': ['Mateus', 'Exodus'].includes(esper)}"
                                                     class="relative p-4 rounded-lg border-2 border-cyan-400/40 bg-gradient-to-br from-cyan-500/15 via-cyan-500/10 to-transparent hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
                                                     <div class="flex items-start gap-3">
                                                         <!-- Circular Zodiac Icon -> Esper Image -->
