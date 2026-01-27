@@ -12,7 +12,7 @@ const ModalVariantA = {
             : data.glyph;
 
         return `
-            <div class="ff-modal-grimoire animate-fade-in-up max-w-5xl w-full mx-auto my-auto relative"> <!-- Added mx-auto my-auto -->
+            <div class="ff-modal-grimoire animate-fade-in-up max-w-3xl w-full mx-auto my-auto relative"> <!-- Added mx-auto my-auto -->
                 <!-- Decorative Header -->
                 <div class="ff-grimoire-header mb-6 pt-6 pb-2"> <!-- Generous padding -->
                     <div class="ff-grimoire-ornament-l"></div>
