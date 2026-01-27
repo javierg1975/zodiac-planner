@@ -6,6 +6,18 @@ document.addEventListener('alpine:init', () => {
         teamView: localStorage.getItem('ffxii_team') || 'A',
         showBuildDetails: false,
         memoir: null,
+        headerScrolled: false,
+        modalOpen: false,
+        modalContent: '',
+        openEsperModal(esperName) {
+            // Universal Esper Modal (Grimoire Style)
+            if (ESPER_LOCATIONS[esperName]) {
+                this.modalContent = EsperModal.render(esperName);
+                this.modalOpen = true;
+            } else {
+                console.log('Esper data missing for: ' + esperName);
+            }
+        },
         init() {
             // Pick a random memoir
             this.memoir = MEMOIRS[Math.floor(Math.random() * MEMOIRS.length)];
@@ -119,6 +131,21 @@ document.addEventListener('alpine:init', () => {
             return sentences.map(sentence =>
                 `<div class="flex gap-2"><span class="text-cyan-400/60 flex-shrink-0">›</span><span>${sentence.trim()}.</span></div>`
             ).join('');
+        },
+        formatStrategy(text) {
+            if (!text) return '';
+            // Make parenthetical content italic
+            let formatted = text.replace(/\(([^)]+)\)/g, '<em class="text-gray-400">($1)</em>');
+            // Split by period followed by space, filter empty, and join with line breaks
+            const sentences = formatted.split(/\.\s+/).filter(s => s.trim());
+            if (sentences.length <= 2) {
+                // Short text - keep as paragraph with parenthetical formatting
+                return formatted;
+            }
+            // Longer text - add subtle separators between sentences
+            return sentences.map((sentence, i) =>
+                `${sentence.trim()}${i < sentences.length - 1 ? '.' : ''}`
+            ).join(' ');
         }
     }))
 })
