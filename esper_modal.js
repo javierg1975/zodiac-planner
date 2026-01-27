@@ -12,7 +12,7 @@ const EsperModal = {
             : data.glyph;
 
         return `
-            <div class="ff-modal-grimoire animate-fade-in-up max-w-3xl w-full mx-auto my-auto relative overflow-hidden md:overflow-visible"> 
+            <div class="ff-modal-grimoire animate-fade-in-up max-w-3xl w-full mx-auto relative overflow-hidden md:overflow-visible"> 
                 <!-- Decorative Header -->
                 <div class="ff-grimoire-header mb-4 md:mb-6 pt-4 md:pt-6 pb-2"> 
                     <div class="ff-grimoire-ornament-l"></div>
@@ -115,7 +115,7 @@ const EsperModal = {
     },
     renderLore() {
         return `
-            <div class="ff-modal-grimoire animate-fade-in-up max-w-4xl w-full mx-auto my-auto relative overflow-hidden md:overflow-visible"> 
+            <div class="ff-modal-grimoire animate-fade-in-up max-w-4xl w-full mx-auto relative overflow-hidden md:overflow-visible"> 
                 <!-- Decorative Header -->
                 <div class="ff-grimoire-header mb-4 md:mb-6 pt-4 md:pt-6 pb-2"> 
                     <div class="ff-grimoire-ornament-l"></div>
