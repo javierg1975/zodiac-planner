@@ -751,6 +751,22 @@
                                                 x-html="Icons.GambitSystem"></svg>
                                             Gambits
                                         </div>
+                                        <div x-show="build.gambitStrategy" class="mb-4 relative group">
+                                            <div
+                                                class="absolute -left-1 top-0 bottom-0 w-1 bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.4)]">
+                                            </div>
+                                            <div
+                                                class="bg-gradient-to-r from-cyan-500/10 via-cyan-500/5 to-transparent px-4 py-3 rounded-r-lg border border-cyan-500/20 border-l-0">
+                                                <div class="flex items-center gap-2 mb-1.5">
+                                                    <div class="w-1 h-1 rounded-full bg-cyan-400 animate-pulse"></div>
+                                                    <span
+                                                        class="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-400 opacity-80">Doctrine</span>
+                                                </div>
+                                                <p class="text-xs text-cyan-50/90 leading-relaxed italic"
+                                                    x-text="build.gambitStrategy"></p>
+                                            </div>
+                                        </div>
+
                                         <div class="space-y-1">
                                             <template x-for="(gambit, gi) in build.gambits" :key="gi">
                                                 <div class="ff-gambit-row"
