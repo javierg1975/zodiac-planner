@@ -33,7 +33,7 @@ const ESPER_LOCATIONS = {
     'Zalera': {
         location: 'Barheim Passage',
         title: 'The Death Seraph',
-        desc: "Zalera is fought as an optional boss in the Barheim Passage, in Terminus No. 7. The party must obtain the Barheim Key in the Dalmasca Estersand to find him. If the player cannot defeat Zalera within five minutes they are teleported out of the room and must begin the battle over. Once defeated, Zalera's license can be purchased for 25 LP.",
+        desc: "Zalera is fought as an optional boss in the Barheim Passage, in Terminus No. 7. Obtaining the Barheim Key in the Dalmasca Estersand is required to reach him. If Zalera is not defeated within five minutes, the party is teleported out and must restart the battle. Once defeated, Zalera's license can be purchased for 25 LP.",
         zodiac: 'Gemini',
         glyph: '♊',
         element: 'Death',
@@ -64,12 +64,12 @@ const ESPER_LOCATIONS = {
     'Cuchulainn': {
         location: 'Garamsythe Waterway',
         title: 'The Impure',
-        desc: "Cúchulainn is an optional Esper residing in the central area of the Garamsythe Waterway (Cloaca No. 1). To reach him, the player must complete the 'Waterway Haunting' and 'Lost in the Pudding' hunts to obtain the Sluice Gate Key. By manipulating the water level control panels, the party can drain the central area to face him. The battle has a permanent HP drain field effect.",
+        desc: "Cúchulainn is an optional Esper residing in the central area of the Garamsythe Waterway (Cloaca No. 1). Reaching him requires completing the 'Waterway Haunting' and 'Lost in the Pudding' hunts to obtain the Sluice Gate Key. Manipulating the water level control panels drains the central area, allowing the party to face him. The battle has a permanent HP drain field effect.",
         zodiac: 'Scorpio',
         glyph: '♏',
         element: 'Poison',
         cost: 2,
-        image: './espers/Cuchulainn-bnw.png',
+        image: './espers/Cuch-bnw.png',
         url: 'https://finalfantasy.fandom.com/wiki/Cuchulainn_(Final_Fantasy_XII)'
     },
     'Zeromus': {
@@ -86,7 +86,7 @@ const ESPER_LOCATIONS = {
     'Exodus': {
         location: 'Mosphoran Highwaste',
         title: 'The Judge-Sal',
-        desc: "Exodus is found on the highest peak of the Mosphoran Highwaste, in the Empyrean Seat. The player must activate the shrines in a correct order to float the moss islands and create a path. This involves enabling the South Wind Shrine, feeding a Chocobo Gysahl Greens to cross the ridge, and then activating the West and Northwest Wind Shrines.",
+        desc: "Exodus is found on the highest peak of the Mosphoran Highwaste, in the Empyrean Seat. Reaching him requires activating the shrines in the correct order to float the moss islands and create a path. This involves enabling the South Wind Shrine, feeding a Chocobo Gysahl Greens to cross the ridge, and then activating the West and Northwest Wind Shrines.",
         zodiac: 'Libra',
         glyph: '♎',
         element: 'None',
@@ -97,7 +97,7 @@ const ESPER_LOCATIONS = {
     'Famfrit': {
         location: 'Pharos of Ridorana',
         title: 'The Darkening Cloud',
-        desc: "Famfrit is summoned by Dr. Cid when the party fights him at the top of the Pharos. Dr. Cid uses the nethicite to obtain him at that moment from the Pharos's peak. When both Cid and Famfrit are defeated, the player obtains the glyph needed to command the Esper. He is the fifth of the five Espers obtained during the main storyline.",
+        desc: "Famfrit is summoned by Dr. Cid when the party fights him at the top of the Pharos. Dr. Cid uses the nethicite to obtain him at that moment from the Pharos's peak. Defeating both Cid and Famfrit grants the glyph needed to command the Esper. He is the fifth of the five Espers obtained during the main storyline.",
         zodiac: 'Aquarius',
         glyph: '♒',
         element: 'Water',
@@ -107,7 +107,7 @@ const ESPER_LOCATIONS = {
     'Chaos': {
         location: 'Necrohol of Nabudis',
         title: 'Walker of the Wheel',
-        desc: "To find Chaos in the Necrohol of Nabudis, the player needs to complete the 'Three Medallions' sidequest. This involves utilizing the Sluice Gate Key in the Garamsythe Waterway and completing hunts to obtain the blackened fragments. Once the medallions are assembled, the player must defeat two optional bosses, Fury and Humbaba Mistant, in the Necrohol before unlocking the door to the Cloister of the Highborn where Chaos waits.",
+        desc: "Finding Chaos in the Necrohol of Nabudis requires completing the 'Three Medallions' sidequest. This involves utilizing the Sluice Gate Key in the Garamsythe Waterway and completing hunts to obtain the blackened fragments. Once the medallions are assembled, two optional bosses must be defeated—Fury and Humbaba Mistant—before the door to the Cloister of the Highborn unlocks, where Chaos awaits.",
         zodiac: 'Taurus',
         glyph: '♉',
         element: 'Wind',
@@ -123,13 +123,13 @@ const ESPER_LOCATIONS = {
         glyph: '♍',
         element: 'Holy',
         cost: 3,
-        image: './espers/Ultima-bnw.png',
+        image: './espers/Ulltima-bnw.png',
         url: 'https://finalfantasy.fandom.com/wiki/Ultima_(Final_Fantasy_XII)'
     },
     'Zodiark': {
         location: 'Henne Mines',
         title: 'Keeper of Precepts',
-        desc: "Zodiark is located in the Henne Mines, in the Special Charter Dig area. To unlock the Special Dig site, the player must collect at least ten Espers, go to Jahara and speak to Geomancer Yugelu. He will unlock the gate to the Phase 2 Dig, which leads to the Special Charter Dig area. Zodiark is found at the very end. The path to Zodiark is littered with strong foes, but the player can use the Immobilize glitch to avoid them.",
+        desc: "Zodiark is located in the Henne Mines, in the Special Charter Dig area. Unlocking the Special Dig site requires collecting at least ten Espers and speaking to Geomancer Yugelu in Jahara. He will unlock the gate to the Phase 2 Dig, which leads to the Special Charter Dig area. Zodiark is found at the very end. The path is littered with strong foes, but they can be avoided using the Immobilize glitch.",
         zodiac: 'Ophiuchus',
         glyph: '⛎',
         element: 'Dark',
