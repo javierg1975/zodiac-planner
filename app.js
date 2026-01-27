@@ -18,6 +18,11 @@ document.addEventListener('alpine:init', () => {
                 console.log('Esper data missing for: ' + esperName);
             }
         },
+        openLoreModal() {
+            // General Esper Lore Modal
+            this.modalContent = EsperModal.renderLore();
+            this.modalOpen = true;
+        },
         init() {
             // Pick a random memoir
             this.memoir = MEMOIRS[Math.floor(Math.random() * MEMOIRS.length)];

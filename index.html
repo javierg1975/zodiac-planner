@@ -595,8 +595,9 @@
                         <div class="ff-row-tick-tl"></div>
                         <div class="ff-row-tick-br"></div>
 
-                        <button @click="expanded[i] = !expanded[i]"
-                            class="w-full flex flex-col md:flex-row items-stretch text-left group relative min-h-[180px] md:min-h-[110px] ff-cinematic-content">
+                        <div @click="expanded[i] = !expanded[i]" role="button" tabindex="0"
+                            @keyup.enter="expanded[i] = !expanded[i]"
+                            class="w-full flex flex-col md:flex-row items-stretch text-left group relative min-h-[180px] md:min-h-[110px] ff-cinematic-content cursor-pointer">
 
                             <!-- Info Section - Unified Padding -->
                             <div class="flex-1 flex flex-col justify-center py-4 md:py-6 px-4 md:px-8">
@@ -649,20 +650,22 @@
                                         </div>
 
                                         <!-- Esper Watermark List -->
-                                        <div
-                                            class="flex items-center justify-end md:justify-center gap-2 md:order-1 h-full min-h-[50px] md:min-h-[60px]">
+                                        <div @click.stop="openLoreModal()"
+                                            class="relative z-20 flex items-center justify-end md:justify-center gap-2 md:order-1 h-[60px] cursor-pointer hover:opacity-100 group/lore transition-opacity"
+                                            title="Click for Esper Lore">
                                             <template x-for="esper in build.espers" :key="esper">
                                                 <img :src="`./espers/${
                                                     esper === 'Cuchulainn' ? 'Cuch' :
                                                     esper === 'Ultima' ? 'Ulltima' :
                                                     esper}-bnw.png?v=${new Date().getTime()}`"
-                                                    class="ff-esper-watermark" :alt="ESPER_FULL_NAMES[esper] || esper">
+                                                    class="ff-esper-watermark group-hover/lore:scale-110 transition-transform"
+                                                    :alt="ESPER_FULL_NAMES[esper] || esper">
                                             </template>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </button>
+                        </div>
 
                         <!-- Expanded Details -->
                         <div x-show="expanded[i]"
@@ -688,11 +691,13 @@
                                     </div>
 
                                     <div x-show="build.espers.length > 0">
-                                        <div
-                                            class="flex items-center gap-2 mb-4 text-sm font-bold text-cyan-300 uppercase tracking-wider">
+                                        <div @click.stop="openLoreModal()"
+                                            class="relative z-20 flex items-center gap-2 mb-4 text-sm font-bold text-cyan-300 uppercase tracking-wider cursor-pointer hover:text-cyan-100 transition-colors group/lore-header"
+                                            title="Click for Esper Lore">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="w-4 h-4 text-cyan-400"
+                                                stroke-linejoin="round"
+                                                class="w-4 h-4 text-cyan-400 group-hover/lore-header:scale-110 transition-transform"
                                                 x-html="Icons.Sparkles"></svg>
                                             Esper Unlocks
                                         </div>
