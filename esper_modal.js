@@ -75,17 +75,20 @@ const EsperModal = {
                                 </div>
                             </div>
 
-                            <!-- Scroll Area (Simplified Quotes & Dynamic Height) -->
+                            <!-- Scroll Area (Fixed Quotes & Dynamic Height) -->
                             <div class="relative max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar-amber p-6 md:p-8">
                                 <div class="relative"> 
-                                    <!-- Inline Decorative Quote -->
-                                    <span class="text-3xl md:text-4xl text-amber-500/40 font-serif italic leading-none mr-1 select-none">"</span>
+                                    <!-- Absolute Decorative Opening Quote -->
+                                    <div class="absolute -top-2 -left-3 text-4xl md:text-5xl text-amber-500/20 font-serif italic select-none pointer-events-none">"</div>
                                     
-                                    <span class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-xl relative z-10 drop-shadow-md">
+                                    <p class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-xl relative z-10 drop-shadow-md">
                                         ${data.desc}
-                                    </span>
+                                    </p>
                                     
-                                    <span class="text-3xl md:text-4xl text-amber-500/40 font-serif italic leading-none ml-1 select-none">"</span>
+                                    <!-- Separate Block Closing Quote -->
+                                    <div class="text-right mt-1">
+                                        <span class="text-3xl md:text-4xl text-amber-500/20 font-serif italic select-none leading-none">"</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,6 +103,82 @@ const EsperModal = {
                                 </svg>
                             </a>
                             ` : ''}
+                             <button @click="modalOpen = false" class="group px-8 py-3 bg-amber-500/5 border border-amber-500/30 text-amber-400 font-serif uppercase tracking-[0.2em] hover:bg-amber-500/20 hover:text-amber-100 transition-all shadow-[0_0_20px_rgba(255,179,0,0.05)] hover:shadow-[0_0_30px_rgba(255,179,0,0.15)] flex items-center gap-3">
+                                <span>Close Archives</span>
+                                <span class="group-hover:translate-x-1 transition-transform">→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+    renderLore() {
+        return `
+            <div class="ff-modal-grimoire animate-fade-in-up max-w-4xl w-full mx-auto my-auto relative overflow-hidden md:overflow-visible"> 
+                <!-- Decorative Header -->
+                <div class="ff-grimoire-header mb-4 md:mb-6 pt-4 md:pt-6 pb-2"> 
+                    <div class="ff-grimoire-ornament-l"></div>
+                    <div class="text-center relative z-20"> 
+                        <div class="text-[10px] md:text-xs font-serif italic text-amber-500/60 mb-1 md:mb-2 tracking-widest">Archives of Ivalice</div>
+                        <h2 class="text-4xl md:text-6xl font-serif font-bold text-amber-100 uppercase tracking-widest text-shadow-amber leading-tight mb-1 md:mb-2">Espers</h2>
+                        <div class="text-[10px] md:text-sm font-serif text-amber-500 font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">Scions of the Occuria</div>
+                    </div>
+                    <div class="ff-grimoire-ornament-r"></div>
+                </div>
+
+                <!-- Content Body -->
+                <div class="relative grid grid-cols-1 md:grid-cols-12 gap-0 mt-0 md:mt-4 min-h-[auto] md:min-h-[550px] items-start md:items-stretch pb-4 md:pb-0">
+                    
+                    <!-- LAYER 1: Image - Responsive prominence -->
+                    <!-- Mobile: Relative header with height, Desktop: Absolute background -->
+                    <div class="order-1 md:col-span-12 md:row-start-1 relative md:absolute inset-0 z-0 pointer-events-none select-none overflow-hidden h-[250px] md:h-full -mb-16 md:mb-0">
+                        <div class="relative w-full h-full flex items-center justify-center md:justify-start">
+                             <img src="./espers/Espers_PromoArt.webp" alt="Espers Lore" 
+                             class="relative w-full h-full md:w-[85%] md:h-full object-cover md:object-contain opacity-90 md:opacity-60 mix-blend-screen filter brightness-110 contrast-125 md:-translate-x-12 transition-all duration-700"
+                             style="mask-image: linear-gradient(to bottom, black 60%, transparent 95%), radial-gradient(circle at center, black 30%, transparent 80%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 95%), radial-gradient(circle at center, black 30%, transparent 80%);">
+                        </div>
+                        <!-- Desktop Depth Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-black/40 hidden md:block"></div>
+                    </div>
+
+                    <!-- LAYER 2: Text & Details -->
+                    <div class="order-2 md:col-span-8 md:col-start-5 md:row-start-1 relative z-10 flex flex-col justify-center h-auto md:h-full px-2 md:pr-4 md:py-8 mt-0 md:mt-0">
+                        
+                        <!-- Description Box -->
+                        <div class="relative bg-black/40 md:bg-black/20 backdrop-blur-md border border-amber-500/10 rounded-sm overflow-hidden shadow-2xl">
+                            
+                            <!-- Lore Title Header -->
+                            <div class="relative z-10 p-3 md:p-5 border-b border-amber-500/10 bg-black/60 text-center md:text-left">
+                                <div class="flex items-center justify-center md:justify-start gap-2 text-amber-500/80 mb-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                    <span class="text-[9px] font-bold uppercase tracking-widest">Summoned Beasts Lore</span>
+                                </div>
+                                <div class="text-xl md:text-3xl text-amber-100/90 font-serif italic px-2">
+                                    The Forbidden Scions
+                                </div>
+                            </div>
+
+                            <!-- Scroll Area -->
+                            <div class="relative max-h-[350px] md:max-h-[420px] overflow-y-auto custom-scrollbar-amber p-6 md:p-8 bg-gradient-to-br from-amber-950/20 to-transparent">
+                                <div class="relative"> 
+                                    <p class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-[1.1rem] relative z-10 drop-shadow-md mb-6">
+                                        Espers are powerful beings forged by the Occuria to serve as instruments of divine will. The thirteen Espers available to summon are the fallen—twelve who rebelled against their creators, and a thirteenth whose immense power made him too dangerous to remain free.
+                                    </p>
+                                    <p class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-[1.1rem] relative z-10 drop-shadow-md mb-6">
+                                        Originally, the Occuria created at least 24 scions—light and dark counterparts for each zodiac sign. These divine servants were meant to enforce the gods' authority across Ivalice, but not all would remain loyal.
+                                    </p>
+                                    <p class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-[1.1rem] relative z-10 drop-shadow-md">
+                                        Ultima, the High Seraph, believed herself superior to her creators. She rallied the scions of darkness in open rebellion against the gods. The uprising failed—twelve Espers were defeated, bound in Mist, and banished to Ivalice's darkest reaches. Only through ancient glyphs can they now be summoned, their power commandeered by those who claim their license.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Actions -->
+                        <div class="mt-6 flex items-center justify-center md:justify-end">
                              <button @click="modalOpen = false" class="group px-8 py-3 bg-amber-500/5 border border-amber-500/30 text-amber-400 font-serif uppercase tracking-[0.2em] hover:bg-amber-500/20 hover:text-amber-100 transition-all shadow-[0_0_20px_rgba(255,179,0,0.05)] hover:shadow-[0_0_30px_rgba(255,179,0,0.15)] flex items-center gap-3">
                                 <span>Close Archives</span>
                                 <span class="group-hover:translate-x-1 transition-transform">→</span>
