@@ -39,7 +39,7 @@ const EsperModal = {
                     </div>
 
                     <!-- LAYER 2: Text & Details -->
-                    <div class="order-2 md:col-span-8 md:col-start-5 md:row-start-1 relative z-10 flex flex-col h-auto md:h-full px-2 md:pl-6 md:pr-0 md:py-4 -mt-16 md:mt-0">
+                    <div class="order-2 md:col-span-8 md:col-start-5 md:row-start-1 relative z-10 flex flex-col h-auto md:h-full px-2 md:pl-6 md:pr-0 md:py-4 -mt-24 md:mt-0">
                         
                         <!-- Unified Stats Row -->
                         <div class="flex items-center justify-center md:justify-start gap-4 md:gap-8 mb-6 md:ml-8 relative z-20">
@@ -58,8 +58,8 @@ const EsperModal = {
                             </div>
                         </div>
 
-                        <!-- Description Box -->
-                        <div class="relative flex-1 bg-gradient-to-b from-amber-950/95 via-amber-950/90 to-amber-950/85 md:bg-gradient-to-br md:from-amber-950/90 md:via-amber-950/80 md:to-amber-950/40 border border-amber-500/20 rounded-sm overflow-hidden backdrop-blur-md shadow-2xl">
+                        <!-- Description Box (Increased Transparency & Dynamic Height) -->
+                        <div class="relative bg-gradient-to-b from-amber-900/10 via-amber-950/20 to-amber-900/30 md:bg-gradient-to-br md:from-amber-900/10 md:via-amber-950/20 md:to-amber-900/10 border border-amber-500/10 rounded-sm overflow-hidden shadow-2xl">
                             
                             <!-- Location Header -->
                             <div class="relative z-10 p-3 md:p-5 border-b border-amber-500/10 bg-black/30 text-center md:text-left">
@@ -75,17 +75,17 @@ const EsperModal = {
                                 </div>
                             </div>
 
-                            <!-- Scroll Area -->
-                            <div class="relative h-[250px] md:h-[280px] overflow-y-auto custom-scrollbar-amber p-5 md:p-8">
-                                <div class="relative pt-4 pb-2"> 
-                                    <!-- Quote Mark -->
-                                    <span class="absolute top-0 left-0 text-3xl text-amber-500/20 font-serif opacity-50">"</span>
+                            <!-- Scroll Area (Simplified Quotes & Dynamic Height) -->
+                            <div class="relative max-h-[300px] md:max-h-[400px] overflow-y-auto custom-scrollbar-amber p-6 md:p-8">
+                                <div class="relative"> 
+                                    <!-- Inline Decorative Quote -->
+                                    <span class="text-3xl md:text-4xl text-amber-500/40 font-serif italic leading-none mr-1 select-none">"</span>
                                     
-                                    <p class="text-amber-100/90 leading-relaxed font-serif text-[15px] md:text-xl relative z-10 drop-shadow-md">
+                                    <span class="text-amber-100/95 leading-relaxed font-serif text-[15px] md:text-xl relative z-10 drop-shadow-md">
                                         ${data.desc}
-                                    </p>
+                                    </span>
                                     
-                                    <span class="block text-right mt-2 text-3xl text-amber-500/20 font-serif opacity-50 leading-none">"</span>
+                                    <span class="text-3xl md:text-4xl text-amber-500/40 font-serif italic leading-none ml-1 select-none">"</span>
                                 </div>
                             </div>
                         </div>
