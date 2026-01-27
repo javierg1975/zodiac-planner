@@ -70,7 +70,7 @@ const ESPER_LOCATIONS = {
         element: 'Poison',
         cost: 2,
         image: './espers/Cuch-bnw.png',
-        url: 'https://finalfantasy.fandom.com/wiki/Cuchulainn_(Final_Fantasy_XII)'
+        url: 'https://finalfantasy.fandom.com/wiki/C%C3%BAchulainn_(Final_Fantasy_XII)'
     },
     'Zeromus': {
         location: 'Stilshrine of Miriam',
