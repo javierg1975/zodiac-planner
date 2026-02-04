@@ -23,6 +23,130 @@ document.addEventListener('alpine:init', () => {
             this.modalContent = EsperModal.renderLore();
             this.modalOpen = true;
         },
+        guidedMode: localStorage.getItem('ffxii_guided_complete') !== 'true',
+        guidedStep: 0,
+        guidedSteps: [
+            {
+                char: 'Vaan',
+                title: 'The Solo Thief',
+                story: 'Vaan has just gained access to his first License Board. Early on, he must be self-sufficient to survive the Rabanastre Sewers and beyond.',
+                choices: [
+                    {
+                        job: 'Shikari',
+                        role: 'Survival Specialist',
+                        why: 'The survivor. Potion Lore makes healing items incredibly powerful when you need them most. Fast attacks and light armor keep you mobile and safe.'
+                    },
+                    {
+                        job: 'Red Battlemage',
+                        role: 'Battle Mage',
+                        why: 'The elemental striker. Swords for physical combat AND elemental magic (Fire, Thunder, Blizzard) to exploit enemy weaknesses. Versatile offense for any situation.'
+                    }
+                ],
+                image: './portraits/vaan.jpg'
+            },
+            {
+                char: 'Penelo',
+                title: 'The Loyal Friend',
+                story: 'Penelo joins for the Giza Plains. She needs to be the perfect complement to Vaan to ensure the duo survives.',
+                suggestion: 'White Mage',
+                role: 'The Lifeline',
+                why: 'Regardless of Vaan\'s choice, a White Mage is the safest bet. She provides direct healing, keeping the duo healthy through the early difficulty spike.',
+                image: './portraits/penelo.jpg'
+            },
+            {
+                char: 'Fran & Balthier',
+                title: 'The Sky Pirates',
+                story: 'The escape from Nalbina Dungeons requires teamwork. The Leading Man supplies the muscle while his partner provides tactical support from range.',
+                characters: [
+                    {
+                        char: 'Fran',
+                        job: 'Archer',
+                        role: 'Ranged Support',
+                        why: 'Archer gives Fran immediate utility with Bows and Item support. She can pick off targets from safety and faster than anyone.'
+                    },
+                    {
+                        char: 'Balthier',
+                        job: 'Knight',
+                        role: 'Frontline Wall',
+                        why: 'Knight gives Balthier high HP and Heavy Armor. He becomes the party\'s defensive anchor, protecting the squishier members.'
+                    }
+                ],
+                image: './portraits/balthier-fran.webp'
+            },
+            {
+                char: 'Basch',
+                title: 'The Fallen Knight',
+                story: 'Basch joins the trio in Lhusu. His spear is his instrument of redemption.',
+                suggestion: 'Uhlan',
+                role: 'Physical DPS',
+                why: 'Uhlan offers high frontline damage with Spears. He excels at taking down threats before they can overwhelm your healers.',
+                image: './portraits/basch.jpg'
+            },
+            {
+                char: 'Ashe',
+                title: 'The Princess\'s Resolve',
+                story: 'At the Tomb of Raithwall, the party is complete. Ashe brings the true power of the mages to crush the bosses ahead.',
+                suggestion: 'Black Mage',
+                role: 'Magical Nuke',
+                why: 'Black Mage exploits elemental weaknesses for massive damage. Essential for the high-HP bosses in the Tomb.',
+                image: './portraits/ashe.jpg'
+            },
+            {
+                type: 'launchPad',
+                title: 'The Road Ahead',
+                story: 'With the Tomb of Raithwall behind you, the full License Board system is now available. You can now assign a second job to each character, allowing for powerful new combinations.',
+                callToAction: 'Visit Montblanc to reset your boards if you\'d like to try a specialized build.',
+                options: [
+                    {
+                        name: 'Balanced',
+                        tagline: 'The Standard Path',
+                        why: 'Best for your first playthrough. High stability, low risk, and covers every possible situation without complex gear farming.',
+                        icon: 'Beginner'
+                    },
+                    {
+                        name: 'Max Efficiency',
+                        tagline: 'The Perfectionist',
+                        why: 'Zero license overlap. Maximizes every LP spent for perfect synergy. Best if you want to see everything the job system can do.',
+                        icon: 'Efficiency'
+                    },
+                    {
+                        name: 'Big Game Hunter',
+                        tagline: 'The Boss Killer',
+                        why: 'Pure offensive power. Sacrifices some versatility to double down on raw physical and magical damage output.',
+                        icon: 'Hunter'
+                    }
+                ],
+                image: './backgrounds/Clan_Centurio.webp'
+            }
+        ],
+        startGuidedMode() {
+            this.guidedMode = true;
+            this.guidedStep = 0;
+            localStorage.setItem('ffxii_guided_complete', 'false');
+            this.$nextTick(() => { if (this.$refs.guidedModal) this.$refs.guidedModal.scrollTop = 0; });
+        },
+        nextGuidedStep() {
+            if (this.guidedStep < this.guidedSteps.length - 1) {
+                this.guidedStep++;
+                this.$nextTick(() => { if (this.$refs.guidedModal) this.$refs.guidedModal.scrollTop = 0; });
+            } else {
+                this.completeGuidedMode();
+            }
+        },
+        prevGuidedStep() {
+            if (this.guidedStep > 0) {
+                this.guidedStep--;
+                this.$nextTick(() => { if (this.$refs.guidedModal) this.$refs.guidedModal.scrollTop = 0; });
+            }
+        },
+        skipGuidedMode() {
+            this.completeGuidedMode();
+        },
+        completeGuidedMode() {
+            this.guidedMode = false;
+            this.preset = 'First Jobs';
+            localStorage.setItem('ffxii_guided_complete', 'true');
+        },
         init() {
             // Pick a random memoir
             this.memoir = MEMOIRS[Math.floor(Math.random() * MEMOIRS.length)];

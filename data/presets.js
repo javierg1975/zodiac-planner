@@ -15,14 +15,14 @@ const PRESETS = {
             recommendedLevel: 'Level 1+',
             notes: 'TEMPORARY BUILD. Visit Montblanc at Clan Centurio to reset jobs when dual-job system unlocks (after Tomb of Raithwall). Party composition is fragmented - Vaan is your only constant member.'
         },
-        why: 'Designed for the chaotic prologue where party constantly shifts (Vaan solo → Vaan+Penelo → rotating cast). Vaan as Shikari ensures consistent item-based healing since he\'s the only guaranteed party member. This build is meant to be REPLACED once dual-job unlocks.',
+        why: 'Designed for the chaotic prologue where party constantly shifts (Vaan solo → Vaan+Penelo → rotating cast). Vaan (choose Shikari OR Red Battlemage) provides consistent survival since he\'s the only guaranteed party member. This build is meant to be REPLACED once dual-job unlocks.',
         parties: [
             { name: 'Vaan\'s Core', members: ['Vaan', 'Penelo', 'Balthier'], why: 'Common early trio. Vaan handles healing via Potions, Penelo provides magic when available.' },
             { name: 'Physical Front', members: ['Vaan', 'Balthier', 'Basch'], why: 'Heavy physical damage. Vaan as constant, supported by Knight and Uhlan.' },
             { name: 'Full Roster', members: ['Vaan', 'Fran', 'Ashe'], why: 'Balanced once full party available. Magic DPS and buffs complement Vaan\'s survival.' }
         ],
         builds: [
-            { char: 'Vaan', jobs: ['Shikari'], espers: [], role: 'Item Healer', why: 'Your only constant. Potion Lore makes items actually useful. Main Gauche (when available) adds survivability.', gambits: ['Ally: HP < 70% → Potion', 'Ally: Any → Phoenix Down'], gambitStrategy: 'Party constantly rotates - items work regardless of who\'s active. No MP dependency.', gear: ['Dagger → Main Gauche (eventually)', 'Leather Armor progression', 'Buckler → Round Shield', 'Stock Potions/Phoenix Downs'] },
+            { char: 'Vaan', jobs: ['Shikari', 'Red Battlemage'], espers: [], role: 'Survival Specialist', why: 'Knight and pure Mage sound cool - but they need stable party support. The prologue is CHAOTIC: Vaan fights solo, then with Penelo, then party constantly rotates. Pick SHIKARI for the item specialist (Potion Lore makes healing items powerful, works when teammates have no MP) OR RED BATTLEMAGE for the versatile battle mage (Cure spells + elemental magic + swords means you can adapt to anything). Both keep you alive through the chaos. Plus, this is temporary - reset jobs and go full Knight/Mage when dual-job unlocks.', gambits: ['Shikari: Ally HP < 70% → Potion', 'Red Battlemage: Ally HP < 50% → Cure', 'Ally: Any → Phoenix Down'], gambitStrategy: 'Shikari relies on items (never runs out, works for anyone). Red Battlemage uses magic (versatile, self-sufficient). Both handle the rotating party.', gear: ['Shikari: Daggers + Light Armor', 'Red Battlemage: Swords + Mystic Armor', 'Stock Potions/Phoenix Downs', 'Shields (Buckler → Round Shield)'] },
             { char: 'Penelo', jobs: ['White Mage'], espers: [], role: 'Magic Healer', why: 'Traditional healer when available. Cure spells supplement Vaan\'s items.', gambits: ['Ally: HP < 70% → Cure', 'Ally: Any → Phoenix Down'], gambitStrategy: 'Temporary character - minimal gambit setup since she rotates out frequently.', gear: ['Staff → Serpent Rod', 'Mystic Armor progression', 'MAG focus', 'MP items'] },
             { char: 'Balthier', jobs: ['Knight'], espers: [], role: 'Physical Tank', why: 'Heavy Armor provides early durability. Solid sword damage.', gambits: ['Foe: Party Leader\'s Target → Attack'], gambitStrategy: 'Entire party focuses same target - kills enemies faster, takes less total damage.', gear: ['Sword progression', 'Heavy Armor (Bronze → Steel)', 'Shield', 'STR accessories'] },
             { char: 'Fran', jobs: ['Time Battlemage'], espers: [], role: 'Buffer', why: 'Haste and buffs valuable when available. Mystic Armor progression.', gambits: ['Ally: Any → Haste', 'Ally: Any → Protect'], gambitStrategy: 'Haste doubles action speed. Protect cuts physical damage in half. Multiplicative power.', gear: ['Staff progression', 'Mystic Armor', 'MAG focus', 'Time Magick licenses'] },
@@ -61,8 +61,8 @@ const PRESETS = {
             { char: 'Penelo', jobs: ['White Mage', 'Shikari'], espers: ['Cuchulainn'], role: 'Evasion Healer', why: 'Maximum-tier evasion via Main Gauche and Shields. Cuchulainn unlocks Shikari Protectga/Shellga for party-wide defense. White Mage has natural Haste (single target) but NOT Hastega - rely on Fran (Time Battlemage) for party-wide Hastega.', gambits: ['Ally: HP < 70% → Curaga', 'Ally: Any → Phoenix Down', 'Ally: Any → Protectga'], gambitStrategy: 'Healer survives via evasion. Dead healer = party wipe. Phoenix Down prevents cascading failures.', gear: ['Main Gauche | 50% evasion dagger', 'Crystal Shield | Highest evasion shield (90% total with Main Gauche)', 'Demon Shield | Alternative for status-heavy encounters', 'Ribbon | Status immunity'] }
         ]
     },
-    'DPS Nuclear': {
-        shortName: 'Nuclear',
+    'Big Game Hunter': {
+        shortName: 'Hunter',
         desc: 'Maximum damage build. Optimized for boss killing.',
         metrics: { lp: 'B', atk: 'S', flex: 'B' },
         phase: 'mid',
@@ -262,11 +262,11 @@ const PRESETS = {
 const PRESET_ICONS = {
     'First Jobs': 'Beginner',
     'Max Efficiency': 'Efficiency',
-    'DPS Nuclear': 'Nuclear',
+    'Big Game Hunter': 'Hunter',
     'Balanced': 'Beginner',
     'Leader Trinity': 'Trinity',
     'Yiazmat Specialist': 'Endurance',
     'Lore Friendly': 'Lore',
-    'Spare No Expense': 'Nuclear'
+    'Spare No Expense': 'Hunter'
 };
 
