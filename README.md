@@ -29,28 +29,28 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 ### 8 Optimized Build Presets
 
 **First Jobs**
-Single-job prologue build (temporary - replace at dual-job unlock)
-
-**Max Efficiency**
-Zero wasted licenses, mathematically perfect
-
-**DPS Nuclear**
-Maximum damage for superbosses
+Single-job prologue build. Replace when dual jobs unlock.
 
 **Balanced**
-High synergy with low risk, excellent for first playthroughs
-
-**Leader Trinity**
-Evasion-focused, optimized for leader mechanic
-
-**Yiazmat Specialist**
-Endurance build for 50M HP marathon fight
+Balanced build. High synergy with low risk.
 
 **Lore Friendly**
-Story-based canonical character roles with strong second jobs
+Story-based build. Matches character archetypes with strong job pairings.
+
+**Max Efficiency**
+Zero-waste build. Refined for perfect license synergy.
+
+**Big Game Hunter**
+Maximum damage build. Optimized for boss killing.
+
+**Leader Trinity**
+Evasion-focused build. Optimized for leader tanking.
+
+**Yiazmat Specialist**
+Endurance build. Designed for multi-hour superboss fights.
 
 **Spare No Expense**
-Trial Mode luxury build with no equipment compromises
+Trial Mode luxury build. No equipment compromises.
 
 ---
 
