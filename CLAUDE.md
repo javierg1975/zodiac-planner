@@ -50,7 +50,7 @@ Both apps share `styles.css`. See `.claude/rules/idris2-port.md` for full build 
 
 **NO EMOJIS in UI or code.** This app uses SVG icons from the `Icons` object exclusively. If you need a visual element, add an SVG path to `Icons`. This maintains the FFXII tactical aesthetic.
 
-**Time Battlemage has natural Hastega.** Do NOT assign Famfrit "for Hastega" to a TBM character. Famfrit unlocks Battle Lore for TBM, NOT Hastega. Famfrit unlocks Hastega for Machinist only. This has caused real bugs — see the Hastega fixes in git history.
+**Time Battlemage has natural Hastega.** Do NOT assign Famfrit "for Hastega" to a TBM character. Famfrit unlocks Battle Lore for TBM, NOT Hastega. Famfrit unlocks Hastega for Machinist only. Getting this wrong leads to bad advice in preset descriptions.
 
 **Esper display names**: Use `ESPER_FULL_NAMES[esperName]` for all UI display. Short names in data, full titles ('Zeromus, the Condemner') shown to users.
 

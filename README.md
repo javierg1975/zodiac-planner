@@ -10,11 +10,17 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 
 ## Recent Updates
 
+### February 2026
+- **Guided Onboarding** - 6-step interactive intro walking new players through each character's starting job, ending with a LaunchPad screen recommending next builds
+- **Esper Grimoire Modals** - Click any Esper watermark to open a grimoire-style modal with lore, location, zodiac sign, element, and artwork
+- **Esper Lore Overview** - General lore modal showing all 13 Espers with promotional artwork
+- **Color-Coded Gambits** - Gambit rows now color-coded by target type (blue for ally, red for foe)
+- **Gear Reasoning** - Equipment items show explanatory notes via pipe-delimited format
+
 ### January 2026
-- **Full Esper Titles** - All Espers now display with their complete titles (e.g., "Zeromus, the Condemner", "Famfrit, the Darkening Cloud")
+- **Full Esper Titles** - All Espers now display with their complete titles (e.g., "Zeromus, the Condemner")
 - **Fixed Time Battlemage Hastega Confusion** - Corrected preset descriptions that incorrectly suggested Famfrit was needed for Hastega when Time Battlemage has it naturally
-- **Improved Esper Attunement Clarity** - Updated keyEspers descriptions to be more accurate and tactically useful
-- **Better Tactical Notes** - Replaced obvious game mechanic descriptions with actionable tactical advice
+- **Improved Tactical Notes** - Replaced obvious game mechanic descriptions with actionable tactical advice
 
 ---
 
@@ -208,29 +214,24 @@ Remedies cure all status effects (Shikari with Cuchulainn)
 ### File Structure
 ```
 zodiac-planner/
-├── index.html              # Main application
-├── styles.css              # Premium tactical styling
+├── index.html              # Main HTML + Alpine.js markup
+├── app.js                  # Alpine.js state, guided mode, helpers
+├── esper_modal.js          # Grimoire-style Esper modal rendering
+├── styles.css              # FFXII tactical dashboard styling
 ├── data/                   # Modular game data
-│   ├── icons.js            # SVG Path definitions
+│   ├── icons.js            # SVG path definitions
 │   ├── jobs.js             # Job definitions
 │   ├── characters.js       # Character metadata
-│   ├── espers.js           # Esper & Zodiac data
+│   ├── espers.js           # Esper names, zodiac glyphs, unlocks
+│   ├── esper_locations.js  # Esper locations, lore, artwork
 │   ├── presets.js          # Optimization builds
 │   └── memoirs.js          # Marquise Ondore IV quotes
-├── docs/                   # Reference documentation
-│   ├── FFXII TZA_ The Unneccessary Class Guide v2.2.md
-│   ├── job-classes.md      # Job class breakdowns
-│   ├── espers-reference.md # Esper assignments
-│   ├── equipment-reference.md # Gear guide
-│   ├── build-strategies.md # Optimization strategies
-│   ├── team-compositions.md # Party formations
-│   ├── advanced-tactics.md # Endgame mechanics
-│   ├── beginner-guide.md   # New player guide
-│   └── theoretical-analysis.md # Math & theory
-├── backgrounds/            # Cinematic backgrounds
+├── backgrounds/            # Scene backgrounds
 ├── portraits/              # Character portraits
-├── CLAUDE.md              # Developer documentation
-└── README.md              # Project overview
+├── espers/                 # Esper artwork (B&W + promo)
+├── docs/                   # Reference documentation
+├── CLAUDE.md               # Developer documentation
+└── README.md               # Project overview
 ```
 
 ---
@@ -239,11 +240,13 @@ zodiac-planner/
 
 Edit `index.html` directly — no build process needed:
 
-| Section | Path | Content |
+| Section | File | Content |
 |---------|------|---------|
-| **Styles** | [styles.css](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/styles.css) | Custom FFXII tactical CSS |
-| **Presets** | [data/presets.js](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/data/presets.js) | Build configurations |
-| **Markup** | [index.html](file:///Users/javierg/Projects/GitHub/Personal/zodiac-planner/index.html) | HTML with Alpine.js |
+| **Layout** | `index.html` | HTML structure + Alpine.js markup |
+| **State & Logic** | `app.js` | Alpine.js state, guided mode, helpers |
+| **Esper Modals** | `esper_modal.js` | Grimoire modal rendering |
+| **Styles** | `styles.css` | Custom FFXII tactical CSS |
+| **Presets** | `data/presets.js` | Build configurations |
 
 ---
 
