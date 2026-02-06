@@ -4,7 +4,7 @@ An interactive job and party planning tool for **Final Fantasy XII: The Zodiac A
 
 > **No installation required.** Single HTML file that runs directly in your browser.
 
-![FFXII Screenshot](./backgrounds/screenshot-337-cropped.jpg)
+![FFXII Screenshot](./backgrounds/screenshot-334-cropped.jpg)
 
 ---
 
