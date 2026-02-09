@@ -80,3 +80,8 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .claude/settings.local.json
+
+# Idris2 build artifacts
+idris2-src/build/
+*.ttc
+*.ttm
