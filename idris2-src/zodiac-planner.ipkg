@@ -1,0 +1,35 @@
+package zodiac-planner
+version = 0.1.0
+authors = "FFXII Zodiac Planner Team"
+
+sourcedir = "src"
+modules = Main
+        , TestMain
+        , ValidateBalanced
+        , AdvisorMain
+        , Types.Goal
+        , Types.Job
+        , Types.Character
+        , Types.Esper
+        , Types.Unlock
+        , Types.GameState
+        , Advisor.Recommendation
+        , Tests.BalancedValidation
+        , Tests.AdvisorDemo
+        , Tests.Properties
+        -- Types.GoalSample kept as reference (shows manual implementation)
+        -- Not built to avoid duplicate type definitions
+
+depends = base
+        , elab-util
+        , hedgehog
+
+-- Executables (can build either)
+-- main = Main
+main = TestMain
+-- main = ValidateBalanced
+-- main = AdvisorMain
+executable = "zodiac-planner.js"
+
+-- For JavaScript codegen, need to use --cg flag at build time
+-- pack build --cg javascript

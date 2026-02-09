@@ -1,0 +1,1 @@
+(parameterize ([optimize-level 3] [compile-file-message #f]) (compile-program "/Users/gonzaj53/Projects/GitHub/Personal/zodiac-planner/zodiac-planner/idris2-src/build/exec/zodiac-planner.js_app/zodiac-planner.ss"))
