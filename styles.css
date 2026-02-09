@@ -867,3 +867,35 @@ h3 {
     transform: rotate(-45deg);
     transform-origin: bottom left;
 }
+
+/* Vertical Text Utility */
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+/* Diagonal Duo Guided Intro Styles */
+.ff-diagonal-slash {
+    position: absolute;
+    width: 140%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+    top: 50%;
+    left: -20%;
+    transform: rotate(-25deg);
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+.ff-dashed-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 35%;
+    width: 1px;
+    border-right: 1px dashed rgba(255, 255, 255, 0.1);
+    z-index: 5;
+    pointer-events: none;
+}
