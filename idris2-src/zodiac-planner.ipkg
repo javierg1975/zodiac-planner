@@ -27,6 +27,7 @@ modules = Main
         , Types.Equipment
         , Advisor.Recommendation
         , Analysis.OptimalPairings
+        , Tests.ValidationFramework
         , Tests.BalancedValidation
         , Tests.TrinityValidation
         , Tests.EnduranceValidation

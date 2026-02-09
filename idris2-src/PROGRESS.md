@@ -1,9 +1,9 @@
 # Idris 2 Rewrite - Progress Log
 
-## Current Status: Phase 4 (Lore Overlap & Constraint Modeling - COMPLETE ✅)
+## Current Status: Phase 5 (Preset Validation - IN PROGRESS 🚧)
 
 **Branch**: `feature/idris2-rewrite`
-**Last Updated**: 2026-02-09
+**Last Updated**: 2026-02-09 (evening session)
 
 ---
 
@@ -761,3 +761,145 @@ The "tax" of dependent types is ~4x code volume, but we get:
 - Learning applicable to other projects
 
 This is the experiment: **Is 4x code worth compile-time guarantees?** For this project, the answer so far is **yes**.
+
+---
+
+## Phase 5: Preset Validation Extension 🚧
+
+### Completed ✅
+
+**1. Additional Preset Validators** ✅
+- ✅ `Tests/MaxEfficiencyValidation.idr` - Zero-waste LP optimizer (9 espers)
+- ✅ `Tests/BigGameHunterValidation.idr` - Maximum damage build (12 espers)
+- ✅ `ValidateMaxEfficiency.idr` and `ValidateBigGameHunter.idr` - Entry point executables
+- ✅ `VALIDATION_SUMMARY.md` - Comprehensive analysis of all 6 validated presets
+
+**Validation Results**:
+```
+Max Efficiency: 33% esper waste (3/9 espers)
+  - Fran: 3-esper concentration = 100% efficient
+  - Waste: Exodus (Vaan), Adrammelech (Balthier), Cuchulainn (Penelo)
+
+Big Game Hunter: 25% esper waste (3/12 espers)
+  - Balthier: 3-esper concentration = 100% efficient
+  - Fran: 3-esper concentration with 1 waste
+  - Waste: Shemhazai (Vaan), Mateus (Fran), Cuchulainn (Penelo)
+```
+
+**Final Esper Efficiency Rankings**:
+1. Ultimate: 7.7% waste (1/13) ⭐ BEST
+2. Trinity: 10% waste (1/10)
+3. Big Game Hunter: 25% waste (3/12)
+4. Endurance: 25% waste (2/8)
+5. Max Efficiency: 33% waste (3/9)
+6. Balanced: 37.5% waste (3/8)
+
+**Key Pattern Discovered**: Monk + Time Battlemage is an excellent esper sink (can efficiently use 3-5 espers without waste)
+
+**2. Critical Insight About "Max Efficiency"** ✅
+
+Discovered that "Max Efficiency" preset name is misleading:
+- **What it ACTUALLY optimizes**: Job pairing lore efficiency (minimizing wasted licenses)
+- **What it DOESN'T optimize**: Esper assignment efficiency (33% waste - second worst!)
+
+**The Distinction**:
+- **Lore efficiency**: Are the natural licenses on both job boards useful for the pairing?
+  - Example: Bushi + Black Mage - Bushi's Magick Lores boost BM spells, BM's MAG makes katanas scale better
+  - Bad example: Knight + Monk - both have Magick Lores but neither casts spells effectively
+- **Esper efficiency**: Do esper unlocks duplicate what's already on the boards?
+  - Measured by our current validators (esper waste)
+
+These are **orthogonal optimization goals**!
+
+### In Progress 🚧
+
+**3. Enhanced Validation Framework** 🚧
+
+Started `Tests/ValidationFramework.idr` to add:
+- ✅ Lore efficiency analysis per character (calculates pairing synergy)
+- ✅ Preset-level average lore efficiency
+- ⚠️ Trade-off modeling structure (defined but not populated)
+- ❌ **BLOCKED**: Idris2 record field accessor syntax issues
+
+**What Works**:
+```idris
+record BuildAnalysis where
+  constructor MkBuildAnalysis
+  build : CharacterBuild
+  -- ... existing fields ...
+  loreEfficiency : Nat           -- NEW: Percentage of non-overlapping lores
+  loreBattleOverlap : Nat        -- NEW: Battle Lore overlap percentage
+  loreMagickOverlap : Nat        -- NEW: Magick Lore overlap percentage
+```
+
+**What's Blocked**:
+- Cannot access nested record fields in lambda expressions
+- Tried: `a.build.espers`, `build a`, `(\a => length (espers (build a)))`
+- All fail with "Undefined name build" or "Undefined name .build"
+- Pattern matching with 20+ fields is unmaintainable
+- Need to understand correct Idris2 idiom for field accessors in higher-order contexts
+
+**Workaround Used**: Simplified validators to skip preset-level summaries, keeping only per-character lore efficiency display
+
+**Trade-off Modeling Concept** 🎯
+
+Defined structure for explicit trade-off tracking:
+```idris
+record BuildTradeoffs where
+  constructor MkTradeoffs
+  strengths : List String      -- What this build excels at
+  weaknesses : List String     -- What this build sacrifices
+  requirements : List String   -- External dependencies (gear, espers, Trial Mode)
+  risks : List String          -- Single points of failure, fragility
+```
+
+**Example Trade-offs** (not yet encoded):
+```
+Max Efficiency:
+  Strengths: ["High lore efficiency (75%+)", "Minimal license waste"]
+  Weaknesses: ["High esper waste (33%)", "Moderate esper allocation"]
+  Requirements: ["Dual-job system unlocked", "Mid-game access"]
+  Risks: ["Sole Hastega source: Fran"]
+
+Ultimate:
+  Strengths: ["Best esper efficiency (7.7%)", "5-esper concentration on Fran"]
+  Weaknesses: ["Requires Trial Mode farming", "Expensive gear dependencies"]
+  Requirements: ["2 Genji Gloves", "Unlimited Ribbons", "Multiple Zodiac Spears"]
+  Risks: ["Sole Hastega source: Fran", "5 espers on one character = high risk"]
+```
+
+### Blockers 🚫
+
+1. **Idris2 Record Field Accessors** 🔴
+   - Cannot reliably access nested record fields in lambdas
+   - Need to learn idiomatic pattern for field projection in higher-order contexts
+   - Affects `averageLoreEfficiency`, `esperWastePercentage`, `reportPresetSummary`
+
+2. **Trade-off Population** 🟡
+   - Structure defined, but manual analysis needed per preset
+   - Requires domain expertise to identify strengths/weaknesses/risks
+   - Could be automated but would need heuristics
+
+### Next Steps
+
+**Option A: Fix ValidationFramework** (technical debt)
+- Learn correct Idris2 idiom for field accessors
+- Complete preset-level summary functions
+- Populate trade-off analysis for all 6 presets
+- Estimated: 1-2 hours if syntax issue resolved quickly
+
+**Option B: Move Forward with Current State** (pragmatic)
+- Per-character lore efficiency works in manual calculations
+- Esper efficiency validation is complete for 6 presets
+- Can demonstrate lore efficiency concept with Python script or manual analysis
+- Trade-offs can be documented in markdown instead of encoded
+
+**Option C: Start UI Implementation** (new features)
+- Begin `idris2-dom-mvc` Library mode
+- Use current validation results to inform UI design
+- Return to ValidationFramework later if needed
+
+**Recommendation**: Option B or C. The core validation work is done and insights are documented. The ValidationFramework enhancement is a nice-to-have, not a blocker for progress.
+
+---
+
