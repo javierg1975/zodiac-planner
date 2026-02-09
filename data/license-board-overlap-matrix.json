@@ -1,0 +1,1322 @@
+{
+  "White Mage+Uhlan": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 14,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 7,
+      "combined_total": 14,
+      "overlap_percent": 50.0
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 9,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 40.0
+    }
+  },
+  "White Mage+Machinist": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 3,
+      "shared": 3,
+      "only_job1": 4,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 42.857142857142854
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 7,
+      "shared": 7,
+      "only_job1": 8,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 46.666666666666664
+    }
+  },
+  "White Mage+Red Battlemage": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 3,
+      "shared": 3,
+      "only_job1": 4,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 42.857142857142854
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 12,
+      "shared": 12,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 80.0
+    }
+  },
+  "White Mage+Knight": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 12,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 12,
+      "overlap_percent": 58.333333333333336
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 15,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 0.0
+    }
+  },
+  "White Mage+Monk": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 16,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 16,
+      "overlap_percent": 43.75
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 15,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 0.0
+    }
+  },
+  "White Mage+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 11,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 4,
+      "combined_total": 11,
+      "overlap_percent": 63.63636363636363
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 9,
+      "shared": 9,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 60.0
+    }
+  },
+  "White Mage+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 13,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 13,
+      "overlap_percent": 53.84615384615385
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 10,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 33.33333333333333
+    }
+  },
+  "White Mage+Archer": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 5,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 28.57142857142857
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 9,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 40.0
+    }
+  },
+  "White Mage+Black Mage": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 16,
+      "shared": 15,
+      "only_job1": 0,
+      "only_job2": 1,
+      "combined_total": 16,
+      "overlap_percent": 93.75
+    }
+  },
+  "White Mage+Bushi": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 8,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 1,
+      "combined_total": 8,
+      "overlap_percent": 87.5
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 14,
+      "shared": 14,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 93.33333333333333
+    }
+  },
+  "White Mage+Shikari": {
+    "battle_lores": {
+      "job1_total": 7,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 85.71428571428571
+    },
+    "magick_lores": {
+      "job1_total": 15,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 10,
+      "only_job2": 0,
+      "combined_total": 15,
+      "overlap_percent": 33.33333333333333
+    }
+  },
+  "Uhlan+Machinist": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 3,
+      "shared": 3,
+      "only_job1": 11,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 21.428571428571427
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 7,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 1,
+      "combined_total": 7,
+      "overlap_percent": 85.71428571428571
+    }
+  },
+  "Uhlan+Red Battlemage": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 3,
+      "shared": 3,
+      "only_job1": 11,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 21.428571428571427
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 12,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 12,
+      "overlap_percent": 50.0
+    }
+  },
+  "Uhlan+Knight": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 12,
+      "shared": 12,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 85.71428571428571
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 0.0
+    }
+  },
+  "Uhlan+Monk": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 16,
+      "shared": 14,
+      "only_job1": 0,
+      "only_job2": 2,
+      "combined_total": 16,
+      "overlap_percent": 87.5
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 0.0
+    }
+  },
+  "Uhlan+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 11,
+      "shared": 11,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 78.57142857142857
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 9,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 3,
+      "combined_total": 9,
+      "overlap_percent": 66.66666666666666
+    }
+  },
+  "Uhlan+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 13,
+      "shared": 13,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 92.85714285714286
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 83.33333333333334
+    }
+  },
+  "Uhlan+Archer": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 12,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 14.285714285714285
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 100.0
+    }
+  },
+  "Uhlan+Black Mage": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 14,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 16,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 10,
+      "combined_total": 16,
+      "overlap_percent": 37.5
+    }
+  },
+  "Uhlan+Bushi": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 8,
+      "shared": 8,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 57.14285714285714
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 14,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 8,
+      "combined_total": 14,
+      "overlap_percent": 42.857142857142854
+    }
+  },
+  "Uhlan+Shikari": {
+    "battle_lores": {
+      "job1_total": 14,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 8,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 42.857142857142854
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 83.33333333333334
+    }
+  },
+  "Machinist+Red Battlemage": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 3,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 0,
+      "combined_total": 3,
+      "overlap_percent": 100.0
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 12,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 12,
+      "overlap_percent": 58.333333333333336
+    }
+  },
+  "Machinist+Knight": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 12,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 12,
+      "overlap_percent": 25.0
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 0.0
+    }
+  },
+  "Machinist+Monk": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 16,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 13,
+      "combined_total": 16,
+      "overlap_percent": 18.75
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 0.0
+    }
+  },
+  "Machinist+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 11,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 8,
+      "combined_total": 11,
+      "overlap_percent": 27.27272727272727
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 9,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 2,
+      "combined_total": 9,
+      "overlap_percent": 77.77777777777779
+    }
+  },
+  "Machinist+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 13,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 10,
+      "combined_total": 13,
+      "overlap_percent": 23.076923076923077
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 71.42857142857143
+    }
+  },
+  "Machinist+Archer": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 3,
+      "overlap_percent": 66.66666666666666
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 85.71428571428571
+    }
+  },
+  "Machinist+Black Mage": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 3,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 16,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 16,
+      "overlap_percent": 43.75
+    }
+  },
+  "Machinist+Bushi": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 8,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 8,
+      "overlap_percent": 37.5
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 14,
+      "shared": 7,
+      "only_job1": 0,
+      "only_job2": 7,
+      "combined_total": 14,
+      "overlap_percent": 50.0
+    }
+  },
+  "Machinist+Shikari": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 6,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 3,
+      "combined_total": 6,
+      "overlap_percent": 50.0
+    },
+    "magick_lores": {
+      "job1_total": 7,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 7,
+      "overlap_percent": 71.42857142857143
+    }
+  },
+  "Red Battlemage+Knight": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 12,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 12,
+      "overlap_percent": 25.0
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 12,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 0.0
+    }
+  },
+  "Red Battlemage+Monk": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 16,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 13,
+      "combined_total": 16,
+      "overlap_percent": 18.75
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 12,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 0.0
+    }
+  },
+  "Red Battlemage+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 11,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 8,
+      "combined_total": 11,
+      "overlap_percent": 27.27272727272727
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 9,
+      "shared": 9,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 75.0
+    }
+  },
+  "Red Battlemage+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 13,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 10,
+      "combined_total": 13,
+      "overlap_percent": 23.076923076923077
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 41.66666666666667
+    }
+  },
+  "Red Battlemage+Archer": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 3,
+      "overlap_percent": 66.66666666666666
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 50.0
+    }
+  },
+  "Red Battlemage+Black Mage": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 3,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 16,
+      "shared": 12,
+      "only_job1": 0,
+      "only_job2": 4,
+      "combined_total": 16,
+      "overlap_percent": 75.0
+    }
+  },
+  "Red Battlemage+Bushi": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 8,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 8,
+      "overlap_percent": 37.5
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 14,
+      "shared": 12,
+      "only_job1": 0,
+      "only_job2": 2,
+      "combined_total": 14,
+      "overlap_percent": 85.71428571428571
+    }
+  },
+  "Red Battlemage+Shikari": {
+    "battle_lores": {
+      "job1_total": 3,
+      "job2_total": 6,
+      "shared": 3,
+      "only_job1": 0,
+      "only_job2": 3,
+      "combined_total": 6,
+      "overlap_percent": 50.0
+    },
+    "magick_lores": {
+      "job1_total": 12,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 41.66666666666667
+    }
+  },
+  "Knight+Monk": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 16,
+      "shared": 12,
+      "only_job1": 0,
+      "only_job2": 4,
+      "combined_total": 16,
+      "overlap_percent": 75.0
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 0,
+      "combined_total": 0,
+      "overlap_percent": 0
+    }
+  },
+  "Knight+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 11,
+      "shared": 11,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 91.66666666666666
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 9,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 9,
+      "overlap_percent": 0.0
+    }
+  },
+  "Knight+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 13,
+      "shared": 12,
+      "only_job1": 0,
+      "only_job2": 1,
+      "combined_total": 13,
+      "overlap_percent": 92.3076923076923
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 5,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 5,
+      "overlap_percent": 0.0
+    }
+  },
+  "Knight+Archer": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 10,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 16.666666666666664
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 6,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 6,
+      "overlap_percent": 0.0
+    }
+  },
+  "Knight+Black Mage": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 12,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 16,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 16,
+      "combined_total": 16,
+      "overlap_percent": 0.0
+    }
+  },
+  "Knight+Bushi": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 8,
+      "shared": 8,
+      "only_job1": 4,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 66.66666666666666
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 14,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 14,
+      "combined_total": 14,
+      "overlap_percent": 0.0
+    }
+  },
+  "Knight+Shikari": {
+    "battle_lores": {
+      "job1_total": 12,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 6,
+      "only_job2": 0,
+      "combined_total": 12,
+      "overlap_percent": 50.0
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 5,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 5,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Time Battlemage": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 11,
+      "shared": 11,
+      "only_job1": 5,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 68.75
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 9,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 9,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 13,
+      "shared": 13,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 81.25
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 5,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 5,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Archer": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 14,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 12.5
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 6,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 6,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Black Mage": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 16,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 16,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 16,
+      "combined_total": 16,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Bushi": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 8,
+      "shared": 8,
+      "only_job1": 8,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 50.0
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 14,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 14,
+      "combined_total": 14,
+      "overlap_percent": 0.0
+    }
+  },
+  "Monk+Shikari": {
+    "battle_lores": {
+      "job1_total": 16,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 10,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 37.5
+    },
+    "magick_lores": {
+      "job1_total": 0,
+      "job2_total": 5,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 5,
+      "overlap_percent": 0.0
+    }
+  },
+  "Time Battlemage+Foebreaker": {
+    "battle_lores": {
+      "job1_total": 11,
+      "job2_total": 13,
+      "shared": 11,
+      "only_job1": 0,
+      "only_job2": 2,
+      "combined_total": 13,
+      "overlap_percent": 84.61538461538461
+    },
+    "magick_lores": {
+      "job1_total": 9,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 4,
+      "only_job2": 0,
+      "combined_total": 9,
+      "overlap_percent": 55.55555555555556
+    }
+  },
+  "Time Battlemage+Archer": {
+    "battle_lores": {
+      "job1_total": 11,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 9,
+      "only_job2": 0,
+      "combined_total": 11,
+      "overlap_percent": 18.181818181818183
+    },
+    "magick_lores": {
+      "job1_total": 9,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 9,
+      "overlap_percent": 66.66666666666666
+    }
+  },
+  "Time Battlemage+Black Mage": {
+    "battle_lores": {
+      "job1_total": 11,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 11,
+      "only_job2": 0,
+      "combined_total": 11,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 9,
+      "job2_total": 16,
+      "shared": 9,
+      "only_job1": 0,
+      "only_job2": 7,
+      "combined_total": 16,
+      "overlap_percent": 56.25
+    }
+  },
+  "Time Battlemage+Bushi": {
+    "battle_lores": {
+      "job1_total": 11,
+      "job2_total": 8,
+      "shared": 8,
+      "only_job1": 3,
+      "only_job2": 0,
+      "combined_total": 11,
+      "overlap_percent": 72.72727272727273
+    },
+    "magick_lores": {
+      "job1_total": 9,
+      "job2_total": 14,
+      "shared": 9,
+      "only_job1": 0,
+      "only_job2": 5,
+      "combined_total": 14,
+      "overlap_percent": 64.28571428571429
+    }
+  },
+  "Time Battlemage+Shikari": {
+    "battle_lores": {
+      "job1_total": 11,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 5,
+      "only_job2": 0,
+      "combined_total": 11,
+      "overlap_percent": 54.54545454545454
+    },
+    "magick_lores": {
+      "job1_total": 9,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 4,
+      "only_job2": 0,
+      "combined_total": 9,
+      "overlap_percent": 55.55555555555556
+    }
+  },
+  "Foebreaker+Archer": {
+    "battle_lores": {
+      "job1_total": 13,
+      "job2_total": 2,
+      "shared": 2,
+      "only_job1": 11,
+      "only_job2": 0,
+      "combined_total": 13,
+      "overlap_percent": 15.384615384615385
+    },
+    "magick_lores": {
+      "job1_total": 5,
+      "job2_total": 6,
+      "shared": 5,
+      "only_job1": 0,
+      "only_job2": 1,
+      "combined_total": 6,
+      "overlap_percent": 83.33333333333334
+    }
+  },
+  "Foebreaker+Black Mage": {
+    "battle_lores": {
+      "job1_total": 13,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 13,
+      "only_job2": 0,
+      "combined_total": 13,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 5,
+      "job2_total": 16,
+      "shared": 5,
+      "only_job1": 0,
+      "only_job2": 11,
+      "combined_total": 16,
+      "overlap_percent": 31.25
+    }
+  },
+  "Foebreaker+Bushi": {
+    "battle_lores": {
+      "job1_total": 13,
+      "job2_total": 8,
+      "shared": 8,
+      "only_job1": 5,
+      "only_job2": 0,
+      "combined_total": 13,
+      "overlap_percent": 61.53846153846154
+    },
+    "magick_lores": {
+      "job1_total": 5,
+      "job2_total": 14,
+      "shared": 5,
+      "only_job1": 0,
+      "only_job2": 9,
+      "combined_total": 14,
+      "overlap_percent": 35.714285714285715
+    }
+  },
+  "Foebreaker+Shikari": {
+    "battle_lores": {
+      "job1_total": 13,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 7,
+      "only_job2": 0,
+      "combined_total": 13,
+      "overlap_percent": 46.15384615384615
+    },
+    "magick_lores": {
+      "job1_total": 5,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 0,
+      "only_job2": 0,
+      "combined_total": 5,
+      "overlap_percent": 100.0
+    }
+  },
+  "Archer+Black Mage": {
+    "battle_lores": {
+      "job1_total": 2,
+      "job2_total": 0,
+      "shared": 0,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 2,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 16,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 10,
+      "combined_total": 16,
+      "overlap_percent": 37.5
+    }
+  },
+  "Archer+Bushi": {
+    "battle_lores": {
+      "job1_total": 2,
+      "job2_total": 8,
+      "shared": 2,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 8,
+      "overlap_percent": 25.0
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 14,
+      "shared": 6,
+      "only_job1": 0,
+      "only_job2": 8,
+      "combined_total": 14,
+      "overlap_percent": 42.857142857142854
+    }
+  },
+  "Archer+Shikari": {
+    "battle_lores": {
+      "job1_total": 2,
+      "job2_total": 6,
+      "shared": 2,
+      "only_job1": 0,
+      "only_job2": 4,
+      "combined_total": 6,
+      "overlap_percent": 33.33333333333333
+    },
+    "magick_lores": {
+      "job1_total": 6,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 1,
+      "only_job2": 0,
+      "combined_total": 6,
+      "overlap_percent": 83.33333333333334
+    }
+  },
+  "Black Mage+Bushi": {
+    "battle_lores": {
+      "job1_total": 0,
+      "job2_total": 8,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 8,
+      "combined_total": 8,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 16,
+      "job2_total": 14,
+      "shared": 14,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 87.5
+    }
+  },
+  "Black Mage+Shikari": {
+    "battle_lores": {
+      "job1_total": 0,
+      "job2_total": 6,
+      "shared": 0,
+      "only_job1": 0,
+      "only_job2": 6,
+      "combined_total": 6,
+      "overlap_percent": 0.0
+    },
+    "magick_lores": {
+      "job1_total": 16,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 11,
+      "only_job2": 0,
+      "combined_total": 16,
+      "overlap_percent": 31.25
+    }
+  },
+  "Bushi+Shikari": {
+    "battle_lores": {
+      "job1_total": 8,
+      "job2_total": 6,
+      "shared": 6,
+      "only_job1": 2,
+      "only_job2": 0,
+      "combined_total": 8,
+      "overlap_percent": 75.0
+    },
+    "magick_lores": {
+      "job1_total": 14,
+      "job2_total": 5,
+      "shared": 5,
+      "only_job1": 9,
+      "only_job2": 0,
+      "combined_total": 14,
+      "overlap_percent": 35.714285714285715
+    }
+  }
+}

@@ -1,0 +1,749 @@
+{
+  "version": "1.0",
+  "source": "Final Fantasy Wiki - Augment (Final Fantasy XII)",
+  "extracted_date": "2026-02-09",
+  "jobs": [
+    "White Mage",
+    "Uhlan",
+    "Machinist",
+    "Red Battlemage",
+    "Knight",
+    "Monk",
+    "Time Battlemage",
+    "Foebreaker",
+    "Archer",
+    "Black Mage",
+    "Bushi",
+    "Shikari"
+  ],
+  "battle_lores": [
+    {
+      "id": 1,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "base",
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": "base",
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 2,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "esper",
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": "base",
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 3,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "esper",
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 4,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 5,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "quickening",
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 6,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "esper",
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 7,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "esper",
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "quickening",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 8,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": "quickening",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 9,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "base",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 10,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "base",
+        "Monk": "base",
+        "Time Battlemage": "esper",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 11,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "esper",
+        "Monk": "base",
+        "Time Battlemage": "esper",
+        "Foebreaker": "base",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 12,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": "esper",
+        "Monk": "base",
+        "Time Battlemage": null,
+        "Foebreaker": "esper",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 13,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "base",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": "base",
+        "Time Battlemage": null,
+        "Foebreaker": "quickening",
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 14,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": "esper",
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": "base",
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 15,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": "base",
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 16,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": "base",
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": null,
+        "Bushi": null,
+        "Shikari": null
+      }
+    }
+  ],
+  "magick_lores": [
+    {
+      "id": 1,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": "esper",
+        "Archer": "base",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 2,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": "esper",
+        "Archer": "esper",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 3,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "base",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": "esper",
+        "Archer": "esper",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 4,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "base",
+        "Machinist": "esper",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": "esper",
+        "Archer": "esper",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 5,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "esper",
+        "Machinist": "esper",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": "esper",
+        "Archer": "esper",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": "base"
+      }
+    },
+    {
+      "id": 6,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": "esper",
+        "Machinist": "esper",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": null,
+        "Archer": "esper",
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 7,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": "esper",
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 8,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 9,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": "base",
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 10,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 11,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 12,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": "base",
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "base",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 13,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "esper",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 14,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": "esper",
+        "Shikari": null
+      }
+    },
+    {
+      "id": 15,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": "base",
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": null,
+        "Shikari": null
+      }
+    },
+    {
+      "id": 16,
+      "lp_cost": null,
+      "jobs": {
+        "White Mage": null,
+        "Uhlan": null,
+        "Machinist": null,
+        "Red Battlemage": null,
+        "Knight": null,
+        "Monk": null,
+        "Time Battlemage": null,
+        "Foebreaker": null,
+        "Archer": null,
+        "Black Mage": "base",
+        "Bushi": null,
+        "Shikari": null
+      }
+    }
+  ],
+  "summary": {
+    "battle_lore_counts": {
+      "White Mage": {
+        "base": 4,
+        "esper": 2,
+        "quickening": 1,
+        "total": 7
+      },
+      "Uhlan": {
+        "base": 13,
+        "esper": 1,
+        "quickening": 0,
+        "total": 14
+      },
+      "Machinist": {
+        "base": 3,
+        "esper": 0,
+        "quickening": 0,
+        "total": 3
+      },
+      "Red Battlemage": {
+        "base": 1,
+        "esper": 2,
+        "quickening": 0,
+        "total": 3
+      },
+      "Knight": {
+        "base": 10,
+        "esper": 2,
+        "quickening": 0,
+        "total": 12
+      },
+      "Monk": {
+        "base": 16,
+        "esper": 0,
+        "quickening": 0,
+        "total": 16
+      },
+      "Time Battlemage": {
+        "base": 9,
+        "esper": 2,
+        "quickening": 0,
+        "total": 11
+      },
+      "Foebreaker": {
+        "base": 11,
+        "esper": 1,
+        "quickening": 1,
+        "total": 13
+      },
+      "Archer": {
+        "base": 2,
+        "esper": 0,
+        "quickening": 0,
+        "total": 2
+      },
+      "Black Mage": {
+        "base": 0,
+        "esper": 0,
+        "quickening": 0,
+        "total": 0
+      },
+      "Bushi": {
+        "base": 6,
+        "esper": 0,
+        "quickening": 2,
+        "total": 8
+      },
+      "Shikari": {
+        "base": 6,
+        "esper": 0,
+        "quickening": 0,
+        "total": 6
+      }
+    },
+    "magick_lore_counts": {
+      "White Mage": {
+        "base": 15,
+        "esper": 0,
+        "quickening": 0,
+        "total": 15
+      },
+      "Uhlan": {
+        "base": 4,
+        "esper": 2,
+        "quickening": 0,
+        "total": 6
+      },
+      "Machinist": {
+        "base": 3,
+        "esper": 4,
+        "quickening": 0,
+        "total": 7
+      },
+      "Red Battlemage": {
+        "base": 12,
+        "esper": 0,
+        "quickening": 0,
+        "total": 12
+      },
+      "Knight": {
+        "base": 0,
+        "esper": 0,
+        "quickening": 0,
+        "total": 0
+      },
+      "Monk": {
+        "base": 0,
+        "esper": 0,
+        "quickening": 0,
+        "total": 0
+      },
+      "Time Battlemage": {
+        "base": 9,
+        "esper": 0,
+        "quickening": 0,
+        "total": 9
+      },
+      "Foebreaker": {
+        "base": 0,
+        "esper": 5,
+        "quickening": 0,
+        "total": 5
+      },
+      "Archer": {
+        "base": 1,
+        "esper": 5,
+        "quickening": 0,
+        "total": 6
+      },
+      "Black Mage": {
+        "base": 16,
+        "esper": 0,
+        "quickening": 0,
+        "total": 16
+      },
+      "Bushi": {
+        "base": 12,
+        "esper": 2,
+        "quickening": 0,
+        "total": 14
+      },
+      "Shikari": {
+        "base": 5,
+        "esper": 0,
+        "quickening": 0,
+        "total": 5
+      }
+    }
+  }
+}

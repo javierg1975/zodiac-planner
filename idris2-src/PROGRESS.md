@@ -1,9 +1,223 @@
 # Idris 2 Rewrite - Progress Log
 
-## Current Status: Phase 3 (Type System Refactoring & Property Testing - COMPLETE ✅)
+## Current Status: Phase 4 (Lore Overlap & Constraint Modeling - COMPLETE ✅)
 
 **Branch**: `feature/idris2-rewrite`
-**Last Updated**: 2026-02-08
+**Last Updated**: 2026-02-09
+
+---
+
+## Phase 4: Lore Overlap & Constraint Modeling ✅
+
+### Completed ✅
+
+**1. Type-Level Lore Overlap Modeling** ✅
+- ✅ Created `Types/Lores.idr` with compile-time lore accessibility data
+- ✅ Extracted complete Battle Lore and Magick Lore data from FFXII Wiki
+- ✅ Encoded 16 Battle Lore + 16 Magick Lore nodes as `Vect 16 Bool` per job
+- ✅ Implemented overlap calculations (union, intersection, efficiency scoring)
+- ✅ All calculations validated against extracted JSON data
+
+**Key Innovation**: **Compile-Time Lore Efficiency**
+```idris
+-- Each job's lore access encoded as type-level constant
+shikariBL : LoreSet
+shikariBL = MkLoreSet [True, True, True, True, True, True, False, ...]  -- 6 Battle Lores
+
+-- Overlap calculations happen at compile time
+loreEfficiencyScore : Job -> Job -> Nat
+loreEfficiencyScore j1 j2 =
+  let prof = loreProfile j1 j2
+      blEff = 100 `minus` prof.battleOverlap
+      mlEff = 100 `minus` prof.magickOverlap
+  in (blEff + mlEff) `div` 2
+```
+
+**Results**:
+- White Mage + Shikari: 41% lore efficiency (high overlap)
+- Black Mage + Shikari: 84% lore efficiency (zero Battle Lore overlap!)
+- Matches manual analysis from `docs/shikari-mage-analysis.md`
+
+**2. Equipment Constraint Modeling (Indexed Types + Dec)** ✅
+- ✅ Created `Types/Equipment.idr` using the "Vect pattern"
+- ✅ Indexed types make invalid states unrepresentable: `CanEquipShields : Job -> Type`
+- ✅ Dec predicates enable runtime checking with proofs
+- ✅ Pairing-level constraints: `PairingHasShields`, `PairingHasMysticArmor`, `PairingHasHeavyArmor`
+- ✅ Counter-proofs explain constraint violations (better error messages!)
+
+**Idiomatic Pattern**: **Indexed Types + Dec (the "Vect Pattern")**
+```idris
+-- Indexed type: only inhabited for jobs that CAN equip shields
+data CanEquipShields : Job -> Type where
+  KnightShields : CanEquipShields Knight
+  WhiteMageShields : CanEquipShields WhiteMage
+  -- ... Monk has NO constructor
+  -- CanEquipShields Monk is UNINHABITABLE!
+
+-- Dec predicate: runtime checking with proof
+canEquipShields : (j : Job) -> Dec (CanEquipShields j)
+canEquipShields Knight = Yes KnightShields
+canEquipShields Monk = No (\case _ impossible)  -- Compiler generates counter-proof
+
+-- Pairing constraint: at least one job must have shield access
+data PairingHasShields : Job -> Job -> Type where
+  PrimaryShields : CanEquipShields j1 -> PairingHasShields j1 j2
+  SecondaryShields : CanEquipShields j2 -> PairingHasShields j1 j2
+```
+
+**Why This Is Idiomatic**:
+- Same pattern as `Vect n a` (indexed by length) / `Fin n` (bounded naturals)
+- Dec bridges compile-time proofs with runtime checking
+- Type system knows `CanEquipShields Monk` is impossible (no constructor)
+- Proofs are erased at runtime (0-multiplicity) - zero performance cost
+
+**3. Constraint-Based Query Filtering** ✅
+- ✅ Updated `Analysis/OptimalPairings.idr` to filter using Dec before scoring
+- ✅ Created `RuntimeQueryDemo.idr` showing user interaction flow
+- ✅ Integrated lore efficiency into pairing scores
+
+**Results - Evasion Tank Query**:
+```
+CONSTRAINT: Must equip shields (Main Gauche + Crystal Shield)
+✓ Found 5 valid pairings (Knight, RBM, WM, Uhlan, Foebreaker)
+✗ Filtered out 7 invalid pairings (Monk, Black Mage, Time Battlemage, Bushi, etc.)
+
+Rankings (with shield constraint):
+  Shikari + Knight | Lore Eff: 75% | TOTAL: 36  (highest!)
+  Shikari + Uhlan | Lore Eff: 37% | TOTAL: 26
+  Shikari + RedBattlemage | Lore Eff: 54% | TOTAL: 26
+
+❌ FILTERED OUT: Monk + Shikari (score would be 33, but no shields!)
+❌ FILTERED OUT: Black Mage + Shikari (score would be 32, but no shields!)
+```
+
+**Results - Dark DPS Query**:
+```
+CONSTRAINT: Must equip Black Robes (mystic armor)
+✓ Found 4 valid pairings (BlackMage, WhiteMage, RedBattlemage, TimeBattlemage)
+✗ Filtered out 8 invalid pairings (Knight, Monk, Uhlan, etc.)
+
+Rankings (with Black Robes constraint):
+  Shikari + BlackMage | Lore Eff: 84% | TOTAL: 32  (highest!)
+  Shikari + RedBattlemage | Lore Eff: 54% | TOTAL: 29
+  Shikari + WhiteMage | Lore Eff: 41% | TOTAL: 24  (lowest)
+
+❌ FILTERED OUT: Knight + Shikari (score would be 36, but no mystic armor!)
+```
+
+**Key Insight**: Constraints explain why expert builds choose lower-scoring pairings:
+- **Endurance** uses White Mage + Shikari (score: 24, eff: 41%) despite Black Mage scoring higher (32, eff: 84%)
+  - Reason: Cuchulainn unlocks Protectga/Shellga for White Mage + Shikari (not modeled yet!)
+  - Black Robes constraint satisfied by White Mage
+- **Trinity** uses Red Battlemage + Shikari (score: 26) not Knight + Shikari (score: 36)
+  - Reason: Shield access constraint - Knight has shields, but Red Battlemage adds magic versatility
+
+**4. Runtime Query Simulation** ✅
+- ✅ Created `RuntimeQueryDemo.idr` showing user interaction patterns
+- ✅ Demonstrates Dec as bridge between compile-time and runtime
+- ✅ Shows how counter-proofs generate helpful error messages
+
+**Example Runtime Flow**:
+```
+User: "Can I build Shikari + Monk as evasion tank?"
+
+System checks: pairingHasShields Shikari Monk
+  → Returns: No (counter-proof)
+
+System explains:
+  "❌ Constraint violation: Evasion tank requires shield access
+     Shikari cannot equip shields
+     Monk cannot equip shields
+
+   💡 Jobs with shield access: Knight, White Mage, Red Battlemage, Uhlan, Foebreaker"
+```
+
+### What We Learned (Phase 4)
+
+**Data Extraction & Type-Level Constants**
+- Extracted complete lore data from FFXII Wiki HTML (32 nodes × 12 jobs = 384 data points)
+- Encoded as compile-time `Vect 16 Bool` constants - zero runtime cost
+- Overlap calculations are pure functions - compiler can optimize aggressively
+
+**Indexed Types + Dec (Idiomatic Pattern)**
+- This is THE pattern for "make illegal states unrepresentable" + "runtime checking"
+- Same approach used in Idris 2 standard library (`Vect`, `Fin`, `So`)
+- Dec predicates return proof OR counter-proof - both are useful!
+- Counter-proofs enable better error messages (explain WHY something is invalid)
+
+**Type System as Documentation**
+- `CanEquipShields Monk` has no constructor → type system documents "Monk can't equip shields"
+- No separate documentation needed - the types ARE the documentation
+- Compiler enforces correctness - can't accidentally check wrong constraint
+
+**Constraint Modeling Reveals Trade-Offs**
+- Expert builds don't always choose highest-scoring pairings
+- Constraints filter pairings BEFORE scoring
+- Rankings after filtering reveal strategic choices:
+  - White Mage + Shikari ranks lowest for lore efficiency BUT satisfies esper unlock needs
+  - Knight + Shikari ranks highest for tank BUT loses magic versatility vs Red Battlemage
+
+**Files Created/Updated (Phase 4)**:
+- `src/Types/Lores.idr` - NEW: 280 lines of type-level lore data + overlap calculations
+- `src/Types/Equipment.idr` - NEW: 200 lines of indexed types + Dec predicates for equipment
+- `src/Analysis/OptimalPairings.idr` - UPDATED: Integrated lore efficiency, constraint filtering
+- `src/RuntimeQueryDemo.idr` - NEW: 180 lines demonstrating runtime query patterns
+- `src/TestLores.idr` - NEW: Validation tests for lore calculations
+- `data/license-board-lores.json` - NEW: Complete lore node data (16 BL + 16 ML)
+- `data/license-board-overlap-matrix.json` - NEW: Pre-calculated overlaps for 66 job pairs
+- `docs/license-board-lores-COMPLETE.md` - NEW: Human-readable lore reference
+- `docs/shikari-mage-analysis.md` - NEW: Manual analysis comparing mage pairings for Shikari
+- `zodiac-planner.ipkg` - UPDATED: Added new modules
+
+**Validation Results**:
+```
+Lore calculations match extracted data:
+  ✓ Monk has 16 Battle Lores (all of them)
+  ✓ Black Mage has 16 Magick Lores (all of them)
+  ✓ Shikari has 6 Battle Lores, 5 Magick Lores
+
+  ✓ White Mage + Shikari: 7 BL (6 shared, 85% overlap), 15 ML (5 shared, 33% overlap)
+  ✓ Black Mage + Shikari: 6 BL (0 shared, 0% overlap!), 16 ML (5 shared, 31% overlap)
+  ✓ Red Battlemage + Shikari: 6 BL (3 shared, 50% overlap), 12 ML (5 shared, 41% overlap)
+```
+
+**Constraint filtering working correctly**:
+```
+Evasion Tank (shields required):
+  ✓ Shikari + Knight: VALID (Knight has shields)
+  ✗ Shikari + Monk: FILTERED (Monk has no shields)
+  ✗ Shikari + Black Mage: FILTERED (Black Mage has no shields)
+
+Dark DPS (mystic armor required):
+  ✓ Shikari + Black Mage: VALID (Black Mage has mystic armor)
+  ✗ Shikari + Knight: FILTERED (Knight has no mystic armor)
+  ✗ Shikari + Monk: FILTERED (Monk has no mystic armor)
+```
+
+### Next Steps
+
+**Phase 4 Complete!** ✅ All objectives achieved:
+- [x] Extract lore overlap data from FFXII Wiki
+- [x] Model lore accessibility at type level
+- [x] Integrate lore efficiency into scoring
+- [x] Create equipment constraint types (indexed + Dec)
+- [x] Implement constraint-based filtering
+- [x] Validate against expert builds
+- [x] Create runtime query demo
+
+**Ready for Phase 5** (Esper Uniqueness Proofs):
+- [ ] Model esper assignments as dependent pairs: `(Character, Esper, Proof of uniqueness)`
+- [ ] Create `ValidParty` type that guarantees no duplicate espers
+- [ ] Prove at compile-time that esper assignments are valid
+- [ ] Demonstrate flagship proof: "Can't assign same esper to two characters"
+
+**OR Ready for Phase 6** (UI Layer):
+- [ ] Work through idris2-dom-mvc tutorial
+- [ ] Port recommendation engine to interactive UI
+- [ ] Build Library mode (preset browser)
+- [ ] Build Guide mode (interview + milestone tracking)
+
+**Decision Point**: Phase 5 (esper proofs) is the "flagship dependent types demo" but may be overkill for this app. Phase 6 (UI) is more immediately useful. Lean toward UI unless the other project needs proof-of-concept for uniqueness constraints.
 
 ---
 

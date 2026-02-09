@@ -5,7 +5,14 @@ authors = "FFXII Zodiac Planner Team"
 sourcedir = "src"
 modules = Main
         , TestMain
+        , TestLores
+        , RuntimeQueryDemo
         , ValidateBalanced
+        , ValidateTrinity
+        , ValidateEndurance
+        , ValidateUltimate
+        , ValidateCapability
+        , InvestigateOptimal
         , AdvisorMain
         , Types.Goal
         , Types.Job
@@ -13,8 +20,16 @@ modules = Main
         , Types.Esper
         , Types.Unlock
         , Types.GameState
+        , Types.Capability
+        , Types.Lores
+        , Types.Equipment
         , Advisor.Recommendation
+        , Analysis.OptimalPairings
         , Tests.BalancedValidation
+        , Tests.TrinityValidation
+        , Tests.EnduranceValidation
+        , Tests.UltimateValidation
+        , Tests.CapabilityValidation
         , Tests.AdvisorDemo
         , Tests.Properties
         -- Types.GoalSample kept as reference (shows manual implementation)
@@ -26,8 +41,15 @@ depends = base
 
 -- Executables (can build either)
 -- main = Main
-main = TestMain
+-- main = TestMain
+-- main = TestLores
 -- main = ValidateBalanced
+-- main = ValidateTrinity
+-- main = ValidateEndurance
+-- main = ValidateUltimate
+-- main = ValidateCapability
+-- main = InvestigateOptimal
+main = RuntimeQueryDemo
 -- main = AdvisorMain
 executable = "zodiac-planner.js"
 
