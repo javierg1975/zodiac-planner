@@ -12,6 +12,8 @@ modules = Main
         , ValidateEndurance
         , ValidateUltimate
         , ValidateCapability
+        , ValidateMaxEfficiency
+        , ValidateBigGameHunter
         , InvestigateOptimal
         , AdvisorMain
         , Types.Goal
@@ -30,6 +32,8 @@ modules = Main
         , Tests.EnduranceValidation
         , Tests.UltimateValidation
         , Tests.CapabilityValidation
+        , Tests.MaxEfficiencyValidation
+        , Tests.BigGameHunterValidation
         , Tests.AdvisorDemo
         , Tests.Properties
         -- Types.GoalSample kept as reference (shows manual implementation)
@@ -48,8 +52,10 @@ depends = base
 -- main = ValidateEndurance
 -- main = ValidateUltimate
 -- main = ValidateCapability
+-- main = ValidateMaxEfficiency
+-- main = ValidateBigGameHunter
 -- main = InvestigateOptimal
-main = RuntimeQueryDemo
+main = ValidateBigGameHunter
 -- main = AdvisorMain
 executable = "zodiac-planner.js"
 
